@@ -23,7 +23,7 @@ import mongoosePaginate from "mongoose-paginate-v2";
 import {regex} from "../tools/regex.js";
 const Schema = mongoose.Schema;
 
-const usewrSchema = new Schema({
+const userSchema = new Schema({
   name: {type: String, required: true, minLength: 3, maxLength: 50, match: regex.name },
   lastName: {type: String, required: true, minLength: 3, maxLength: 50, match: regex.lastName },
   phone: {type: String, required: true },
@@ -56,9 +56,9 @@ const usewrSchema = new Schema({
   },
 });
 
-usewrSchema.plugin(mongoosePaginate);
+userSchema.plugin(mongoosePaginate);
 
-const User = mongoose.model("User", usewrSchema);
+const User = mongoose.model("User", userSchema);
 
 User.paginate().then({});
 
