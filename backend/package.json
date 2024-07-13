@@ -4,7 +4,8 @@
   "description": "Este es el backend para el proyecto Animalife",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
   },
   "author": "",
   "license": "MIT",
@@ -18,5 +19,6 @@
     "express": "^4.19.2",
     "mongoose": "^8.4.4",
     "mongoose-paginate-v2": "^1.8.2"
-  }
+  },
+  "type": "module"
 }

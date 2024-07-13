@@ -12,11 +12,11 @@ app.use(cors());
 
 mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost:27017/Animalife');
 
-const users = require('./routes/userRoute');
-const roles = require('./routes/roleRoute');
-const categories = require('./routes/categoryRoute');
-const purchases = require('./routes/purchaseRoute');
-const products = require('./routes/productRoute');
+import users from './routes/userRoute.js';
+import roles from './routes/roleRoute.js';
+import categories from './routes/categoryRoute.js';
+import purchases from './routes/purchaseRoute.js';
+import products from './routes/productRoute.js';
 
 app.use(
   users,

@@ -18,7 +18,7 @@ Un producto tiene:
 
 import mongoose from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
-import {regex} from "../tools/regex.js";
+import regex from "../tools/regex.js";
 const Schema = mongoose.Schema;
 
 const productSchema = new Schema({

@@ -1,6 +1,6 @@
-import Role from "../models/roleModel";
-import options from "../tools/options";
-import {regex} from "../tools/regex";
+import Role from "../models/roleModel.js";
+import options from "../tools/options.js";
+import regex from "../tools/regex.js";
 
 
 export const getRoles = async (req, res) => {
@@ -18,8 +18,8 @@ export const getRoles = async (req, res) => {
 
 export const createRole = async (req, res) => {
   try {
-    if(regex.name.test(req.body.name)){
-      res.status(500).json({message: "Name is not valid"})
+    if(!regex.name.test(req.body.name)){
+      return res.status(500).json({message: "Name is not valid"})
     }
     const role = new Role(req.body);
     await role.save();
@@ -45,8 +45,13 @@ export const getRoleById = async (req, res) => {
 export const updateRole = async (req, res) => {
   try {
     req.body.updatedAt = Date.now();
+    if(!regex.name.test(req.body.name)){
+      return res.status(500).json({message: "Name is not valid"})
+    }
     const role = await Role.findByIdAndUpdate({_id: req.params.id, deleted: false}, req.body, {new: true});
-    res.json(role);
+    const paginatedRole = await Role.paginate({deleted: false, _id: role._id}, options);
+    console.log(paginatedRole);
+    res.json(paginatedRole);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });

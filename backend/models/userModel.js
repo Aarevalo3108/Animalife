@@ -20,7 +20,7 @@
 
 import mongoose from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
-import {regex} from "../tools/regex.js";
+import regex from "../tools/regex.js";
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -28,14 +28,14 @@ const userSchema = new Schema({
   lastName: {type: String, required: true, minLength: 3, maxLength: 50, match: regex.lastName },
   phone: {type: String, required: true },
   email: {type: String, required: true, unique: true, match: regex.email },
-  password: {type: String, required: true },
-  role: {type: ObjectId, required: true },
+  password: {type: String, required: true},
+  role: {type: Schema.Types.ObjectId, ref: "Role", default: null },
   cart: {
     type: Array,
     default: [],
   },
   purchases: {
-    type: Array,
+    type: [Schema.Types.ObjectId], ref: "Purchase",
     default: [],
   },
   createdAt: {

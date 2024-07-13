@@ -1,6 +1,7 @@
-import Product from "../models/productModel";
-import options from "../tools/options";
-import {regex} from "../tools/regex";
+import Product from "../models/productModel.js";
+import Category from "../models/categoryModel.js";
+import options from "../tools/options.js";
+import regex from "../tools/regex.js";
 
 export const getProducts = async (req, res) => {
   try {
@@ -26,11 +27,15 @@ export const getProductById = async (req, res) => {
 
 export const createProduct = async (req, res) => {
   try {
-    if(regex.name.test(req.body.name)){
-      res.status(500).json({message: "Name is not valid"})
+    if(!regex.name.test(req.body.name)){
+      return res.status(500).json({message: "Name is not valid"})
     }
-    if(regex.description.test(req.body.description)){
-      res.status(500).json({message: "Description is not valid"})
+    if(!regex.description.test(req.body.description)){
+      return res.status(500).json({message: "Description is not valid"})
+    }
+    const categoryExists = await Category.findById(req.body.category);
+    if (!categoryExists) {
+      return res.status(404).json({ message: "Category not found, check the ID" });
     }
     const product = new Product(req.body);
     await product.save();
@@ -44,6 +49,16 @@ export const createProduct = async (req, res) => {
 export const updateProduct = async (req, res) => {
   try {
     req.body.updatedAt = Date.now();
+    if(!regex.name.test(req.body.name)){
+      return res.status(500).json({message: "Name is not valid"})
+    }
+    if(!regex.description.test(req.body.description)){
+      return res.status(500).json({message: "Description is not valid"})
+    }
+    const categoryExists = await Category.findById(req.body.category);
+    if (!categoryExists) {
+      return res.status(404).json({ message: "Category not found, check the ID" });
+    }
     const product = await Product.findByIdAndUpdate({_id: req.params.id, deleted: false}, req.body, {new: true});
     const paginatedProduct = await Product.paginate({_id: product._id, deleted: false}, options);
     res.json(paginatedProduct);

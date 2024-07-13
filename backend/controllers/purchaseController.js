@@ -1,5 +1,7 @@
-import Purchase from "../models/purchaseModel";
-import options from "../tools/options";
+import Purchase from "../models/purchaseModel.js";
+import User from "../models/userModel.js";
+import Product from "../models/productModel.js";
+import options from "../tools/options.js";
 
 export const getPurchases = async (req, res) => {
   try {
@@ -27,9 +29,20 @@ export const getPurchaseById = async (req, res) => {
 
 export const createPurchase = async (req, res) => {
   try {
+    // Purchase has two ObjectsID fields: user and products, that has to be validated
+    const user = await User.findById(req.body.user);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const products = await Product.find({ _id: { $in: req.body.products } });
+    if (products.length !== req.body.products.length) {
+      return res.status(404).json({ message: "Products not found" });
+    }
     const purchase = new Purchase(req.body);
     await purchase.save();
-    res.status(201).json(purchase);
+    const paginatedPurchase = await Purchase.paginate({deleted: false, _id: purchase._id}, options);
+    res.status(201).json(paginatedPurchase);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
@@ -41,7 +54,8 @@ export const updatePurchase = async (req, res) => {
   try {
     req.body.updatedAt = Date.now();
     const purchase = await Purchase.findByIdAndUpdate({_id: req.params.id, deleted: false}, req.body, {new: true});
-    res.json(purchase);
+    const paginatedPurchase = await Purchase.paginate({deleted: false, _id: purchase._id}, options);
+    res.json(paginatedPurchase);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
