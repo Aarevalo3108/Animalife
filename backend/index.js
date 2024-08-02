@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 3001;
 
 app.use(express.json());
 app.use(cors());
+app.use(express.static('public'));
 
 mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost:27017/Animalife');
 
