@@ -37,9 +37,10 @@ export const createProduct = async (req, res) => {
     if (!categoryExists) {
       return res.status(404).json({ message: "Category not found, check the ID" });
     }
-    const product = new Product(req.body, {img: req.file.path});
+    const product = new Product(req.body);
     await product.save();
-    res.status(201).json(product);
+    const paginatedProduct = await Product.paginate({_id: product._id, deleted: false}, options);
+    res.status(201).json(paginatedProduct);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });

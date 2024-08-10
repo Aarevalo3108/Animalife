@@ -34,10 +34,9 @@ export const createPurchase = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-
-    const products = await Product.find({ _id: { $in: req.body.products } });
-    if (products.length !== req.body.products.length) {
-      return res.status(404).json({ message: "Products not found" });
+    const products = await checkProducts(req.body.products);
+    if (products) {
+      return res.status(404).json({ message: products });
     }
     const purchase = new Purchase(req.body);
     await purchase.save();
@@ -47,6 +46,16 @@ export const createPurchase = async (req, res) => {
     console.log(error);
     res.status(500).json({ message: error.message });
   }
+}
+
+
+
+const checkProducts = async (array) => {
+    const onlyIDs = array.map((obj) => obj._id);
+    const records = await Product.find({ '_id': { $in: onlyIDs } });
+    if (!records.length || records.length !== onlyIDs.length) {
+      return "Product or products not found, check IDs";
+    }
 }
 
 

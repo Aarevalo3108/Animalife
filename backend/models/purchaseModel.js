@@ -19,7 +19,12 @@ const Schema = mongoose.Schema;
 
 const purchaseSchema = new Schema({
   user: {type: Schema.Types.ObjectId, ref: "User", required: true },
-  products: {type: [Schema.Types.ObjectId], ref: "Product", required: true },
+  products: {type: [
+  {
+    _id: {type: Schema.Types.ObjectId, required: true, ref: "Product"},
+    quantity: {type: Number, min: 0, max: 1000000, required: true}
+  }
+  ], required: true, ref: "Product"},
   total: {type: Number, required: true, min: 0 },
   createdAt: {type: Date, default: Date.now },
   updatedAt: {type: Date, default: Date.now },

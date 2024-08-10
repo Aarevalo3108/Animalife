@@ -27,6 +27,7 @@ const userSchema = new Schema({
   name: {type: String, required: true, minLength: 3, maxLength: 50, match: regex.name },
   lastName: {type: String, required: true, minLength: 3, maxLength: 50, match: regex.lastName },
   phone: {type: String, required: true },
+  image: {type: String, default: null },
   email: {type: String, required: true, unique: true, match: regex.email },
   password: {type: String, required: true},
   role: {type: Schema.Types.ObjectId, ref: "Role", default: null },

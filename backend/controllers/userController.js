@@ -64,6 +64,27 @@ export const createUser = async (req, res) => {
   }
 }
 
+export const submitImg = async (req, res) => {
+  try {
+    console.log(req.file);
+    if(req.file === undefined){
+      return res.status(500).json({message: "image not found"});
+    }
+    if(req.file.mimetype !== "image/png" && req.file.mimetype !== "image/jpg" && req.file.mimetype !== "image/jpeg"){
+      return res.status(500).json({message: `image, ${req.file.filename}, not valid, only png, jpg and jpeg allowed`});
+    }
+    if(req.file.size > 5000000 || req.file.size === 0){
+      return res.status(500).json({message: `image, ${req.file.filename}, not valid, max 5MB allowed and not empty`});
+    }
+    const user = await User.findByIdAndUpdate({_id: req.params.id, deleted: false}, {image: req.file.path}, {new: true});
+    const paginatedUser = await User.paginate({deleted: false, _id: user._id}, options);
+    return res.status(201).json(paginatedUser);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+}
+
 
 export const updateUser = async (req, res) => {
   try {
