@@ -15,10 +15,12 @@ const Login = () => {
                   Password:
                   <input className="p-2 rounded-xl w-full" type="password" placeholder="Enter your password" />
                 </label>
-                <button type="submit" className="bg-[#433526] text-[#f2e0c2] p-2 rounded-xl hover:bg-[#f2e0c2] hover:text-[#433526] transition duration-150">Login</button>
+                <div className="flex justify-center">
+                  <button type="submit" className="w-32 bg-[#433526] text-[#f2e0c2] p-2 rounded-xl hover:bg-[#f2e0c2] hover:text-[#433526] transition duration-150">Login</button>
+                </div>
               </form>
-              <p>Forgot your password? <a href="./reset" className="border-b border-[#fcf8f0] hover:border-[#000] transition duration-150">Reset Password</a></p>
-              <p>Don&apos;t have an account? <a href="./singup " className="border-b border-[#fcf8f0] hover:border-[#000] transition duration-150">Sign Up</a></p>
+              <p>Forgot your password? <a href="./resetpassword" className="text-[#708c5a] border-b border-[#fcf8f0] hover:border-[#000] transition duration-150">Reset Password</a></p>
+              <p>Don&apos;t have an account? <a href="./singup " className="text-[#708c5a] border-b border-[#fcf8f0] hover:border-[#000] transition duration-150">Sign Up</a></p>
             </div>
           </div>
           <img className="hidden lg:block w-[450px] rounded-xl" src="/Animalife.jpeg" alt="" />

@@ -1,5 +1,24 @@
+import ProductCard from "../ProductCard.jsx";
+import axios from "axios";
+import { useState, useEffect } from "react";
+
+
 
 const Home = () => {
+  const [products, setProducts] = useState([]);
+  const getProducts = async () => {
+    try{
+      const response = await axios.get("http://localhost:3001/product");
+      console.log(response.data.docs);
+      setProducts(response.data.docs);
+    }
+    catch(error){
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getProducts();
+  }, []);
   return (
     <>
     <div className="bg-[url('/Animalife.jpeg')] bg-cover bg-center h-[85vh]">
@@ -14,7 +33,10 @@ const Home = () => {
     <div className="flex flex-col justify-center items-center gap-8 p-8">
       <h2 className="text-3xl">Featured Products</h2>
       <div id="products" className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 justify-center items-center gap-4">
-        <div className="rounded-xl shadow-md bg-[#f2e0c2]">
+        {products && products.map((product) => (
+          <ProductCard key={product._id} product={product} />
+        ))}
+        {/* <div className="rounded-xl shadow-md bg-[#f2e0c2]">
           <img src="/image.png" alt="Gato" className="h-64 w-64 rounded-xl" />
           <div className="p-4 flex flex-col gap-2">
             <h3>Cat Tree</h3>
@@ -55,7 +77,7 @@ const Home = () => {
             <h3>Dog Tree</h3>
             <p>$39.99</p>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
     <div className="flex flex-col justify-center items-center gap-8 p-8">

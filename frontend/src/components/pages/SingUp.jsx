@@ -23,6 +23,7 @@ const SingUp = () => {
               <input className="p-2 rounded-xl" type="password" placeholder="Enter your password" />
             </label>
             <button type="submit" className="bg-[#433526] text-[#f2e0c2] p-2 rounded-xl hover:bg-[#f2e0c2] hover:text-[#433526] transition duration-150">Sing Up</button>
+            <p>Already have an account? <a href="./login" className="text-[#708c5a] border-b border-[#fcf8f0] hover:border-[#000] transition duration-150">Login</a></p>
           </form>
         </div>
         <img className="w-[450px] rounded-xl hidden lg:flex" src="/Animalife.jpeg" alt="" />

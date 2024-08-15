@@ -8,7 +8,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 app.use(express.json());
-app.use(cors());
+app.use(cors( { origin: '*' } ));
 app.use(express.static('public'));
 
 mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost:27017/Animalife');
@@ -26,6 +26,8 @@ app.use(
   purchases,
   products
 );
+
+app.use('/uploads', express.static('uploads'));
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

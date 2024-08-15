@@ -56,9 +56,11 @@ export const updateProduct = async (req, res) => {
     if(!regex.description.test(req.body.description)){
       return res.status(500).json({message: "Description is not valid"})
     }
-    const categoryExists = await Category.findById(req.body.category);
-    if (!categoryExists) {
-      return res.status(404).json({ message: "Category not found, check the ID" });
+    if(req.body.category){
+      const categoryExists = await Category.findById(req.body.category);
+      if (!categoryExists) {
+        return res.status(404).json({ message: "Category not found, check the ID" });
+      }
     }
     const product = await Product.findByIdAndUpdate({_id: req.params.id, deleted: false}, req.body, {new: true});
     const paginatedProduct = await Product.paginate({_id: product._id, deleted: false}, options);
