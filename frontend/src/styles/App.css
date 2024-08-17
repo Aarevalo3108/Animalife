@@ -575,6 +575,10 @@ html{
   top: 0px;
 }
 
+.col-span-2 {
+  grid-column: span 2 / span 2;
+}
+
 .flex {
   display: flex;
 }
@@ -607,6 +611,14 @@ html{
   min-height: 85vh;
 }
 
+.w-32 {
+  width: 8rem;
+}
+
+.w-48 {
+  width: 12rem;
+}
+
 .w-64 {
   width: 16rem;
 }
@@ -623,17 +635,8 @@ html{
   width: 100%;
 }
 
-.w-32 {
-  width: 8rem;
-}
-
-.w-fit {
-  width: -moz-fit-content;
-  width: fit-content;
-}
-
-.w-48 {
-  width: 12rem;
+.cursor-pointer {
+  cursor: pointer;
 }
 
 .grid-cols-1 {
@@ -656,10 +659,6 @@ html{
   justify-content: flex-start;
 }
 
-.justify-end {
-  justify-content: flex-end;
-}
-
 .justify-center {
   justify-content: center;
 }
@@ -674,6 +673,14 @@ html{
 
 .gap-8 {
   gap: 2rem;
+}
+
+.self-center {
+  align-self: center;
+}
+
+.rounded-full {
+  border-radius: 9999px;
 }
 
 .rounded-xl {
@@ -706,6 +713,11 @@ html{
 
 .bg-\[rgba\(0\2c 0\2c 0\2c 0\.6\)\] {
   background-color: rgba(0,0,0,0.6);
+}
+
+.bg-red-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 226 226 / var(--tw-bg-opacity));
 }
 
 .bg-\[url\(\'\/Animalife\.jpeg\'\)\] {
@@ -745,6 +757,11 @@ html{
   padding-right: 4rem;
 }
 
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
 .px-8 {
   padding-left: 2rem;
   padding-right: 2rem;
@@ -753,6 +770,11 @@ html{
 .py-16 {
   padding-top: 4rem;
   padding-bottom: 4rem;
+}
+
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .py-4 {
@@ -792,18 +814,22 @@ html{
   line-height: 2.5rem;
 }
 
-.text-xl {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-}
-
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
 
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
 .font-bold {
   font-weight: 700;
+}
+
+.text-\[\#0009\] {
+  color: #0009;
 }
 
 .text-\[\#708c5a\] {
@@ -826,29 +852,9 @@ html{
   color: rgb(242 224 194 / var(--tw-text-opacity));
 }
 
-.text-\[\#\] {
-  color: #;
-}
-
-.text-\[\#fff\] {
+.text-red-500 {
   --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.text-\[\#0005\] {
-  color: #0005;
-}
-
-.text-\[\#0006\] {
-  color: #0006;
-}
-
-.text-\[\#0002\] {
-  color: #0002;
-}
-
-.text-\[\#0009\] {
-  color: #0009;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
 }
 
 .shadow-md {
@@ -891,6 +897,12 @@ html{
   transition-duration: 300ms;
 }
 
+.hover\:scale-105:hover {
+  --tw-scale-x: 1.05;
+  --tw-scale-y: 1.05;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .hover\:scale-125:hover {
   --tw-scale-x: 1.25;
   --tw-scale-y: 1.25;
@@ -900,6 +912,11 @@ html{
 .hover\:border-\[\#000\]:hover {
   --tw-border-opacity: 1;
   border-color: rgb(0 0 0 / var(--tw-border-opacity));
+}
+
+.hover\:bg-\[\#e3b771\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(227 183 113 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-\[\#e4b972\]:hover {
@@ -961,8 +978,20 @@ html{
     display: flex;
   }
 
+  .lg\:grid {
+    display: grid;
+  }
+
+  .lg\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .lg\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .lg\:justify-items-center {
+    justify-items: center;
   }
 
   .lg\:gap-32 {

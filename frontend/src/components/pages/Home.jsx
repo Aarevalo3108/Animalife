@@ -1,6 +1,7 @@
 import ProductCard from "../ProductCard.jsx";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import url from "../../utils/urls";
 
 
 
@@ -8,7 +9,7 @@ const Home = () => {
   const [products, setProducts] = useState([]);
   const getProducts = async () => {
     try{
-      const response = await axios.get("http://localhost:3001/product");
+      const response = await axios.get(`${url.backend}/product`);
       console.log(response.data.docs);
       setProducts(response.data.docs);
     }
@@ -36,48 +37,6 @@ const Home = () => {
         {products && products.map((product) => (
           <ProductCard key={product._id} product={product} />
         ))}
-        {/* <div className="rounded-xl shadow-md bg-[#f2e0c2]">
-          <img src="/image.png" alt="Gato" className="h-64 w-64 rounded-xl" />
-          <div className="p-4 flex flex-col gap-2">
-            <h3>Cat Tree</h3>
-            <p>$49.99</p>
-          </div>
-        </div>
-        <div className="rounded-xl shadow-md bg-[#f2e0c2]">
-          <img src="/cama.png" alt="Gato" className="h-64 w-64 rounded-xl" />
-          <div className="p-4 flex flex-col gap-2">
-            <h3>Dog Tree</h3>
-            <p>$39.99</p>
-          </div>
-        </div>
-        <div className="rounded-xl shadow-md bg-[#f2e0c2]">
-          <img src="/image.png" alt="Gato" className="h-64 w-64 rounded-xl" />
-          <div className="p-4 flex flex-col gap-2">
-            <h3>Cat Tree</h3>
-            <p>$49.99</p>
-          </div>
-        </div>
-        <div className="rounded-xl shadow-md bg-[#f2e0c2]">
-          <img src="/cama.png" alt="Gato" className="h-64 w-64 rounded-xl" />
-          <div className="p-4 flex flex-col gap-2">
-            <h3>Dog Tree</h3>
-            <p>$39.99</p>
-          </div>
-        </div>
-        <div className="rounded-xl shadow-md bg-[#f2e0c2]">
-          <img src="/image.png" alt="Gato" className="h-64 w-64 rounded-xl" />
-          <div className="p-4 flex flex-col gap-2">
-            <h3>Cat Tree</h3>
-            <p>$49.99</p>
-          </div>
-        </div>
-        <div className="rounded-xl shadow-md bg-[#f2e0c2]">
-          <img src="/cama.png" alt="Gato" className="h-64 w-64 rounded-xl" />
-          <div className="p-4 flex flex-col gap-2">
-            <h3>Dog Tree</h3>
-            <p>$39.99</p>
-          </div>
-        </div> */}
       </div>
     </div>
     <div className="flex flex-col justify-center items-center gap-8 p-8">
