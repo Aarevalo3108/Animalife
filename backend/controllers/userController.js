@@ -136,7 +136,6 @@ export const refreshToken = async (req, res) => {
 }
 
 export const userData = async (req, res) => {
-  console.log(req.user);
   return res.status(200).json(req.user);
 }
 

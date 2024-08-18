@@ -8,7 +8,8 @@ const AuthContext = createContext({
   isAuthenticated: false,
   getAccessToken: () => {},
   saveUser: (userData) => {},
-  getRefreshToken: () => {}
+  getRefreshToken: () => {},
+  getUser: () => {}
 })
 
 const AuthProvider = ({ children }) => {
@@ -93,13 +94,17 @@ const AuthProvider = ({ children }) => {
     saveSession(userData.user, userData.accessToken, userData.refreshToken);
   }
 
+  const getUser = () => {
+    return user;
+  }
+
   useEffect(() => {
     checkAuth();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
-    <AuthContext.Provider value={{isAuthenticated, getAccessToken, getRefreshToken, saveUser}}>
+    <AuthContext.Provider value={{isAuthenticated, getAccessToken, getRefreshToken, saveUser, getUser}}>
       {children}
     </AuthContext.Provider>
   )

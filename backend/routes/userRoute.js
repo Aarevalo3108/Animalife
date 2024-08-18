@@ -18,16 +18,16 @@ import {hello, createUser, getUsers, getUserById, updateUser, deleteUser, submit
 
 
 router.get("/", hello);
-router.get("/users", getUsers);
-router.get("/users/:id", getUserById);
+router.get("/users", authenticate, getUsers);
+router.get("/users/:id", authenticate, getUserById);
 router.post("/users", createUser);
 router.get("/userdata", authenticate, userData);
 router.post("/login", authUser);
 router.post("/refresh-token", refreshToken);
 
-router.patch("/users/:id", updateUser);
-router.patch("/users/imgs/:id", upload.single('file'), submitImg);
-router.delete("/users/:id", deleteUser);
+router.patch("/users/:id", authenticate, updateUser);
+router.patch("/users/imgs/:id", authenticate, upload.single('file'), submitImg);
+router.delete("/users/:id", authenticate, deleteUser);
 
 
 export default router;
