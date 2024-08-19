@@ -11,9 +11,6 @@ const getUserInfo = (user) => {
     cart: user.cart,
     purchases: user.purchases,
     createdAt: user.createdAt,
-    updatedAt: user.updatedAt,
-    deletedAt: user.deletedAt,
-    deleted: user.deleted
   }
 }
 

@@ -46,9 +46,11 @@ export const createUser = async (req, res) => {
     if(!regex.email.test(req.body.email)){
       return res.status(500).json({message: "Email is not valid"})
     }
+    console.log(req.body.password, "1")
     if(!regex.password.test(req.body.password)){
       return res.status(500).json({message: "Password is not valid. Must have at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character."})
     }
+    console.log(!regex.password.test(req.body.password), "2")
     const emailExists = await User.findOne({email: req.body.email});
     if (emailExists) {
       return res.status(400).json({message: "Email already exists"});
@@ -66,7 +68,7 @@ export const createUser = async (req, res) => {
     const user = new User(req.body);
     await user.save();
     const paginatedUser = await User.paginate({deleted: false, _id: user._id}, options);
-    return res.status(201).json(paginatedUser);
+    return res.status(201).json({paginatedUser});
   } catch (error) {
     console.log(error);
     return res.status(400).json({message: error.message});
@@ -75,7 +77,6 @@ export const createUser = async (req, res) => {
 
 export const submitImg = async (req, res) => {
   try {
-    console.log(req.file);
     if(req.file === undefined){
       return res.status(500).json({message: "image not found"});
     }
@@ -113,6 +114,25 @@ export const authUser = async (req, res) => {
   }
 }
 
+
+export const logout = async (req, res) => {
+  try {
+    const refreshToken = getTokenFromHeader(req);
+    if (!refreshToken) {
+      return res.status(401).json({message: "Access Unauthorized"});
+    }
+    const found = await Token.findOne({token: refreshToken});
+    if (!found) {
+      return res.status(401).json({message: "Access Unauthorized"});
+    }
+    await Token.deleteOne({token: refreshToken});
+    return res.status(200).json({message: "Logout successful"});
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({message: error.message});
+  }
+}
+
 export const refreshToken = async (req, res) => {
   try {
     const refreshToken = getTokenFromHeader(req);
@@ -136,7 +156,8 @@ export const refreshToken = async (req, res) => {
 }
 
 export const userData = async (req, res) => {
-  return res.status(200).json(req.user);
+  const user = await User.findOne({_id: req.user._id, deleted: false});
+  return res.status(200).json(getUserInfo(user));
 }
 
 
@@ -153,8 +174,7 @@ export const updateUser = async (req, res) => {
       return res.status(500).json({message: "Email is not valid"})
     }
     const user = await User.findByIdAndUpdate({_id: req.params.id, deleted: false}, req.body, {new: true});
-    const paginatedUser = await User.paginate({deleted: false, _id: user._id}, options);
-    return res.status(200).json(paginatedUser);
+    return res.status(200).json({user: getUserInfo(user)});
   } catch (error) {
     console.log(error);
     return res.status(400).json({message: error.message});

@@ -5,6 +5,7 @@ import Home from "./components/pages/Home";
 import Profile from "./components/pages/Profile";
 import Login from "./components/pages/Login";
 import ResetPassword from "./components/pages/ResetPassword";
+import EditUser from './components/pages/editUser';
 import SignUp from "./components/pages/SignUp";
 import NotFound from "./components/pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -24,6 +25,7 @@ const App = () => {
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/" element={<ProtectedRoute />}>
               <Route path="profile" element={<Profile />} />
+              <Route path="profile/edit" element={<EditUser />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -26,6 +26,16 @@ export const getPurchaseById = async (req, res) => {
   }
 }
 
+export const getPurchaseByUser = async (req, res) => {
+  try {
+    const purchases = await Purchase.paginate({deleted: false, user: req.params.id}, options);
+    res.json(purchases);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+}
+
 
 export const createPurchase = async (req, res) => {
   try {

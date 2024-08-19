@@ -2,6 +2,7 @@ import { useContext, createContext, useState, useEffect} from "react";
 import axios from "axios";
 import url from "../utils/urls";
 import PropTypes from 'prop-types';
+import Loading from "../components/Loading";
 
 
 const AuthContext = createContext({
@@ -9,7 +10,8 @@ const AuthContext = createContext({
   getAccessToken: () => {},
   saveUser: (userData) => {},
   getRefreshToken: () => {},
-  getUser: () => {}
+  getUser: () => {},
+  logout: () => {},
 })
 
 const AuthProvider = ({ children }) => {
@@ -17,6 +19,7 @@ const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [accessToken, setAccessToken] = useState("");
   const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(true);
 
   const requestNewAccessToken = async (refreshToken) => {
     try{
@@ -56,7 +59,13 @@ const AuthProvider = ({ children }) => {
     }
   }
   const checkAuth = async () => {
-    if(accessToken) { /* empty */ }else{
+    setLoading(true);
+    if(accessToken) {
+      const userInfo = await getUserInfo(accessToken);
+      if(userInfo) {
+        saveSession(userInfo, accessToken, getRefreshToken());
+      }
+     }else{
       const token = getRefreshToken();
       if(token) {
         const newAccessToken = await requestNewAccessToken(token);
@@ -68,6 +77,8 @@ const AuthProvider = ({ children }) => {
         }
       }
     }
+    setLoading(false);
+    return null;
   }
 
   const getAccessToken = () => {
@@ -98,14 +109,33 @@ const AuthProvider = ({ children }) => {
     return user;
   }
 
+  const logout = async (refreshToken) => {
+    try{
+      const response = await axios.delete(`${url.backend}/logout`, {
+        headers: {
+          "Authorization": `Bearer ${refreshToken}`
+        }
+      })
+
+      if(response.status === 200) {
+        localStorage.removeItem("Token");
+        setIsAuthenticated(false);
+        setAccessToken("");
+        setUser({});
+      }
+    }catch(error){
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     checkAuth();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
-    <AuthContext.Provider value={{isAuthenticated, getAccessToken, getRefreshToken, saveUser, getUser}}>
-      {children}
+    <AuthContext.Provider value={{isAuthenticated, getAccessToken, getRefreshToken, saveUser, getUser, logout}}>
+      {loading ? <Loading /> : children}
     </AuthContext.Provider>
   )
 }

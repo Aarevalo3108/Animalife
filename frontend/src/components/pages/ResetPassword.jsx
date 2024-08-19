@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 
 
@@ -18,7 +19,7 @@ const ResetPassword = () => {
                 <div className="flex w-full justify-center">
                   <button type="submit" className="w-48 bg-[#433526] text-[#f2e0c2] p-2 rounded-xl hover:bg-[#f2e0c2] hover:text-[#433526] transition duration-150">Reset Password</button>
                 </div>
-                <p>Don&apos;t have an account? <a href="./singup" className="text-[#708c5a] border-b border-[#fcf8f0] hover:border-[#000] transition duration-150">Sign Up</a></p>
+                <p>Don&apos;t have an account? <Link to="/signup" className="text-[#708c5a] border-b border-[#fcf8f0] hover:border-[#000] transition duration-150">Sign Up</Link></p>
               </form>
             </div>
           </div>

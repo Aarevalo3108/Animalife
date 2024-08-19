@@ -563,6 +563,10 @@ html{
   position: absolute;
 }
 
+.relative {
+  position: relative;
+}
+
 .sticky {
   position: sticky;
 }
@@ -573,6 +577,22 @@ html{
 
 .top-0 {
   top: 0px;
+}
+
+.bottom-0 {
+  bottom: 0px;
+}
+
+.right-0 {
+  right: 0px;
+}
+
+.-z-10 {
+  z-index: -10;
+}
+
+.z-50 {
+  z-index: 50;
 }
 
 .col-span-2 {
@@ -591,6 +611,14 @@ html{
   display: none;
 }
 
+.h-16 {
+  height: 4rem;
+}
+
+.h-32 {
+  height: 8rem;
+}
+
 .h-64 {
   height: 16rem;
 }
@@ -607,8 +635,16 @@ html{
   height: 100%;
 }
 
+.h-screen {
+  height: 100vh;
+}
+
 .min-h-\[85vh\] {
   min-height: 85vh;
+}
+
+.w-16 {
+  width: 4rem;
 }
 
 .w-32 {
@@ -633,6 +669,10 @@ html{
 
 .w-full {
   width: 100%;
+}
+
+.w-screen {
+  width: 100vw;
 }
 
 .cursor-pointer {
@@ -679,8 +719,16 @@ html{
   align-self: center;
 }
 
+.rounded-2xl {
+  border-radius: 1rem;
+}
+
 .rounded-full {
   border-radius: 9999px;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
 }
 
 .rounded-xl {
@@ -699,6 +747,11 @@ html{
 .bg-\[\#433526\] {
   --tw-bg-opacity: 1;
   background-color: rgb(67 53 38 / var(--tw-bg-opacity));
+}
+
+.bg-\[\#e3b771\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(227 183 113 / var(--tw-bg-opacity));
 }
 
 .bg-\[\#f2e0c2\] {
@@ -720,12 +773,22 @@ html{
   background-color: rgb(254 226 226 / var(--tw-bg-opacity));
 }
 
+.bg-red-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+}
+
+.bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
 .bg-\[url\(\'\/Animalife\.jpeg\'\)\] {
   background-image: url('/Animalife.jpeg');
 }
 
 .bg-navbar {
-  background-image: url('../assets/svg/NavBar.svg');
+  background-image: url('./public/svg/NavBar.svg');
 }
 
 .bg-cover {
@@ -738,6 +801,11 @@ html{
 
 .bg-repeat {
   background-repeat: repeat;
+}
+
+.object-cover {
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .p-2 {
@@ -787,6 +855,16 @@ html{
   padding-bottom: 2rem;
 }
 
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
 .text-center {
   text-align: center;
 }
@@ -814,6 +892,11 @@ html{
   line-height: 2.5rem;
 }
 
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
+}
+
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -830,6 +913,11 @@ html{
 
 .text-\[\#0009\] {
   color: #0009;
+}
+
+.text-\[\#433526\] {
+  --tw-text-opacity: 1;
+  color: rgb(67 53 38 / var(--tw-text-opacity));
 }
 
 .text-\[\#708c5a\] {
@@ -867,6 +955,11 @@ html{
   --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.drop-shadow-2xl {
+  --tw-drop-shadow: drop-shadow(0 25px 25px rgb(0 0 0 / 0.15));
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 .transition {
@@ -909,9 +1002,18 @@ html{
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+.hover\:cursor-pointer:hover {
+  cursor: pointer;
+}
+
 .hover\:border-\[\#000\]:hover {
   --tw-border-opacity: 1;
   border-color: rgb(0 0 0 / var(--tw-border-opacity));
+}
+
+.hover\:bg-\[\#433526\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(67 53 38 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-\[\#e3b771\]:hover {
@@ -939,6 +1041,10 @@ html{
   color: rgb(242 224 194 / var(--tw-text-opacity));
 }
 
+.hover\:opacity-75:hover {
+  opacity: 0.75;
+}
+
 @media (min-width: 768px) {
   .md\:block {
     display: block;
@@ -950,6 +1056,10 @@ html{
 
   .md\:hidden {
     display: none;
+  }
+
+  .md\:w-\[300px\] {
+    width: 300px;
   }
 
   .md\:grid-cols-2 {
@@ -980,6 +1090,10 @@ html{
 
   .lg\:grid {
     display: grid;
+  }
+
+  .lg\:w-\[500px\] {
+    width: 500px;
   }
 
   .lg\:grid-cols-2 {

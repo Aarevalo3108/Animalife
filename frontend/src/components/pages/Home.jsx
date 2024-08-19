@@ -2,6 +2,7 @@ import ProductCard from "../ProductCard.jsx";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import url from "../../utils/urls";
+import { Link } from "react-router-dom";
 
 
 
@@ -10,7 +11,6 @@ const Home = () => {
   const getProducts = async () => {
     try{
       const response = await axios.get(`${url.backend}/product`);
-      console.log(response.data.docs);
       setProducts(response.data.docs);
     }
     catch(error){
@@ -42,31 +42,31 @@ const Home = () => {
     <div className="flex flex-col justify-center items-center gap-8 p-8">
       <h2 className="text-3xl">Categories</h2>
       <div className="grid grid-cols-2 justify-center items-center gap-4">
-        <a href="" className="text-xl p-4 bg-[#f2e0c2] rounded-xl shadow-xl hover:scale-125 hover:bg-[#e4b972] transition-all duration-150">Birds</a>
-        <a href="" className="text-xl p-4 bg-[#f2e0c2] rounded-xl shadow-xl hover:scale-125 hover:bg-[#e4b972] transition-all duration-150">Cats</a>
-        <a href="" className="text-xl p-4 bg-[#f2e0c2] rounded-xl shadow-xl hover:scale-125 hover:bg-[#e4b972] transition-all duration-150">Dogs</a>
-        <a href="" className="text-xl p-4 bg-[#f2e0c2] rounded-xl shadow-xl hover:scale-125 hover:bg-[#e4b972] transition-all duration-150">Fish</a>
+        <Link to="/products?category=1" className="text-xl p-4 bg-[#f2e0c2] rounded-xl shadow-xl hover:scale-125 hover:bg-[#e4b972] transition-all duration-150">Birds</Link>
+        <Link to="/products?category=2" className="text-xl p-4 bg-[#f2e0c2] rounded-xl shadow-xl hover:scale-125 hover:bg-[#e4b972] transition-all duration-150">Cats</Link>
+        <Link to="/products?category=3" className="text-xl p-4 bg-[#f2e0c2] rounded-xl shadow-xl hover:scale-125 hover:bg-[#e4b972] transition-all duration-150">Dogs</Link>
+        <Link to="/products?category=4" className="text-xl p-4 bg-[#f2e0c2] rounded-xl shadow-xl hover:scale-125 hover:bg-[#e4b972] transition-all duration-150">Fish</Link>
       </div>
     </div>
     <div className="flex flex-col items-center gap-8 p-8">
       <h2 className="text-3xl">Quick Access</h2>
       <div className="grid grid-cols-2 gap-4 text-start text-xl">
-        <a href="" className="flex justify-start gap-2">
-          <img src="/shopping-cart.svg" alt="" />
+        <Link to="/shop" className="flex justify-start gap-2">
+          <img src="/svg/shopping-cart.svg" alt="shopping-cart" />
           <span className="font-bold">Shop</span>
-        </a>
-        <a href="" className="flex justify-start gap-2">
-          <img src="/account.svg" alt="" />
+        </Link>
+        <Link to="/profile" className="flex justify-start gap-2">
+          <img src="/svg/account.svg" alt="account" />
           <span className="font-bold">My Account</span>
-        </a>
-        <a href="" className="flex justify-start gap-2">
-          <img src="/orders.svg" alt="" />
+        </Link>
+        <Link to="/profile" className="flex justify-start gap-2">
+          <img src="/svg/orders.svg" alt="orders" />
           <span className="font-bold">My Orders</span>
-        </a>
-        <a href="" className="flex justify-start gap-2">
-          <img src="/support.svg" alt="" />
+        </Link>
+        <Link to="/support" className="flex justify-start gap-2">
+          <img src="/svg/support.svg" alt="Support" />
           <span className="font-bold">Support</span>
-        </a>
+        </Link>
       </div>
     </div>
     </>

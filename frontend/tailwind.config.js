@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        'navbar': "url('../assets/svg/NavBar.svg')"
+        'navbar': "url('./public/svg/NavBar.svg')"
       },
       fontFamily: {
         'Itim': ['"Itim"', '"sans-serif"']

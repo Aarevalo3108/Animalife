@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {useAuth} from "../../auth/AuthProvider";
-import {Navigate, useNavigate} from "react-router-dom";
+import {Link, Navigate, useNavigate} from "react-router-dom";
 import axios from "axios";
 import url from "../../utils/urls";
 const Login = () => {
@@ -24,7 +24,6 @@ const Login = () => {
       });
       form.style.opacity = 1;
       if(response.status === 200) {
-        console.log(response.data);
         if(response.data.accessToken && response.data.refreshToken) {
           auth.saveUser(response.data);
           console.log("Login successful");
@@ -66,8 +65,8 @@ const Login = () => {
                   <button type="submit" className="w-32 bg-[#433526] text-[#f2e0c2] p-2 rounded-xl hover:bg-[#f2e0c2] hover:text-[#433526] transition duration-150">Login</button>
                 </div>
               </form>
-              <p>Forgot your password? <a href="./reset-password" className="text-[#708c5a] border-b border-[#fcf8f0] hover:border-[#000] transition duration-150">Reset Password</a></p>
-              <p>Don&apos;t have an account? <a href="./singup " className="text-[#708c5a] border-b border-[#fcf8f0] hover:border-[#000] transition duration-150">Sign Up</a></p>
+              <p>Forgot your password? <Link to="./reset-password" className="text-[#708c5a] border-b border-[#fcf8f0] hover:border-[#000] transition duration-150">Reset Password</Link></p>
+              <p>Don&apos;t have an account? <Link to="./signup" className="text-[#708c5a] border-b border-[#fcf8f0] hover:border-[#000] transition duration-150">Sign Up</Link></p>
             </div>
           </div>
           <img className="hidden lg:block w-[450px] rounded-xl" src="/Animalife.jpeg" alt="" />

@@ -3,8 +3,10 @@
 
 const NotFound = () => {
   return (
-    <div className="text-center text-3xl font-bold text-red-500">
-      404 - Page Not Found
+    <div className="p-8 text-center font-bold min-h-[85vh] flex flex-col gap-8 items-center justify-center">
+      <span className="text-5xl text-[#433526] font-bold">404</span>
+      <span className="text-3xl text-[#433526] font-bold">Page Not Found!</span>
+      <img className="drop-shadow-2xl -z-10" src="/NotFound.png" alt="Not Found" />
     </div>
   );
 };

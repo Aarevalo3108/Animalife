@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../../auth/AuthProvider";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import url from "../../utils/urls";
 
@@ -98,7 +98,7 @@ const SignUp = () => {
             </label>
             <input type="submit" value="Sign Up" className="col-span-2 self-center cursor-pointer w-32 bg-[#433526] text-[#f2e0c2] p-2 rounded-xl hover:bg-[#e3b771] hover:text-[#433526] hover:scale-105 transition duration-150"/>
           </form>
-            <p>Already have an account? <a href="./login" className="text-[#708c5a] border-b border-[#fcf8f0] hover:border-[#000] transition duration-150">Login</a></p>
+            <p>Already have an account? <Link to="/login" className="text-[#708c5a] border-b border-[#fcf8f0] hover:border-[#000] transition duration-150">Login</Link></p>
         </div>
       </div>
     </div>

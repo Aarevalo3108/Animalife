@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 
 
@@ -11,15 +12,15 @@ const Footer = () => {
         </div>
         <div className="flex flex-col gap-4">
           <h3 className="text-xl">Quick Links</h3>
-          <a className="text-[#a38449]" href="./">Home</a>
-          <a className="text-[#a38449]" href="./shop">Shop</a>
-          <a className="text-[#a38449]" href="./about">About</a>
-          <a className="text-[#a38449]" href="./contact">Contact</a>
+          <Link className="text-[#a38449]" to="./">Home</Link>
+          <Link className="text-[#a38449]" to="./shop">Shop</Link>
+          <Link className="text-[#a38449]" to="./about">About</Link>
+          <Link className="text-[#a38449]" to="./contact">Contact</Link>
         </div>
         <div className="flex flex-col gap-4">
           <h3 className="text-xl">Support</h3>
-          <a className="text-[#a38449]" href="./login">Login</a>
-          <a className="text-[#a38449]" href="./singup">Sing Up</a>
+          <Link className="text-[#a38449]" to="./login">Login</Link>
+          <Link className="text-[#a38449]" to="./signup">Sign Up</Link>
         </div>
         <div className="flex flex-col gap-4">
           <h3 className="text-xl">Contact Us</h3>
