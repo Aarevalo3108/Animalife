@@ -6,7 +6,7 @@ import { verifyAccessToken } from "./verifyTokens.js";
 const authenticate = (req, res, next) => {
   const token = getTokenFromHeader(req);
   if (!token) {
-    return res.status(402).json({ message: "Access Unauthorized" });
+    return res.status(401).json({ message: "Access Unauthorized" });
   }
   const decoded = verifyAccessToken(token);
   if (!decoded) {

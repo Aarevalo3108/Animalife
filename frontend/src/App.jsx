@@ -3,6 +3,7 @@ import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import Home from "./components/pages/Home";
 import Profile from "./components/pages/Profile";
+import OrderLayout from './components/pages/OrderLayout';
 import Login from "./components/pages/Login";
 import ResetPassword from "./components/pages/ResetPassword";
 import EditUser from './components/pages/editUser';
@@ -26,6 +27,7 @@ const App = () => {
             <Route path="/" element={<ProtectedRoute />}>
               <Route path="profile" element={<Profile />} />
               <Route path="profile/edit" element={<EditUser />} />
+              <Route path="order/:id" element={<OrderLayout />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

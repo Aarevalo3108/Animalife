@@ -24,6 +24,7 @@ const FileUpload = () => {
             const response = await axios.patch(`${url.backend}/user/img/${auth.getUser()._id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
+                    "Authorization": `Bearer ${auth.getAccessToken()}`,
                 },
             });
             setSuccessfulUpload(true);

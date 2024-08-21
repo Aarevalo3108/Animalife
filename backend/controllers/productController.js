@@ -73,14 +73,13 @@ export const updateProduct = async (req, res) => {
 
 export const submitImg = async (req, res) => {
   try {
-    console.log(req.files);
     if(req.files.length === 0){
       return res.status(500).json({message: "images not found"});
     }
     const imgsArray = [];
     req.files.map((file) => {
-      if(file.mimetype !== "image/png" && file.mimetype !== "image/jpg" && file.mimetype !== "image/jpeg"){
-        return res.status(500).json({message: `image, ${file.filename}, not valid, only png, jpg and jpeg allowed`});
+      if(file.mimetype !== "image/png" && file.mimetype !== "image/jpg" && file.mimetype !== "image/jpeg" && file.mimetype !== "image/webp"){
+        return res.status(500).json({message: `image, ${file.filename}, not valid, only png, jpg, webp and jpeg allowed`});
       }
       if(file.size > 5000000 || file.size === 0){
         return res.status(500).json({message: `image, ${file.filename}, not valid, max 5MB allowed and not empty`});

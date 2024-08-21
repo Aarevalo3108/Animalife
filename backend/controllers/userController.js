@@ -173,6 +173,13 @@ export const updateUser = async (req, res) => {
     if(!regex.email.test(req.body.email) && req.body.email !== undefined){
       return res.status(500).json({message: "Email is not valid"})
     }
+    if(req.body.password){
+      if(!regex.password.test(req.body.password)){
+        return res.status(500).json({message: "Password is not valid. Must have at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character."})
+      }
+      const salt = await bcrypt.genSalt(10);
+      req.body.password = await bcrypt.hash(req.body.password, salt);
+    }
     const user = await User.findByIdAndUpdate({_id: req.params.id, deleted: false}, req.body, {new: true});
     return res.status(200).json({user: getUserInfo(user)});
   } catch (error) {

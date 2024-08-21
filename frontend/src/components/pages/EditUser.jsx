@@ -16,11 +16,11 @@ userInfo:{
 */
 
 import { useAuth } from "../../auth/AuthProvider"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import url from "../../utils/urls";
 import FileUpload from "../FileUpload";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 
 
 const EditUser = () => {
@@ -57,7 +57,13 @@ const EditUser = () => {
       if (!password) {
         delete data.password;
       }
-      const response = await axios.patch(`${url.backend}/users/${user._id}`, data);
+      const response = await axios.patch(`${url.backend}/users/${user._id}`, data,
+        {
+          headers: {
+            "Authorization": `Bearer ${auth.getAccessToken()}`
+          },
+        }
+      );
       if (response.status === 200) {
         console.log("Edit successful");
         form.style.opacity = 1;
@@ -71,6 +77,14 @@ const EditUser = () => {
     }
     form.style.opacity = 1;
   }
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  if(!auth.isAuthenticated) {
+    return <Navigate to="/"/>
+  }
+
 
   return (
     <div className="min-h-[85vh] flex flex-col justify-center items-center gap-4 p-8">
@@ -109,7 +123,7 @@ const EditUser = () => {
           <input className="px-4 py-2 rounded-lg" type="password" id="confirmPassword" name="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
         </label>}
         <div className="flex gap-4 p-4">
-          <button className="col-span-2 self-center cursor-pointer w-32 bg-[#e3b771] text-[#433526] p-2 rounded-xl hover:bg-[#433526] hover:text-[#f2e0c2] hover:scale-105 transition duration-150">Cancel</button>
+          <button className="col-span-2 self-center cursor-pointer w-32 bg-[#e3b771] text-[#433526] p-2 rounded-xl hover:bg-[#433526] hover:text-[#f2e0c2] hover:scale-105 transition duration-150" onClick={() => goTo("/profile")}>Cancel</button>
           <input type="submit" value="Save" className="col-span-2 self-center cursor-pointer w-32 bg-[#433526] text-[#f2e0c2] p-2 rounded-xl hover:bg-[#e3b771] hover:text-[#433526] hover:scale-105 transition duration-150"/>
         </div>
       </form>

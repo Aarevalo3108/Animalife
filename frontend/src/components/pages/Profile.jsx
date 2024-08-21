@@ -1,12 +1,36 @@
 import { useAuth } from "../../auth/AuthProvider"
 import url from "../../utils/urls";
+import { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import dateFormat from "../../utils/dateFormat";
+import axios from "axios";
+import OrderCart from "../OrderCart";
 
 const Profile = () => {
   const auth = useAuth();
   const user = auth.getUser();
-  console.log(user);
+  const [orders, setOrders] = useState([]);
+  const getOrders = async () => {
+    try {
+      const response = await axios.get(`${url.backend}/purchases/user/${user._id}`);
+      setOrders(response.data.docs);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
+  
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    if(auth.isAuthenticated) {
+      getOrders();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  if(!auth.isAuthenticated) {
+    return <Navigate to="/" />
+  }
   return (
     <div className="flex flex-col justify-center items-center p-8 gap-8">
       <h1 className="text-3xl font-bold">User Profile</h1>
@@ -19,52 +43,16 @@ const Profile = () => {
       </div>
       <div className="flex flex-col justify-center items-center">
         <h2 className="text-3xl font-bold">Order History</h2>
-        <div className="grid grid-cols-1p-4">
-          {/* Component */}
-          <div className="flex justify-center items-center">
-            <Link to="/order?id=123">
-              <img className="h-16 w-16 bg-white p-4 rounded-2xl" src="/svg/shopping-cart.svg" alt="Order" />
-            </Link>
-            <div className="p-4 flex flex-col">
-              <h3>Order #12345</h3>
-              <p className="text-sm text-[#a38449]">Completed on 15-05-2023</p>
-            </div>
-            <Link className="p-4" to="/order?id=123">
-              <img src="/svg/rightArrow.svg" alt="" />
-            </Link>
-          </div>
-          {/* Component */}
-          <div className="flex justify-center items-center">
-            <Link to="/order?id=123">
-              <img className="h-16 w-16 bg-white p-4 rounded-2xl" src="/svg/shopping-cart.svg" alt="Order" />
-            </Link>
-            <div className="p-4 flex flex-col">
-              <h3>Order #12345</h3>
-              <p className="text-sm text-[#a38449]">Completed on 15-05-2023</p>
-            </div>
-            <Link className="p-4" to="/order?id=123">
-              <img src="/svg/rightArrow.svg" alt="" />
-            </Link>
-          </div>
-          <div className="flex justify-center items-center">
-            <Link to="/order?id=123">
-              <img className="h-16 w-16 bg-white p-4 rounded-2xl" src="/svg/shopping-cart.svg" alt="Order" />
-            </Link>
-            <div className="p-4 flex flex-col">
-              <h3>Order #12345</h3>
-              <p className="text-sm text-[#a38449]">Completed on 15-05-2023</p>
-            </div>
-            <Link className="p-4" to="/order?id=123">
-              <img src="/svg/rightArrow.svg" alt="" />
-            </Link>
-          </div>
+        <div className="flex flex-col p-4 w-full">
+          {orders.length > 0 && orders.map((order) => <OrderCart key={order._id} purchase={order} />)}
+          {orders.length === 0 && <p>No orders yet</p>}
         </div>
       </div>
       <div className="flex flex-col justify-center items-center gap-4">
         <h2 className="text-3xl font-bold">Account Settings</h2>
         <div className="flex justify-center items-center gap-2 p-4">
           <Link to="/profile/edit">
-            <img className="h-16 w-16 bg-white p-4 rounded-2xl" src="/svg/account.svg" alt="account" />
+            <img className="min-h-16 min-w-16 bg-white p-4 rounded-2xl" src="/svg/account.svg" alt="account" />
           </Link>
           <span className="text-xl p-4">Profile Information</span>
           <Link className="p-2" to="/profile/edit">

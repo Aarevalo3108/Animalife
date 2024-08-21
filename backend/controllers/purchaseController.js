@@ -39,7 +39,6 @@ export const getPurchaseByUser = async (req, res) => {
 
 export const createPurchase = async (req, res) => {
   try {
-    // Purchase has two ObjectsID fields: user and products, that has to be validated
     const user = await User.findById(req.body.user);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -50,6 +49,7 @@ export const createPurchase = async (req, res) => {
     }
     const purchase = new Purchase(req.body);
     await purchase.save();
+    await User.findByIdAndUpdate(user._id, { $push: { purchases: purchase._id } }, { new: true });
     const paginatedPurchase = await Purchase.paginate({deleted: false, _id: purchase._id}, options);
     res.status(201).json(paginatedPurchase);
   } catch (error) {

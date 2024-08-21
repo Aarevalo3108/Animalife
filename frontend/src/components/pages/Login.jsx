@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {useAuth} from "../../auth/AuthProvider";
 import {Link, Navigate, useNavigate} from "react-router-dom";
 import axios from "axios";
@@ -37,11 +37,16 @@ const Login = () => {
       setError(`Error[${error.response.status}]: ${error.response.data.message}`);
       console.log(error);
     }
+
   }
 
-  if (auth.isAuthenticated) {
-    return <Navigate to="/" />;
-  }
+  useEffect(() => {
+    if (auth.isAuthenticated) {
+      goTo("/");
+    }
+    window.scrollTo(0, 0);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="bg-[url('/Animalife.jpeg')] bg-cover bg-center min-h-[85vh]">

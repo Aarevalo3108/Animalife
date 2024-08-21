@@ -6,7 +6,7 @@ const Nav = () => {
   const auth = useAuth();
   const user = auth.getUser();
   return (
-    <nav className="bg-repeat bg-navbar flex items-center justify-center md:justify-between  p-4 sticky top-0 z-50">
+    <nav className="bg-repeat bg-[url('../public/svg/NavBar.svg')] flex items-center justify-center md:justify-between  p-4 sticky top-0 z-50">
       <img src="/svg/Lines.svg" alt="lines" className="h-8 w-8 absolute left-4 md:hidden" />
       <span className="text-3xl hidden md:block">Animalife</span>
       <div className="flex gap-4">

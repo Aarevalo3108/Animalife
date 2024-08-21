@@ -1,7 +1,11 @@
-
+import { useEffect } from "react";
 
 
 const NotFound = () => {
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="p-8 text-center font-bold min-h-[85vh] flex flex-col gap-8 items-center justify-center">
       <span className="text-5xl text-[#433526] font-bold">404</span>

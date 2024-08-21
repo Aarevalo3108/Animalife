@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../../auth/AuthProvider";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import url from "../../utils/urls";
 
@@ -60,9 +60,14 @@ const SignUp = () => {
       console.log(error);
     }
   }
-  if(auth.isAuthenticated) {
-    return <Navigate to="/" />
-  }
+
+  useEffect(() => {
+    if (auth.isAuthenticated) {
+      goTo("/");
+    }
+    window.scrollTo(0, 0);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
   <div className="bg-[url('/Animalife.jpeg')] bg-cover bg-center min-h-[85vh]">
     <div className="bg-[rgba(0,0,0,0.6)] min-h-[85vh] p-8 flex flex-col items-center justify-center">

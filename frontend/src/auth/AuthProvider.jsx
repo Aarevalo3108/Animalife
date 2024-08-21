@@ -8,7 +8,7 @@ import Loading from "../components/Loading";
 const AuthContext = createContext({
   isAuthenticated: false,
   getAccessToken: () => {},
-  saveUser: (userData) => {},
+  saveUser: () => {},
   getRefreshToken: () => {},
   getUser: () => {},
   logout: () => {},
