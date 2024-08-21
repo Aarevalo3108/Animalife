@@ -8,6 +8,8 @@ import getTokenFromHeader from "../auth/getTokenFromHeader.js";
 import { verifyAccessToken, verifyRefreshToken } from "../auth/verifyTokens.js";
 import Token from "../models/tokenModel.js";
 import { generateAccessToken } from "../auth/generateToken.js";
+import transporter from "../tools/mailAdapter.js";
+import "dotenv/config";
 
 export const hello = async (req, res) => {
   return res.status(200).json({message: "Hello World!"});
@@ -66,6 +68,14 @@ export const createUser = async (req, res) => {
     }
     req.body.role = role[0]._id;
     const user = new User(req.body);
+    const mailOptions = {
+      from: process.env.EMAIL,
+      to: req.body.email,
+      subject: 'Welcome to Animalife',
+      text: `Hello ${req.body.name} ${req.body.lastName}! Welcome to Animalife. Your account was created successfully.`
+    }
+    const mail = await transporter.sendMail(mailOptions);
+    console.log(`Message sent: ${mail.messageId}`);
     await user.save();
     const paginatedUser = await User.paginate({deleted: false, _id: user._id}, options);
     return res.status(201).json({paginatedUser});

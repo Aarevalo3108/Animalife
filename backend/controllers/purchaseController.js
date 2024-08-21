@@ -1,7 +1,9 @@
 import Purchase from "../models/purchaseModel.js";
 import User from "../models/userModel.js";
-import Product from "../models/productModel.js";
+import checkProducts from "../tools/checkProducts.js";
 import options from "../tools/options.js";
+import transporter from "../tools/mailAdapter.js";
+import "dotenv/config";
 
 export const getPurchases = async (req, res) => {
   try {
@@ -44,28 +46,31 @@ export const createPurchase = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
     const products = await checkProducts(req.body.products);
-    if (products) {
-      return res.status(404).json({ message: products });
+    if (!products.found) {
+      return res.status(404).json({ message: "Product or products not found, check IDs" });
     }
+    req.body.total = products.total;
     const purchase = new Purchase(req.body);
     await purchase.save();
     await User.findByIdAndUpdate(user._id, { $push: { purchases: purchase._id } }, { new: true });
+    const mailOptions = {
+      from: process.env.MAIL_USER,
+      to: user.email,
+      subject: "Animalife - Purchase",
+      html: `<p>Dear ${user.name},</p>
+      <p>Thank you for your purchase. Here are the details:</p>
+      <p>Products: ${products.names}</p>
+      <p>Total: $${products.total}</p>
+      <p>Order ID: ${purchase._id}</p>`,
+    };
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Message sent: %s", info.messageId);
     const paginatedPurchase = await Purchase.paginate({deleted: false, _id: purchase._id}, options);
     res.status(201).json(paginatedPurchase);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
   }
-}
-
-
-
-const checkProducts = async (array) => {
-    const onlyIDs = array.map((obj) => obj._id);
-    const records = await Product.find({ '_id': { $in: onlyIDs } });
-    if (!records.length || records.length !== onlyIDs.length) {
-      return "Product or products not found, check IDs";
-    }
 }
 
 

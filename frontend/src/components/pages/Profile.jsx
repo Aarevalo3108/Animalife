@@ -13,7 +13,13 @@ const Profile = () => {
   const [orders, setOrders] = useState([]);
   const getOrders = async () => {
     try {
-      const response = await axios.get(`${url.backend}/purchases/user/${user._id}`);
+      const response = await axios.get(`${url.backend}/purchases/user/${user._id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${auth.getAccessToken()}`
+          }
+        }
+      );
       setOrders(response.data.docs);
     } catch (error) {
       console.log(error);
@@ -36,7 +42,7 @@ const Profile = () => {
       <h1 className="text-3xl font-bold">User Profile</h1>
       <div className="flex flex-col justify-center items-center">
         <div className="w-32 h-32 rounded-full">
-          <img className="w-full h-full object-cover rounded-full" src={url.backend+"/"+(user.image?user.image:"uploads/JoneDoe.png")} alt={user.name+" profile picture"} />
+          <img className="w-full h-full object-cover rounded-full hover:scale-[2] transition-transform duration-300" src={url.backend+"/"+(user.image?user.image:"uploads/JoneDoe.png")} alt={user.name+" profile picture"} />
         </div>
         <h2 className="text-2xl">{user.name} {user.lastName}</h2>
         <p>Joined at: {dateFormat(user.createdAt)}</p>
@@ -60,7 +66,7 @@ const Profile = () => {
           </Link>
         </div>
       </div>
-      <button className="text-2xl bg-red-500 rounded-2xl px-4 py-2 hover:text-[#f2e0c2] transition-colors duration-300" onClick={async () => auth.logout(auth.getRefreshToken())}>Log Out</button>
+      <button className="text-2xl bg-red-500 rounded-2xl px-4 py-2 hover:text-[#f2e0c2] transition duration-300 hover:scale-105 " onClick={async () => auth.logout(auth.getRefreshToken())}>Log Out</button>
     </div>
   )
 }
