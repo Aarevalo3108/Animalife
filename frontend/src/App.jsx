@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import Home from "./components/pages/Home";
+import Shop from "./components/pages/Shop";
 import Profile from "./components/pages/Profile";
 import OrderLayout from './components/pages/OrderLayout';
 import Login from "./components/pages/Login";
@@ -21,6 +22,7 @@ const App = () => {
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/shop" element={<Shop />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/reset-password" element={<ResetPassword />} />

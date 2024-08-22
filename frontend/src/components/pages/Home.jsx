@@ -42,10 +42,10 @@ const Home = () => {
     <div className="flex flex-col justify-center items-center gap-8 p-8">
       <h2 className="text-3xl">Categories</h2>
       <div className="grid grid-cols-2 justify-center items-center gap-4">
-        <Link to="/products?category=1" className="text-xl p-4 bg-[#f2e0c2] rounded-xl shadow-xl hover:scale-125 hover:bg-[#e4b972] transition-all duration-150">Birds</Link>
-        <Link to="/products?category=2" className="text-xl p-4 bg-[#f2e0c2] rounded-xl shadow-xl hover:scale-125 hover:bg-[#e4b972] transition-all duration-150">Cats</Link>
-        <Link to="/products?category=3" className="text-xl p-4 bg-[#f2e0c2] rounded-xl shadow-xl hover:scale-125 hover:bg-[#e4b972] transition-all duration-150">Dogs</Link>
-        <Link to="/products?category=4" className="text-xl p-4 bg-[#f2e0c2] rounded-xl shadow-xl hover:scale-125 hover:bg-[#e4b972] transition-all duration-150">Fish</Link>
+        <Link to="/products?category=birds" className="text-xl p-4 bg-[#f2e0c2] rounded-xl shadow-xl hover:scale-125 hover:bg-[#e4b972] transition-all duration-150">Birds</Link>
+        <Link to="/products?category=cats" className="text-xl p-4 bg-[#f2e0c2] rounded-xl shadow-xl hover:scale-125 hover:bg-[#e4b972] transition-all duration-150">Cats</Link>
+        <Link to="/products?category=dogs" className="text-xl p-4 bg-[#f2e0c2] rounded-xl shadow-xl hover:scale-125 hover:bg-[#e4b972] transition-all duration-150">Dogs</Link>
+        <Link to="/products?category=fish" className="text-xl p-4 bg-[#f2e0c2] rounded-xl shadow-xl hover:scale-125 hover:bg-[#e4b972] transition-all duration-150">Fish</Link>
       </div>
     </div>
     <div className="flex flex-col items-center gap-8 p-8">

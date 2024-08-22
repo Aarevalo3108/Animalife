@@ -11,7 +11,7 @@ const Nav = () => {
       <span className="text-3xl hidden md:block">Animalife</span>
       <div className="flex gap-4">
         <Link className="text-2xl hover:text-[#f2e0c2] transition-colors duration-300" to="/">Home</Link>
-        <span className="text-2xl hover:text-[#f2e0c2] transition-colors duration-300 hidden md:block">Shop</span>
+        <Link className="text-2xl hover:text-[#f2e0c2] transition-colors duration-300" to="/shop">Shop</Link>
         <span className="text-2xl hover:text-[#f2e0c2] transition-colors duration-300 hidden md:block">About</span>
         <span className="text-2xl hover:text-[#f2e0c2] transition-colors duration-300 hidden md:block">Contact</span>
         {!auth.isAuthenticated ?
