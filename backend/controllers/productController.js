@@ -25,6 +25,18 @@ export const getProductById = async (req, res) => {
   }
 }
 
+export const getProductsByParams = async (req, res) => {
+  try {
+    options.page = Number(req.query.page) || 1;
+    options.limit = Number(req.query.limit) || 12;
+    const products = await Product.paginate({deleted: false, category: req.params}, options);
+    res.json(products);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+}
+
 export const createProduct = async (req, res) => {
   try {
     if(!regex.name.test(req.body.name)){

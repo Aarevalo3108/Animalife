@@ -1,7 +1,6 @@
-import { useParams } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { useAuth } from "../../auth/AuthProvider"
-import { Navigate, useNavigate } from "react-router-dom"
+import { Navigate, useNavigate, useParams } from "react-router-dom"
 import ProductOrderCart from "../ProductOrderCart"
 import url from "../../utils/urls"
 import axios from "axios"
