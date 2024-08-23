@@ -25,17 +25,33 @@ export const getProductById = async (req, res) => {
   }
 }
 
-export const getProductsByParams = async (req, res) => {
+export const searchProducts = async (req, res) => {
+  options.page = parseInt(req.query.page) || 1;
+  const searchCriteria = [];
+  const searchOptions = {
+    deleted: false,
+  }
   try {
-    options.page = Number(req.query.page) || 1;
-    options.limit = Number(req.query.limit) || 12;
-    const products = await Product.paginate({deleted: false, category: req.params}, options);
-    res.json(products);
+    if(req.headers.name) searchCriteria.push({ name: { $regex: req.headers.name, $options: 'i' } });
+    if(req.headers.category) {
+      const categoryExists = await Category.find({name: req.headers.category});
+      if (!categoryExists) {
+        return res.status(404).json({ message: "Category not found, check name" });
+      }
+      searchCriteria.push({ category: categoryExists[0]._id });
+    }
+    if(searchCriteria.length){
+      searchOptions.$and = searchCriteria;
+    }
+    console.log(searchCriteria)
+    const products = await Product.paginate(searchOptions, options);
+    res.status(200).json(products);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
   }
 }
+
 
 export const createProduct = async (req, res) => {
   try {

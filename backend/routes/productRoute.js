@@ -13,11 +13,12 @@ const storage = multer.diskStorage({
 const upload = multer({ storage, limits: { files: 5 } });
 const router = Router();
 
-import {createProduct, getProducts, getProductById, updateProduct, deleteProduct, submitImg} from "../controllers/productController.js";
+import {createProduct, getProducts, getProductById, searchProducts, updateProduct, deleteProduct, submitImg} from "../controllers/productController.js";
 
 
 router.get("/product", getProducts);
 router.get("/product/:id", getProductById);
+router.get("/search", searchProducts);
 router.post("/product", createProduct);
 router.patch("/product/:id", updateProduct);
 router.patch("/product/imgs/:id", upload.array('files'), submitImg);
