@@ -1,10 +1,10 @@
 
-import '../styles/Loading.css' 
+import '../styles/Loading.css'
 
 const Loading = () => {
   return (
-    <div className='h-screen w-screen flex justify-center items-center'>
-      <div className="loader"></div>
+    <div className='absolute top-0 left-0 w-full h-full flex items-center justify-center'>
+      <div className="loaderDog"></div>
     </div>
   )
 }

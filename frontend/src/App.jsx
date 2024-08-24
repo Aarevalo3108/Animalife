@@ -5,6 +5,7 @@ import Home from "./components/pages/Home";
 import Shop from "./components/pages/Shop";
 import Product from './components/pages/Product';
 import Profile from "./components/pages/Profile";
+import Cart from "./components/pages/Cart";
 import OrderLayout from './components/pages/OrderLayout';
 import Login from "./components/pages/Login";
 import ResetPassword from "./components/pages/ResetPassword";
@@ -13,30 +14,34 @@ import SignUp from "./components/pages/SignUp";
 import NotFound from "./components/pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AuthProvider from "./auth/AuthProvider";
+import CartProvider from './components/cartProvider';
 import './styles/App.css';
 
 const App = () => {
   return (
     <AuthProvider>
       <Router>
-        <Nav />
-        <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/shop" element={<Shop />} />
-            <Route path="/shop/:category" element={<Shop />} />
-            <Route path="/shop/product/:id" element={<Product />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/reset-password" element={<ResetPassword />} />
-            <Route path="/" element={<ProtectedRoute />}>
-              <Route path="profile" element={<Profile />} />
-              <Route path="profile/edit" element={<EditUser />} />
-              <Route path="order/:id" element={<OrderLayout />} />
-            </Route>
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
+        <CartProvider>
+          <Nav />
+          <main>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/shop" element={<Shop />} />
+              <Route path="/shop/:category" element={<Shop />} />
+              <Route path="/shop/product/:id" element={<Product />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/" element={<ProtectedRoute />}>
+                <Route path="profile" element={<Profile />} />
+                <Route path="profile/edit" element={<EditUser />} />
+                <Route path="order/:id" element={<OrderLayout />} />
+              </Route>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+        </CartProvider>
         <Footer />
       </Router>
     </AuthProvider>

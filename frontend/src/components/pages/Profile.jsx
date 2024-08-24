@@ -3,6 +3,7 @@ import url from "../../utils/urls";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Loading from "../Loading";
 import dateFormat from "../../utils/dateFormat";
 import axios from "axios";
 import OrderCart from "../OrderCart";
@@ -11,8 +12,10 @@ const Profile = () => {
   const auth = useAuth();
   const user = auth.getUser();
   const [orders, setOrders] = useState([]);
+  const [loader, setLoader] = useState(true);
   const getOrders = async () => {
     try {
+      setLoader(true);
       const response = await axios.get(`${url.backend}/purchases/user/${user._id}`,
         {
           headers: {
@@ -20,6 +23,7 @@ const Profile = () => {
           }
         }
       );
+      setLoader(false);
       setOrders(response.data.docs);
     } catch (error) {
       console.log(error);
@@ -49,9 +53,10 @@ const Profile = () => {
       </div>
       <div className="flex flex-col justify-center items-center">
         <h2 className="text-3xl font-bold">Order History</h2>
-        <div className="flex flex-col p-4 w-full">
-          {orders.length > 0 && orders.map((order) => <OrderCart key={order._id} purchase={order} />)}
-          {orders.length === 0 && <p>No orders yet</p>}
+        <div className="relative flex flex-col p-4 w-full max-h-72 overflow-y-auto">
+          {orders.length > 0 && !loader && orders.map((order) => <OrderCart key={order._id} purchase={order} />)}
+          {orders.length === 0 && !loader && <p>No orders yet</p>}
+          {loader && <Loading />}
         </div>
       </div>
       <div className="flex flex-col justify-center items-center gap-4">

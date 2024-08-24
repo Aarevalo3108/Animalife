@@ -1,17 +1,6 @@
 import {Router} from 'express';
-import multer from 'multer';
 import authenticate from '../auth/authenticate.js';
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads');
-  },
-  filename: (req, file, cb) => {
-    const uniqueName = Date.now() + '-' + file.originalname;
-    cb(null, uniqueName);
-  },
-});
-
-const upload = multer({ storage, limits: { files: 1 } });
+import userUpload from '../tools/userImgUpload.js';
 const router = Router();
 
 import {hello, createUser, getUsers, getUserById, updateUser, deleteUser, submitImg, authUser, logout, refreshToken, userData} from "../controllers/userController.js";
@@ -26,7 +15,7 @@ router.post("/login", authUser);
 router.delete("/logout", logout);
 router.post("/refresh-token", refreshToken);
 router.patch("/users/:id", authenticate, updateUser);
-router.patch("/user/img/:id", authenticate, upload.single('file'), submitImg);
+router.patch("/user/img/:id", authenticate, userUpload.single('file'), submitImg);
 router.delete("/users/:id", authenticate, deleteUser);
 
 

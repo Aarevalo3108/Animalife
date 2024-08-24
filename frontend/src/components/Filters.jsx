@@ -1,8 +1,7 @@
 
 import PropTypes from 'prop-types'
-import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from 'react';
+import { Link } from "react-router-dom";;
+import { useEffect } from 'react';
 
 const Filters = ({ className, category, setCategory, name, setName }) => {
   // category will be birds, cats, dogs, fish or null
@@ -29,7 +28,7 @@ const Filters = ({ className, category, setCategory, name, setName }) => {
 
   return (
     <div className={'bg-[#f2e0c2] flex flex-col justify-center items-center gap-4 h-fit text-center px-4 py-8 rounded-xl shadow-xl ' + className}>
-      <h1 className="text-3xl">Shop</h1>
+      <h1 className="text-3xl">Shop Filters</h1>
       <h2 className="text-2xl">Search</h2>
       <div className="flex justify-center items-center gap-1">
       <input type="text" placeholder="Search..." className='p-2 rounded-full' value={name} onChange={(e) => setName(e.target.value)} />
@@ -50,7 +49,9 @@ const Filters = ({ className, category, setCategory, name, setName }) => {
 Filters.propTypes = {
   className: PropTypes.string,
   category: PropTypes.string,
-  setCategory: PropTypes.func
+  setCategory: PropTypes.func,
+  name: PropTypes.string,
+  setName: PropTypes.func
 }
 
 export default Filters

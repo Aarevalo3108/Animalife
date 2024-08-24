@@ -43,7 +43,6 @@ export const searchProducts = async (req, res) => {
     if(searchCriteria.length){
       searchOptions.$and = searchCriteria;
     }
-    console.log(searchCriteria)
     const products = await Product.paginate(searchOptions, options);
     res.status(200).json(products);
   } catch (error) {
