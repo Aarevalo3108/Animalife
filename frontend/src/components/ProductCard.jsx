@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import url from '../utils/urls';
 import { Link } from "react-router-dom";
-import { useCart } from './cartProvider';
+import { useCart } from './CartProvider';
 import { useAuth } from '../auth/AuthProvider';
 
 const ProductCard = ({ product }) => {

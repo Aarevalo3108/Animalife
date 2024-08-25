@@ -38,26 +38,6 @@ const OrderLayout = () => {
     return <Navigate to="/" />;
   }
 
-  /*
-  
-  {
-    "_id": "66c392d746f36cfec7ed64bb",
-    "user": "66c162b85b8d1396d2767465",
-    "products": [
-        {
-            "_id": "6692b556fed81becbaf1973b",
-            "quantity": 10
-        }
-    ],
-    "total": 202,
-    "deletedAt": null,
-    "deleted": false,
-    "createdAt": "2024-08-19T18:45:43.631Z",
-    "updatedAt": "2024-08-19T18:45:43.631Z",
-    "__v": 0
-}
-*/
-
   return (
     <div className="flex flex-col justify-center items-center p-8 gap-8">
       <h1 className="text-lg font-bold">Order ID: {id}</h1>

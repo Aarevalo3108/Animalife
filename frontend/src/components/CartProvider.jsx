@@ -6,23 +6,8 @@ const CartContext = createContext({
   addItem: () => {},
   removeItem: () => {},
   addUser: () => {},
+  resetCart: () => {}
 })
-
-/*
-
-  Cart example:
-
-  {
-  user: "66c162b85b8d1396d2767465",
-    products: [
-      {
-        _id: "6692b556fed81becbaf1973b",
-        quantity: 10
-      }
-    ],
-  }
-
-*/
 
 const CartProvider = ({children}) => {
   const [cart, setCart] = useState(localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : {user: null, products: []})
@@ -53,6 +38,10 @@ const CartProvider = ({children}) => {
     setCart(newCart)
   }
 
+  const resetCart = () => {
+    setCart({user: null, products: []})
+  }
+
 
 
   useEffect(() => {
@@ -60,7 +49,7 @@ const CartProvider = ({children}) => {
   }, [cart])
 
   return (
-    <CartContext.Provider value={{cart, addItem, removeItem, addUser}}>
+    <CartContext.Provider value={{cart, addItem, removeItem, addUser, resetCart}}>
       {children}
     </CartContext.Provider>
   )

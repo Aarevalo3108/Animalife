@@ -25,6 +25,8 @@ const Product = () => {
       _id: product._id,
       quantity: quantity,
      });
+
+    setQuantity(1);
   }
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -36,7 +38,7 @@ const Product = () => {
     <div className="bg-[url('/Animalife.jpeg')] bg-cover bg-center min-h-[85vh]">
       <div className="bg-[rgba(0,0,0,0.6)] min-h-[85vh] p-4 flex flex-col items-center justify-center">
         {product.images &&
-        <div className="grid md:grid-cols-2 justify-items-center gap-4 bg-[#f2e0c2] rounded-xl p-8 relative">
+        <div className="grid md:grid-cols-2 justify-items-center gap-4 bg-[#f2e0c2] rounded-xl p-4 relative">
           <Link to="/shop" className="place-self-start absolute top-4 left-4 bg-[#433526] text-[#e4b972] p-2 rounded-xl hover:bg-[#e4b972] hover:text-[#433526] transition duration-150">
             <img className="w-8 h-8" src="/svg/goBack.svg" alt="left-arrow" />
           </Link>
@@ -48,7 +50,7 @@ const Product = () => {
             <p className="text-md">Stock: {product.quantity}</p>
             <div className="flex items-center w-full gap-4 justify-end">
               <button className="bg-[#433526] text-[#e4b972] h-8 w-8 rounded-full hover:bg-[#e4b972] hover:text-[#433526] transition duration-150" onClick={() => {if(quantity > 1)setQuantity(quantity - 1)}}>-</button>
-              <input type="number" min="1" max={product.quantity} step="1" placeholder="Quantity" onChange={(e) => setQuantity(e.target.value)} value={quantity} className="p-2 rounded-xl w-10 text-center" />
+              <input type="number" min="1" max={product.quantity} step="1" placeholder="Quantity" onChange={(e) => setQuantity(e.target.value)} value={quantity} className="p-2 rounded-xl w-fit text-center" />
               <button className="bg-[#433526] text-[#e4b972] h-8 w-8 rounded-full hover:bg-[#e4b972] hover:text-[#433526] transition duration-150" onClick={() => {if(quantity < product.quantity)setQuantity(quantity + 1)}}>+</button>
               <button className="bg-[#433526] text-[#e4b972] p-2 rounded-xl hover:bg-[#e4b972] hover:text-[#433526] transition duration-150" onClick={handleAddToCart}>Add to Cart</button>
             </div>

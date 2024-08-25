@@ -7,6 +7,7 @@ import Loading from "../components/Loading";
 
 const AuthContext = createContext({
   isAuthenticated: false,
+  isAdmin: false,
   getAccessToken: () => {},
   saveUser: () => {},
   getRefreshToken: () => {},
@@ -17,6 +18,7 @@ const AuthContext = createContext({
 const AuthProvider = ({ children }) => {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [accessToken, setAccessToken] = useState("");
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
@@ -48,6 +50,8 @@ const AuthProvider = ({ children }) => {
         }
       });
       if(response.status === 200) {
+        const check = await checkAdmin(response.data);
+        setIsAdmin(check);
         return response.data
       }
       else{
@@ -58,6 +62,15 @@ const AuthProvider = ({ children }) => {
       return null
     }
   }
+  const checkAdmin = async (user) => {
+    console.log(user);
+    try {
+      const response = await axios.get(`${url.backend}/roles/${user.role}`);
+      return response.data.docs[0].name === 'Admin';
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const checkAuth = async () => {
     setLoading(true);
     if(accessToken) {
@@ -65,7 +78,7 @@ const AuthProvider = ({ children }) => {
       if(userInfo) {
         saveSession(userInfo, accessToken, getRefreshToken());
       }
-     }else{
+    }else{
       const token = getRefreshToken();
       if(token) {
         const newAccessToken = await requestNewAccessToken(token);
@@ -134,7 +147,7 @@ const AuthProvider = ({ children }) => {
   }, [])
 
   return (
-    <AuthContext.Provider value={{isAuthenticated, getAccessToken, getRefreshToken, saveUser, getUser, logout}}>
+    <AuthContext.Provider value={{isAuthenticated, isAdmin, getAccessToken, getRefreshToken, saveUser, getUser, logout}}>
       {loading ? <Loading /> : children}
     </AuthContext.Provider>
   )

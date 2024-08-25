@@ -1,5 +1,5 @@
 import { useAuth } from "../auth/AuthProvider"
-import { useCart } from "./cartProvider";
+import { useCart } from "./CartProvider";
 import url from "../utils/urls";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -44,13 +44,18 @@ const Nav = () => {
           <Link className="text-2xl hover:text-[#f2e0c2] transition-colors duration-300" to="/login">Login</Link>
           <Link className="text-2xl hover:text-[#f2e0c2] transition-colors duration-300"  to="/signup">Sign Up</Link>
         </> :
+        <>
+        {auth.isAdmin && <Link className="text-2xl hover:text-[#f2e0c2] transition-colors duration-300" to="/admin">Admin</Link>}
         <Link to="/profile" className="flex gap-2 text-2xl hover:text-[#f2e0c2] transition-colors duration-300">
-          <span>Profile</span><div className="w-8 h-8 rounded-full relative">
+          <span>Profile</span>
+          <div className="w-8 h-8 rounded-full">
             <img className="h-full w-full object-cover rounded-full" src={url.backend+"/"+(user.image?user.image:"uploads/JoneDoe.png")} alt={user.name+" profile picture"} />
           </div>
-        </Link>}
+        </Link>
+        </>
+        }
       </div>
-      <ShoppingCart className={showCart ? " " : "translate-y-[-500%]"} enableRender={showCart}/>
+      <ShoppingCart className={showCart ? " " : "translate-y-[-500%]"} showCart={showCart} setShowCart={setShowCart}/>
     </nav>
   )
 }

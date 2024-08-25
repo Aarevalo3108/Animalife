@@ -8,7 +8,7 @@ import {createPurchase, getPurchases, getPurchaseById, updatePurchase, deletePur
 router.get("/purchases", getPurchases);
 router.get("/purchases/:id", getPurchaseById);
 router.get("/purchases/user/:id", authenticate, getPurchaseByUser);
-router.post("/purchases", createPurchase);
+router.post("/purchases",authenticate, createPurchase);
 router.patch("/purchases/:id", updatePurchase);
 router.delete("/purchases/:id", deletePurchase);
 

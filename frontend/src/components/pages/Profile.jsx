@@ -53,7 +53,7 @@ const Profile = () => {
       </div>
       <div className="flex flex-col justify-center items-center">
         <h2 className="text-3xl font-bold">Order History</h2>
-        <div className="relative flex flex-col p-4 w-full max-h-72 overflow-y-auto">
+        <div className="relative flex flex-col p-4 w-full min-h-32 max-h-96 overflow-y-auto">
           {orders.length > 0 && !loader && orders.map((order) => <OrderCart key={order._id} purchase={order} />)}
           {orders.length === 0 && !loader && <p>No orders yet</p>}
           {loader && <Loading />}

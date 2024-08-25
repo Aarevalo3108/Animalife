@@ -17,6 +17,7 @@ export const hello = async (req, res) => {
 
 export const getUsers = async (req, res) => {
   try {
+    console.log(req.user)
     const users = await User.paginate({deleted: false}, options);
     return res.status(200).json(users);
   } catch (error) {
@@ -48,11 +49,9 @@ export const createUser = async (req, res) => {
     if(!regex.email.test(req.body.email)){
       return res.status(500).json({message: "Email is not valid"})
     }
-    console.log(req.body.password, "1")
     if(!regex.password.test(req.body.password)){
       return res.status(500).json({message: "Password is not valid. Must have at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character."})
     }
-    console.log(!regex.password.test(req.body.password), "2")
     const emailExists = await User.findOne({email: req.body.email});
     if (emailExists) {
       return res.status(400).json({message: "Email already exists"});

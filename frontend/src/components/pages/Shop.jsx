@@ -32,14 +32,17 @@ const Shop = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     getProducts();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category, name]);
 
   return (
     <div className="bg-[url(/Animalife.jpeg)] bg-cover bg-center">
       <div className="flex flex-col py-8 min-h-[85vh] bg-[rgba(0,0,0,0.6)] gap-4">
-        <div className="grid grid-cols-1 md:grid-cols-12 justify-items-center align-content-center">
-          <Filters className={"md:col-span-3 hidden lg:flex"} category={category} setCategory={setCategory} name={name} setName={setName} />
-          <div id="products" className="p-4 md:col-span-9 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 overflow-y-auto h-[100vh] min-h-[350px] max-h-[750px] w-full">
+        <div className="relative grid grid-cols-1 md:grid-cols-12 justify-items-center align-content-center">
+          <div className="absolute top-0 left-0">
+            <Filters className={""} category={category} setCategory={setCategory} name={name} setName={setName} />
+          </div>
+          <div id="products" className="p-4 md:col-span-9 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 overflow-y-auto h-[80vh] min-h-[400px] max-h-[850px] w-full">
             {products && !loading && products.map((product) => (
               <ProductCard key={product._id} product={product} />
             ))}

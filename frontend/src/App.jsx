@@ -5,6 +5,11 @@ import Home from "./components/pages/Home";
 import Shop from "./components/pages/Shop";
 import Product from './components/pages/Product';
 import Profile from "./components/pages/Profile";
+import Admin from './components/pages/Admin';
+import AdminUsers from './components/pages/AdminUsers';
+import AdminOrders from './components/pages/AdminOrders';
+import AdminProducts from './components/pages/AdminProducts';
+import AdminCategories from './components/pages/AdminCategories';
 import Cart from "./components/pages/Cart";
 import OrderLayout from './components/pages/OrderLayout';
 import Login from "./components/pages/Login";
@@ -13,8 +18,9 @@ import EditUser from './components/pages/editUser';
 import SignUp from "./components/pages/SignUp";
 import NotFound from "./components/pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AdminRoute from "./components/AdminRoute";
 import AuthProvider from "./auth/AuthProvider";
-import CartProvider from './components/cartProvider';
+import CartProvider from './components/CartProvider';
 import './styles/App.css';
 
 const App = () => {
@@ -37,6 +43,13 @@ const App = () => {
                 <Route path="profile" element={<Profile />} />
                 <Route path="profile/edit" element={<EditUser />} />
                 <Route path="order/:id" element={<OrderLayout />} />
+                <Route path="/" element={<AdminRoute />}>
+                  <Route path="admin" element={<Admin />} />
+                  <Route path="admin/users" element={<AdminUsers />} />
+                  <Route path="admin/orders" element={<AdminOrders />} />
+                  <Route path="admin/products" element={<AdminProducts />} />
+                  <Route path="admin/categories" element={<AdminCategories />} />
+                </Route>
               </Route>
               <Route path="*" element={<NotFound />} />
             </Routes>

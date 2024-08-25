@@ -1,16 +1,16 @@
 
 import PropTypes from 'prop-types'
 import { Link } from "react-router-dom";;
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const Filters = ({ className, category, setCategory, name, setName }) => {
   // category will be birds, cats, dogs, fish or null
   // when category is null, all link buttons will have the default bg color (#f2e0c2)
   // when category is not null, only the selected link button will have bg color (#e4b972) and scaled up
 
-  const categoryStyleSelected = 'min-w-28 text-lg p-4 rounded-xl shadow-xl transition-all duration-150 bg-[#e4b972] scale-105';
-  const categoryStyleDefault = 'min-w-28 text-lg p-4 rounded-xl shadow-xl transition-all duration-150 bg-[#f2e0c2] hover:bg-[#e4b972] hover:scale-105';
-
+  const categoryStyleSelected = 'w-16 text-md p-2 rounded-xl shadow-xl transition-all duration-150 bg-[#e4b972] scale-105';
+  const categoryStyleDefault = 'w-16 text-md p-2 rounded-xl shadow-xl transition-all duration-150 bg-[#f2e0c2] hover:bg-[#e4b972] hover:scale-105';
+  const [filter, setFilter] = useState(false);
   const checkCategory = () => {
     document.getElementById('all').className = categoryStyleDefault
     if(!category) {
@@ -27,14 +27,14 @@ const Filters = ({ className, category, setCategory, name, setName }) => {
   }, [category]);
 
   return (
-    <div className={'bg-[#f2e0c2] flex flex-col justify-center items-center gap-4 h-fit text-center px-4 py-8 rounded-xl shadow-xl ' + className}>
-      <h1 className="text-3xl">Shop Filters</h1>
-      <h2 className="text-2xl">Search</h2>
+    <div className={'z-20 relative transition-all duration-150 left-0 bg-[#f2e0c2] flex flex-col justify-center items-center gap-2 h-fit text-center px-4 py-8 rounded-xl shadow-xl ' + className + (filter ? ' ' : ' translate-x-[-150%]')}>
+      <h1 className="text-xl">Shop Filters</h1>
+      <h2 className="text-lg">Search</h2>
       <div className="flex justify-center items-center gap-1">
-      <input type="text" placeholder="Search..." className='p-2 rounded-full' value={name} onChange={(e) => setName(e.target.value)} />
+      <input type="text" placeholder="Search..." className='w-48 text-center shadow-xl p-2 rounded-full' value={name} onChange={(e) => setName(e.target.value)} />
       {name &&<button id='clear' onClick={() => setName('')} className='p-1 rounded-full bg-red-500 text-white w-8 text-sm hover:bg-red-600 scale-75 hover:scale-100 transition duration-150'>X</button>}
       </div>
-      <h2 className="text-2xl">Filters</h2>
+      <h2 className="text-lg">Filters</h2>
       <Link id='all' to="/shop" className={categoryStyleDefault} onClick = {() => setCategory(null)}>All</Link>
       <div id="categories" className="grid grid-cols-2 justify-center items-center gap-4">
         <Link id='birds' to="/shop/birds" className={categoryStyleDefault} onClick = {() => setCategory('birds')}>Birds</Link>
@@ -42,6 +42,9 @@ const Filters = ({ className, category, setCategory, name, setName }) => {
         <Link id='dogs' to="/shop/dogs" className={categoryStyleDefault} onClick = {() => setCategory('dogs')}>Dogs</Link>
         <Link id='fish' to="/shop/fish" className={categoryStyleDefault} onClick = {() => setCategory('fish')}>Fish</Link>
       </div>
+      <button onClick={() => setFilter(!filter)} className={'text-black absolute top-4 right-1 p-2 text-sm rounded-full active:scale-75 transition duration-150' + (filter ? ' bg-[#f2e0c2] hover:bg-[#e4b972] pl-2' : ' translate-x-[320%] bg-[#e4b972] hover:bg-[#f2e0c2] pl-4')}>
+        <img className="h-6 w-6" src={filter ? "/svg/leftArrow.svg" : "/svg/rightArrow.svg"} alt="" />
+      </button>
     </div>
   )
 }

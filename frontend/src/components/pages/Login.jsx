@@ -28,6 +28,7 @@ const Login = () => {
           auth.saveUser(response.data);
           console.log("Login successful");
           goTo("/");
+          window.location.reload();
         }
       }
 
@@ -71,7 +72,7 @@ const Login = () => {
                 </div>
               </form>
               <p>Forgot your password? <Link to="./reset-password" className="text-[#708c5a] border-b border-[#fcf8f0] hover:border-[#000] transition duration-150">Reset Password</Link></p>
-              <p>Don&apos;t have an account? <Link to="./signup" className="text-[#708c5a] border-b border-[#fcf8f0] hover:border-[#000] transition duration-150">Sign Up</Link></p>
+              <p>Don&apos;t have an account? <Link to="/signup" className="text-[#708c5a] border-b border-[#fcf8f0] hover:border-[#000] transition duration-150">Sign Up</Link></p>
             </div>
           </div>
           <img className="hidden lg:block w-[450px] rounded-xl" src="/Animalife.jpeg" alt="" />
