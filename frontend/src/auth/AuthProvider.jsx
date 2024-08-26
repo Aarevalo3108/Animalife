@@ -63,7 +63,6 @@ const AuthProvider = ({ children }) => {
     }
   }
   const checkAdmin = async (user) => {
-    console.log(user);
     try {
       const response = await axios.get(`${url.backend}/roles/${user.role}`);
       return response.data.docs[0].name === 'Admin';

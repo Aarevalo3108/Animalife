@@ -12,15 +12,11 @@ const OrderLayout = () => {
   const [order, setOrder] = useState({});
   const goTo = useNavigate();
   const auth = useAuth();
-  const user = auth.getUser();
 
   const getOrder = async () => {
     try {
       const response = await axios.get(`${url.backend}/purchases/${id}`);
       setOrder(response.data.docs[0]);
-      if(order.user != user._id) {
-        return <Navigate to="/profile" />
-      }
     } catch (error) {
       console.log(error);
     }
@@ -40,9 +36,9 @@ const OrderLayout = () => {
 
   return (
     <div className="flex flex-col justify-center items-center p-8 gap-8">
-      <h1 className="text-lg font-bold">Order ID: {id}</h1>
-      <h2 className="text-2xl">Order Details</h2>
-      <h2 className="text-2xl">Created on: {new Date(order.createdAt).toLocaleString()}</h2>
+      <h1 className="text-lg">Order ID: {id}</h1>
+      <h2 className="text-lg">Order Details</h2>
+      <h2 className="text-lg">Created on: {new Date(order.createdAt).toLocaleString()}</h2>
       <div className="flex flex-col justify-center items-center gap-4">
         {Object.keys(order).length && order.products.map((product) => (
           <ProductOrderCart key={product._id} obj={product} />

@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import colors from './utils/colors';
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import Home from "./components/pages/Home";
@@ -7,8 +8,11 @@ import Product from './components/pages/Product';
 import Profile from "./components/pages/Profile";
 import Admin from './components/pages/Admin';
 import AdminUsers from './components/pages/AdminUsers';
+import ViewUser from './components/pages/ViewUser';
 import AdminOrders from './components/pages/AdminOrders';
+import ViewOrder from './components/pages/ViewOrder';
 import AdminProducts from './components/pages/AdminProducts';
+import ViewProduct from './components/pages/ViewProduct';
 import AdminCategories from './components/pages/AdminCategories';
 import Cart from "./components/pages/Cart";
 import OrderLayout from './components/pages/OrderLayout';
@@ -29,7 +33,7 @@ const App = () => {
       <Router>
         <CartProvider>
           <Nav />
-          <main>
+          <main className={"bg-[" + colors.n6 + "] bg-[url('/svg/woodBG.svg')]"}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/shop" element={<Shop />} />
@@ -46,8 +50,11 @@ const App = () => {
                 <Route path="/" element={<AdminRoute />}>
                   <Route path="admin" element={<Admin />} />
                   <Route path="admin/users" element={<AdminUsers />} />
+                  <Route path="admin/users/:id" element={<ViewUser />} />
                   <Route path="admin/orders" element={<AdminOrders />} />
+                  <Route path="admin/orders/:id" element={<ViewOrder />} />
                   <Route path="admin/products" element={<AdminProducts />} />
+                  <Route path="admin/products/:id" element={<ViewProduct />} />
                   <Route path="admin/categories" element={<AdminCategories />} />
                 </Route>
               </Route>

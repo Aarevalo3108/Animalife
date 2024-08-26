@@ -96,7 +96,7 @@ const EditUser = () => {
         </button>
       </div>
       {image &&
-        <FileUpload/>
+        <FileUpload id={auth.getUser()._id}/>
       }
       {error && <p className="text-red-500">{error}</p>}
       <form className="grid grid-cols-1 lg:grid-cols-2 justify-center items-center gap-4 md:w-[300px] lg:w-[500px]" onSubmit={handleSubmit}>

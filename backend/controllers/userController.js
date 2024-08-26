@@ -17,7 +17,6 @@ export const hello = async (req, res) => {
 
 export const getUsers = async (req, res) => {
   try {
-    console.log(req.user)
     const users = await User.paginate({deleted: false}, options);
     return res.status(200).json(users);
   } catch (error) {
@@ -188,6 +187,13 @@ export const updateUser = async (req, res) => {
       }
       const salt = await bcrypt.genSalt(10);
       req.body.password = await bcrypt.hash(req.body.password, salt);
+    }
+    if(req.body.role){
+      const role = await Role.findOne({name: req.body.role, deleted: false});
+      if(!role){
+        return res.status(500).json({message: "Role not valid, check if role exists"})
+      }
+      req.body.role = role._id;
     }
     const user = await User.findByIdAndUpdate({_id: req.params.id, deleted: false}, req.body, {new: true});
     return res.status(200).json({user: getUserInfo(user)});

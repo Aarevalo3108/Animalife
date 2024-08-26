@@ -1,5 +1,6 @@
 import { useAuth } from "../../auth/AuthProvider"
 import url from "../../utils/urls";
+import colors from "../../utils/colors";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -45,15 +46,15 @@ const Profile = () => {
     <div className="flex flex-col justify-center items-center p-8 gap-8">
       <h1 className="text-3xl font-bold">User Profile</h1>
       <div className="flex flex-col justify-center items-center">
-        <div className="w-32 h-32 rounded-full">
+        <div className="w-40 h-40 rounded-full">
           <img className="w-full h-full object-cover rounded-full hover:scale-[2] transition-transform duration-300" src={url.backend+"/"+(user.image?user.image:"uploads/JoneDoe.png")} alt={user.name+" profile picture"} />
         </div>
         <h2 className="text-2xl">{user.name} {user.lastName}</h2>
         <p>Joined at: {dateFormat(user.createdAt)}</p>
       </div>
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col w-full gap-4 justify-center items-center">
         <h2 className="text-3xl font-bold">Order History</h2>
-        <div className="relative flex flex-col p-4 w-full min-h-32 max-h-96 overflow-y-auto">
+        <div className={"relative w-72 grid h-64 border-2 border-["+colors.n5+"] overflow-y-auto bg-["+colors.n1+"] px-4 py-2 rounded-lg gap-4"}>
           {orders.length > 0 && !loader && orders.map((order) => <OrderCart key={order._id} purchase={order} />)}
           {orders.length === 0 && !loader && <p>No orders yet</p>}
           {loader && <Loading />}

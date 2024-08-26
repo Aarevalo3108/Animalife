@@ -23,16 +23,20 @@ const ProductOrderCart = (obj) => {
   }, []);
 
   return (
-    <div className="rounded-xl bg-[#fcf8f0] flex items-center gap-4 p-4">
-      {data.images && <img className="w-32 h-32 rounded-lg" src={url.backend + "/" + (data.images[0] || "uploads/placeholder.svg")} alt="" />}
+    <>
+    {data &&
+      <div className="rounded-xl bg-[#fcf8f0] flex items-center gap-4 p-4">
+      {data.images && <img className="w-44 h-56 hover:scale-125 transition duration-300 object-cover rounded-lg" src={url.backend + "/" + (data.images[0] || "uploads/placeholder.svg")} alt="" />}
       <div className="flex flex-col w-64 md:w-96">
-        <h3 className="text-md flex flex-col max-w-32 md:max-w-96 text-ellipsis overflow-hidden">Name: <span className="text-[#433526] w-32 md:w-full">{data.name}</span></h3>
-        <p className="text-sm max-w-32 md:max-w-96 h-16 flex flex-col text-ellipsis overflow-hidden md:w-96 md:h-24">Description: <span className="text-[#433526] w-32 md:w-full">{data.description}</span></p>
-        <p className="text-sm">Quantity: {product.quantity}</p>
-        <p className="text-sm">Price: ${data.price}</p>
-        <p className="text-sm">Total: ${(data.price * product.quantity).toFixed(2)}</p>
+      <h3 className="text-md flex flex-col max-w-32 md:max-w-96 text-ellipsis overflow-hidden">Name: <span className="text-[#433526] w-32 md:w-full">{data.name}</span></h3>
+      <p className="text-sm max-w-32 md:max-w-96 h-16 flex flex-col text-ellipsis overflow-hidden md:w-96 md:h-24">Description: <span className="text-[#433526] w-32 md:w-full">{data.description}</span></p>
+      <p className="text-sm">Quantity: {product.quantity}</p>
+      <p className="text-sm">Price: ${data.price}</p>
+      <p className="text-sm">Total: ${(data.price * product.quantity).toFixed(2)}</p>
       </div>
-    </div>
+      </div>
+    }
+    </>
   )
 }
 

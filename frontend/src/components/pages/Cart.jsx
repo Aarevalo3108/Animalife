@@ -10,11 +10,12 @@ import axios from "axios"
 const Cart = () => {
   const auth = useAuth();
   const goTo = useNavigate();
-  const { cart, removeItem, addItem, resetCart } = useCart();
+  const { cart, removeItem, addItem, resetCart, addUser } = useCart();
   const [data, setData] = useState([]);
   const [total, setTotal] = useState(0);
   const [loader, setLoader] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [dataError, setDataError] = useState("");
   const getProduct = async (product) => {
     try {
       const response = await axios.get(`${url.backend}/product/${product._id}`);
@@ -56,13 +57,18 @@ const Cart = () => {
     window.scrollTo(0, 0);
     setSuccess(false);
     setLoader(true);
+    if(!auth.isAuthenticated){
+      goTo("/login");
+    }
+    addUser(auth.getUser()._id);
     try {
+      setDataError("");
       const response = await axios.post(`${url.backend}/purchases`, {
         user: cart.user,
         products: cart.products
       },{
         headers: {
-          Authorization: `Bearer ${auth.getAccessToken()}`
+          "Authorization": `Bearer ${auth.getAccessToken()}`
         }
       });
       if(response.status === 201) {
@@ -74,6 +80,7 @@ const Cart = () => {
         }, 5000);
       }
     } catch (error) {
+      setDataError(error.response.data.message);
       console.log(error);
     }
     setLoader(false);
@@ -89,10 +96,11 @@ const Cart = () => {
     { !success &&
       <div className={"p-4 grid justify-items-center gap-4" + (loader ? "opacity-75" : "")}>
         <h1 className="text-3xl">Cart Details.</h1>
-        <div className="flex flex-col gap-4 min-h-[85vh]">
+        {dataError && <p className="text-red-500 text-lg">Error: {dataError}!</p>}
+        <div className="flex flex-col gap-4 min-h-[300px]">
           {!loader && data && data.length > 0 ? (
             data.map((product, i) => (
-            <div key={product._id} className=" relative bg-[#f2f2f2] gap-4 px-4 py-2 rounded-lg grid grid-cols-4 items-center">
+            <div key={product._id} className={" relative bg-[#f2f2f2] gap-4 px-4 py-2 rounded-lg grid grid-cols-4 items-center" + (loader ? " opacity-75" : "")}>
               <h2 className="truncate col-span-4">{product.name}</h2>
               <div className="flex flex-col items-center col-span-2 gap-2">
                 <img className="min-w-32 w-[20wh] max-w-96 h-[20vh] min-h-32 max-h-96 object-cover" src={url.backend + "/" + product.images[0]} alt={product.name} />
@@ -120,7 +128,7 @@ const Cart = () => {
             </div>
           ))
           ) : (
-            loader && !success ? <Loading /> : <p className="place-self-center">Cart is empty</p>
+            loader ? <Loading /> : <p className="place-self-center">Cart is empty</p>
           )}
         </div>
         {data.length > 0 &&
