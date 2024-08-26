@@ -38,8 +38,8 @@ const Product = () => {
     <div className="bg-[url('/Animalife.jpeg')] bg-cover bg-center min-h-[85vh]">
       <div className="bg-[rgba(0,0,0,0.6)] min-h-[85vh] p-4 flex flex-col items-center justify-center">
         {product.images &&
-        <div className="grid md:grid-cols-2 justify-items-center gap-4 bg-[#f2e0c2] rounded-xl p-4 relative">
-          <Link to="/shop" className="place-self-start absolute top-4 left-4 bg-[#433526] text-[#e4b972] p-2 rounded-xl hover:bg-[#e4b972] hover:text-[#433526] transition duration-150">
+        <div className="grid md:grid-cols-2 justify-items-center gap-4 bg-[#f2e0c2] bg-[url('/svg/woodBG.svg')] rounded-xl p-4 relative">
+          <Link to="/shop" className="place-self-start absolute top-4 left-4 bg-[#433526] text-[#e4b972] hover:scale-110 p-2 rounded-xl hover:bg-[#e4b972] hover:text-[#433526] transition duration-150">
             <img className="w-8 h-8" src="/svg/goBack.svg" alt="left-arrow" />
           </Link>
           <img className="min-h-[300px] max-h-[600px] object-cover rounded-xl bg-[#e4b972]" src={url.backend + "/" + product.images[0]} alt="" />

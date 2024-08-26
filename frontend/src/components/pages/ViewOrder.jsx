@@ -16,7 +16,13 @@ const ViewOrder = () => {
 
   const getOrder = async () => {
     try {
-      const response = await axios.get(`${url.backend}/purchases/${id}`);
+      const response = await axios.get(`${url.backend}/purchases/${id}`,
+        {
+          headers: {
+            "Authorization": `Bearer ${auth.getAccessToken()}`
+          },
+        }
+      );
       setOrder(response.data.docs[0]);
       getUser(response.data.docs[0].user);
     } catch (error) {

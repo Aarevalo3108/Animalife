@@ -39,14 +39,14 @@ const Shop = () => {
     <div className="bg-[url(/Animalife.jpeg)] bg-cover bg-center">
       <div className="flex flex-col py-8 min-h-[85vh] bg-[rgba(0,0,0,0.6)] gap-4">
         <div className="relative grid grid-cols-1 md:grid-cols-12 justify-items-center align-content-center">
-          <div className="absolute top-0 left-0">
+          <div className="absolute top-[-2rem] left-0">
             <Filters className={""} category={category} setCategory={setCategory} name={name} setName={setName} />
           </div>
-          <div id="products" className="p-4 md:col-span-9 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 overflow-y-auto h-[80vh] min-h-[400px] max-h-[850px] w-full">
+          <div id="products" className="p-4 md:col-span-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 overflow-y-auto h-[80vh] min-h-[400px] max-h-[850px] w-full">
             {products && !loading && products.map((product) => (
               <ProductCard key={product._id} product={product} />
             ))}
-            {products.length === 0 && !loading && <p className="md:col-span-9 place-self-center text-xl text-[#f2e0c2]">No products found</p>}
+            {products.length === 0 && !loading && <p className="col-span-2 md:col-span-3 lg:col-span-4 place-self-center text-xl text-[#f2e0c2]">No products found</p>}
             {loading && <Loading />}
           </div>
         </div>

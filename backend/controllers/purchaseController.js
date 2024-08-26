@@ -1,5 +1,6 @@
 import Purchase from "../models/purchaseModel.js";
 import User from "../models/userModel.js";
+import Role from "../models/roleModel.js";
 import checkProducts from "../tools/checkProducts.js";
 import options from "../tools/options.js";
 import transporter from "../tools/mailAdapter.js";
@@ -21,7 +22,15 @@ export const getPurchases = async (req, res) => {
 export const getPurchaseById = async (req, res) => {
   try {
     const purchase = await Purchase.paginate({deleted: false, _id: req.params.id}, options);
-    res.json(purchase);
+    const role = await Role.findById(req.user.role);
+    if(role.name === "Admin") {
+      res.status(200).json(purchase);
+    }
+    if(purchase.docs[0].user != req.user._id) {
+      console.log("Unauthorized, user trying to access another user's purchase");
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+    res.status(200).json(purchase);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
@@ -41,6 +50,9 @@ export const getPurchaseByUser = async (req, res) => {
 
 export const createPurchase = async (req, res) => {
   try {
+    if(req.user._id !== req.body.user) {
+      return res.status(401).json({ message: "Unauthorized, user trying create another user's purchase" });
+    }
     const user = await User.findById(req.body.user);
     if (!user) {
       return res.status(404).json({ message: "User not found" });

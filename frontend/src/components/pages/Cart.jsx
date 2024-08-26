@@ -10,7 +10,7 @@ import axios from "axios"
 const Cart = () => {
   const auth = useAuth();
   const goTo = useNavigate();
-  const { cart, removeItem, addItem, resetCart, addUser } = useCart();
+  const { cart, removeItem, addItem, resetCart } = useCart();
   const [data, setData] = useState([]);
   const [total, setTotal] = useState(0);
   const [loader, setLoader] = useState(false);
@@ -60,7 +60,6 @@ const Cart = () => {
     if(!auth.isAuthenticated){
       goTo("/login");
     }
-    addUser(auth.getUser()._id);
     try {
       setDataError("");
       const response = await axios.post(`${url.backend}/purchases`, {

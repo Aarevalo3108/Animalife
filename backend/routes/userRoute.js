@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import authenticate from '../auth/authenticate.js';
+import {authenticate, adminAuthenticate} from '../auth/authenticate.js';
 import userUpload from '../tools/userImgUpload.js';
 const router = Router();
 
@@ -7,8 +7,8 @@ import {hello, createUser, getUsers, getUserById, updateUser, deleteUser, submit
 
 
 router.get("/", hello);
-router.get("/users", authenticate, getUsers);
-router.get("/users/:id", authenticate, getUserById);
+router.get("/users", authenticate,adminAuthenticate, getUsers);
+router.get("/users/:id", authenticate,adminAuthenticate, getUserById);
 router.post("/users", createUser);
 router.get("/userdata", authenticate, userData);
 router.post("/login", authUser);

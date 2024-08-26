@@ -50,7 +50,7 @@ const AuthProvider = ({ children }) => {
         }
       });
       if(response.status === 200) {
-        const check = await checkAdmin(response.data);
+        const check = await checkAdmin(response.data, accessToken);
         setIsAdmin(check);
         return response.data
       }
@@ -62,9 +62,13 @@ const AuthProvider = ({ children }) => {
       return null
     }
   }
-  const checkAdmin = async (user) => {
+  const checkAdmin = async (user, Token) => {
     try {
-      const response = await axios.get(`${url.backend}/roles/${user.role}`);
+      const response = await axios.get(`${url.backend}/roles/${user.role}`, {
+        headers: {
+          "Authorization": `Bearer ${Token}`
+        }
+      });
       return response.data.docs[0].name === 'Admin';
     } catch (error) {
       console.log(error);

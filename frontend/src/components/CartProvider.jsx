@@ -19,6 +19,9 @@ const CartProvider = ({children}) => {
   }
 
   const addItem = (item) => {
+    if(auth.isAuthenticated){
+      addUser(auth.getUser()._id);
+    }
     const newCartItemNoRepeat = cart.products.find(product => product._id === item._id)
     if (newCartItemNoRepeat) {
       const newCart = {...cart}

@@ -5,7 +5,7 @@ import options from "../tools/options.js";
 import regex from "../tools/regex.js";
 import getUserInfo from "../tools/getUserInfo.js";
 import getTokenFromHeader from "../auth/getTokenFromHeader.js";
-import { verifyAccessToken, verifyRefreshToken } from "../auth/verifyTokens.js";
+import { verifyRefreshToken } from "../auth/verifyTokens.js";
 import Token from "../models/tokenModel.js";
 import { generateAccessToken } from "../auth/generateToken.js";
 import transporter from "../tools/mailAdapter.js";
@@ -194,6 +194,15 @@ export const updateUser = async (req, res) => {
         return res.status(500).json({message: "Role not valid, check if role exists"})
       }
       req.body.role = role._id;
+    }
+    const role = await Role.findById(req.user.role);
+    if(role.name === "Admin"){
+      const user = await User.findByIdAndUpdate({_id: req.params.id, deleted: false}, req.body, {new: true});
+      return res.status(200).json({user: getUserInfo(user)});
+    }
+    if(req.user._id != req.params.id){
+      console.log("Unauthorized, user trying to access another user's data \n user id: ", req.user._id, "params id: ", req.params.id);
+      return res.status(401).json({message: "Unauthorized"});
     }
     const user = await User.findByIdAndUpdate({_id: req.params.id, deleted: false}, req.body, {new: true});
     return res.status(200).json({user: getUserInfo(user)});
