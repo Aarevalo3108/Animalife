@@ -185,6 +185,10 @@ const ViewUser = () => {
             Password:
             <input className="px-4 py-2 rounded-lg" type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Leave blank to keep the same"/>
           </label>
+          {password && <label className="flex flex-col w-full">
+            Confirm Password:
+            <input className="px-4 py-2 rounded-lg" type="password" id="confirmPassword" name="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+          </label>}
           <label className="flex items-center gap-4 w-full">
             Active:
             <input disabled={auth.getUser()._id === user._id} className="px-4 py-2 rounded-lg w-4 h-4" type="checkbox" id="deleted" name="deleted" checked={!user.deleted} onChange={(e) => setUser({...user, deleted: !e.target.checked})} />
@@ -197,10 +201,6 @@ const ViewUser = () => {
               </select>
             }
           </label>
-          {password && <label className="flex flex-col w-full">
-            Confirm Password:
-            <input className="px-4 py-2 rounded-lg" type="password" id="confirmPassword" name="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-          </label>}
           <div className="flex gap-4 p-4">
             <button className={"col-span-2 self-center cursor-pointer w-32 bg-["+colors.n2+"] text-["+colors.n5+"] p-2 rounded-xl hover:bg-["+colors.n5+"] hover:text-["+colors.n1+"] hover:scale-105 transition duration-150"} onClick={() => goTo("/admin/users")}>Cancel</button>
             <input type="submit" value="Save" className={"col-span-2 self-center cursor-pointer w-32 bg-["+colors.n5+"] text-["+colors.n1+"] p-2 rounded-xl hover:bg-["+colors.n2+"] hover:text-["+colors.n5+"] hover:scale-105 transition duration-150"}/>

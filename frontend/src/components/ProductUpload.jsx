@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import { useAuth } from '../auth/AuthProvider';
 import PropTypes from 'prop-types';
+import Loading from './Loading';
 import axios from 'axios';
 import url from '../utils/urls';
+import colors from '../utils/colors';
 
 const ProductUpload = ({ id }) => {
     const [selectedProduct, setSelectedProduct] = useState([]);
     const [successfulUpload, setSuccessfulUpload] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [previews, setPreviews] = useState([]);
     const auth = useAuth();
@@ -20,16 +23,29 @@ const ProductUpload = ({ id }) => {
     };
 
     const handleSubmit = async (event) => {
+        window.scrollTo(0, 0);
         setError(null);
         setSuccessfulUpload(false);
+        setLoading(true);
         event.preventDefault();
         const formData = new FormData();
         selectedProduct.forEach(file => {
             formData.append('files', file);
         });
 
+        if(selectedProduct.length === 0) {
+            setLoading(false);
+            setError('Please select at least one image');
+            return;
+        }
+        if(selectedProduct.length > 5) {
+            setLoading(false);
+            setError('No more than 5 images can be uploaded');
+            return;
+        }
+
         try {
-            const response = await axios.patch(`${url.backend}/product/img/${id}`, formData, {
+            const response = await axios.patch(`${url.backend}/product/imgs/${id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     "Authorization": `Bearer ${auth.getAccessToken()}`,
@@ -37,6 +53,7 @@ const ProductUpload = ({ id }) => {
             });
             setSuccessfulUpload(true);
             console.log(response.data);
+            setLoading(false);
             setTimeout(() => {
               window.location.reload();
             }, 2000);
@@ -44,19 +61,22 @@ const ProductUpload = ({ id }) => {
             setError(error);
             console.error('Error uploading the file:', error);
         }
+
+        setLoading(false);
     };
 
     return (
         <form className='flex flex-col gap-2 items-center justify-center' onSubmit={handleSubmit}>
-            <input className='p-2 rounded-xl bg-[#fcf8f0]' type="file" multiple onChange={handleProductSelect} />
+            {error && <p className="text-red-500 text-sm">Error: {error.message || error}</p>}
+            {successfulUpload && <p className="text-green-500 text-sm">Img uploaded successfully!</p>}
+            <input className={'p-2 rounded-xl bg-['+colors.n1+']'} type="file" multiple onChange={handleProductSelect} />
             <div className='flex gap-2'>
                 {previews.map((preview, index) => (
                     <img key={index} src={preview} alt="Preview" className='w-16 h-16 object-cover rounded' />
                 ))}
             </div>
-            <button className="bg-[#433526] text-[#f2e0c2] px-2 py-1 rounded-xl hover:bg-[#f2e0c2] hover:text-[#433526] transition duration-150 w-32" type="submit">Upload</button>
-            {successfulUpload && <p>Img uploaded successfully!</p>}
-            {error && <p>Error: {error.message}</p>}
+            {selectedProduct.length > 0 && <button className={"bg-["+colors.n5+"] text-["+colors.n1+"] px-2 py-1 rounded-xl hover:bg-["+colors.n1+"] hover:text-["+colors.n5+"] transition duration-150 w-32"} type="submit">Upload</button>}
+            {loading && <Loading />}
         </form>
     );
 };

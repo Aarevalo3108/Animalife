@@ -18,7 +18,13 @@ const Cart = () => {
   const [dataError, setDataError] = useState("");
   const getProduct = async (product) => {
     try {
-      const response = await axios.get(`${url.backend}/product/${product._id}`);
+      const response = await axios.get(`${url.backend}/product/${product._id}`,
+        {
+          headers: {
+            "role": auth.getUser().role || "unknown",
+          }
+        }
+      );
       return response.data.docs[0];
     } catch (error) {
       console.log(error);
@@ -62,6 +68,7 @@ const Cart = () => {
     }
     try {
       setDataError("");
+      console.log(cart.user, cart.products);
       const response = await axios.post(`${url.backend}/purchases`, {
         user: cart.user,
         products: cart.products

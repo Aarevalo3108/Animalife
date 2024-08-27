@@ -27,6 +27,7 @@ import axios from "axios";
 import url from "../../utils/urls";
 import { useNavigate, Navigate, Link } from "react-router-dom";
 import ProductUpload from "../ProductUpload";
+import ImagesHandler from "../ImagesHandler";
 
 
 const ViewProduct = () => {
@@ -59,7 +60,7 @@ const ViewProduct = () => {
       const response = await axios.patch(`${url.backend}/product/${product._id}`, data, {
         headers: {
           "Authorization": `Bearer ${auth.getAccessToken()}`,
-          "Role": `${auth.getUser().role}`,
+          "role": auth.getUser().role || "unknown",
         },
       });
       if (response.status === 200) {
@@ -79,7 +80,8 @@ const ViewProduct = () => {
     try {
       const response = await axios.get(`${url.backend}/product/${id}`, {
         headers: {
-          "Authorization": `Bearer ${auth.getAccessToken()}`
+          "Authorization": `Bearer ${auth.getAccessToken()}`,
+          "role": `${auth.getUser().role || "unknown"}`,
         },
       });
       if (response.status === 200) {
@@ -127,9 +129,9 @@ const ViewProduct = () => {
       <Link to="/admin/products"><img className="h-6 w-6" src="/svg/leftArrow.svg" alt="Go Back" /></Link>
         Product Details
       </h1>
-      <div className="w-64 h-64 rounded-full relative">
-        <img className="h-full w-full object-cover rounded-lg hover:opacity-75 hover:cursor-pointer" src={url.backend+"/"+(product.images?product.images[0]:"uploads/placeholder.svg")} alt={product.name+" profile picture"} />
-        <button className="absolute bottom-0 right-0 bg-white p-2 rounded-full hover:opacity-75 hover:cursor-pointer" onClick={() => setImage(!image)}>
+      <div className="w-64 rounded-full relative">
+        {product.images && <ImagesHandler images={product.images} />}
+        <button className="absolute bottom-12 right-4 bg-white p-2 rounded-full hover:opacity-75 hover:cursor-pointer" onClick={() => setImage(!image)}>
           <img src="/svg/edit.svg" alt="Edit" />
         </button>
       </div>
@@ -158,9 +160,9 @@ const ViewProduct = () => {
           </label>
           <label className="flex flex-col w-full">
             Category:
-            <select className="px-4 py-2 rounded-lg" id="category" name="category" value={product.category} onChange={(e) => setProduct({...product, category: e.target.value})}>
+            <select className="px-4 py-2 rounded-lg" id="category" name="category" value={category} onChange={(e) => setCategory(e.target.value)}>
               {categories.map((cat) => (
-                <option key={cat._id} value={cat._id}>{cat.name}</option>
+                <option key={cat._id} value={cat.name}>{cat.name}</option>
               ))}
             </select>
           </label>

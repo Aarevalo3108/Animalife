@@ -1,5 +1,6 @@
 import Product from "../models/productModel.js";
 import Category from "../models/categoryModel.js";
+import Role from "../models/roleModel.js";
 import options from "../tools/options.js";
 import regex from "../tools/regex.js";
 
@@ -7,18 +8,33 @@ export const getProducts = async (req, res) => {
   try {
     options.page = Number(req.query.page) || 1;
     options.limit = Number(req.query.limit) || 12;
+    options.sort = req.query.sort || '-createdAt';
+    if(req.headers.role) {
+      const adminRole = await Role.findById(req.headers.role);
+      if(adminRole.name === "Admin") {
+        const products = await Product.paginate({}, options);
+        return res.status(200).json(products);
+      }
+    }
     const products = await Product.paginate({deleted: false}, options);
-    res.json(products);
+    return res.status(200).json(products);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 }
 
 export const getProductById = async (req, res) => {
   try {
+    if(req.headers.role) {
+      const adminRole = await Role.findById(req.headers.role);
+      if(adminRole.name === "Admin") {
+        const product = await Product.paginate({_id: req.params.id}, options);
+        return res.status(200).json(product);
+      }
+    }
     const product = await Product.paginate({deleted: false, _id: req.params.id}, options);
-    res.json(product);
+    return res.json(product);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
@@ -26,7 +42,9 @@ export const getProductById = async (req, res) => {
 }
 
 export const searchProducts = async (req, res) => {
-  options.page = parseInt(req.query.page) || 1;
+  options.page = Number(req.query.page) || 1;
+  options.limit = Number(req.query.limit) || 12;
+  options.sort = req.query.sort || '-createdAt';
   const searchCriteria = [];
   const searchOptions = {
     deleted: false,
@@ -64,7 +82,7 @@ export const createProduct = async (req, res) => {
     if (!categoryExists) {
       return res.status(404).json({ message: "Category not found, check name" });
     }
-    req.body.category = categoryExists[0]._id;
+    req.body.category = categoryExists._id;
     const product = new Product(req.body);
     await product.save();
     const paginatedProduct = await Product.paginate({_id: product._id, deleted: false}, options);
@@ -91,8 +109,8 @@ export const updateProduct = async (req, res) => {
       }
       req.body.category = categoryExists[0]._id;
     }
-    const product = await Product.findByIdAndUpdate({_id: req.params.id, deleted: false}, req.body, {new: true});
-    const paginatedProduct = await Product.paginate({_id: product._id, deleted: false}, options);
+    const product = await Product.findByIdAndUpdate({_id: req.params.id}, req.body, {new: true});
+    const paginatedProduct = await Product.paginate({_id: product._id}, options);
     res.json(paginatedProduct);
   } catch (error) {
     console.log(error);
@@ -115,8 +133,8 @@ export const submitImg = async (req, res) => {
       }
       imgsArray.push(file.path);
     });
-    const product = await Product.findByIdAndUpdate({_id: req.params.id, deleted: false}, {images: imgsArray}, {new: true});
-    const paginated = await Product.paginate({_id: product._id, deleted: false}, options);
+    const product = await Product.findByIdAndUpdate({_id: req.params.id}, {images: imgsArray}, {new: true});
+    const paginated = await Product.paginate({_id: product._id}, options);
     res.status(201).json(paginated);
   } catch (error) {
     console.log(error);

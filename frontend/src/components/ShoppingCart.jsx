@@ -5,15 +5,23 @@ import url from '../utils/urls';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useCart } from './CartProvider';
+import { useAuth } from '../auth/AuthProvider';
 import Loading from './Loading';
 
 const ShoppingCart = ({ className, showCart, setShowCart }) => {
-  const { cart, removeItem } = useCart();
+  const { cart, removeItem, addUser } = useCart();
+  const auth = useAuth();
   const [data, setData] = useState([]);
   const [loader, setLoader] = useState(false);
   const getProduct = async (product) => {
     try {
-      const response = await axios.get(`${url.backend}/product/${product._id}`);
+      const response = await axios.get(`${url.backend}/product/${product._id}`,
+        {
+          headers: {
+            "role": auth.getUser().role || "unknown",
+          }
+        }
+      );
       return response.data.docs[0];
     } catch (error) {
       console.log(error);
@@ -58,7 +66,7 @@ const ShoppingCart = ({ className, showCart, setShowCart }) => {
           loader ? <Loading /> : <p className="place-self-center">{showCart ? "Cart is empty" : " "}</p>
         )}
       </div>
-      <Link className="place-self-center px-2 py-1 rounded-lg border-2 border-[#aa7e5d] bg-[#f2e0c2] hover:bg-[#aa7e5d] hover:text-[#f2e0c2] transition duration-150" to="/cart" onClick={() => setShowCart(false)}>View Details</Link>
+      <Link className="place-self-center px-2 py-1 rounded-lg border-2 border-[#aa7e5d] bg-[#f2e0c2] hover:bg-[#aa7e5d] hover:text-[#f2e0c2] transition duration-150" to="/cart" onClick={() => {setShowCart(false);addUser(auth.getUser()._id)}}>View Details</Link>
     </div>
   );
 };

@@ -17,7 +17,10 @@ export const hello = async (req, res) => {
 
 export const getUsers = async (req, res) => {
   try {
-    const users = await User.paginate({deleted: false}, options);
+    options.page = Number(req.query.page) || 1;
+    options.limit = Number(req.query.limit) || 12;
+    options.sort = req.query.sort || '-createdAt';
+    const users = await User.paginate({}, options);
     return res.status(200).json(users);
   } catch (error) {
     console.log(error);
@@ -28,7 +31,7 @@ export const getUsers = async (req, res) => {
 
 export const getUserById = async (req, res) => {
   try {
-    const user = await User.paginate({_id: req.params.id, deleted: false}, options);
+    const user = await User.paginate({_id: req.params.id}, options);
     return res.status(200).json(user);
   } catch (error) {
     console.log(error);
@@ -73,10 +76,10 @@ export const createUser = async (req, res) => {
       text: `Hello ${req.body.name} ${req.body.lastName}! Welcome to Animalife. Your account was created successfully.`
     }
     const mail = await transporter.sendMail(mailOptions);
-    console.log(`Message sent: ${mail.messageId}`);
+    console.log(`Message sent: ${mail.messageId} \n: to: ${req.body.email}`);
     await user.save();
     const paginatedUser = await User.paginate({deleted: false, _id: user._id}, options);
-    return res.status(201).json({paginatedUser});
+    return res.status(201).json(paginatedUser);
   } catch (error) {
     console.log(error);
     return res.status(400).json({message: error.message});
@@ -197,14 +200,14 @@ export const updateUser = async (req, res) => {
     }
     const role = await Role.findById(req.user.role);
     if(role.name === "Admin"){
-      const user = await User.findByIdAndUpdate({_id: req.params.id, deleted: false}, req.body, {new: true});
+      const user = await User.findByIdAndUpdate({_id: req.params.id}, req.body, {new: true});
       return res.status(200).json({user: getUserInfo(user)});
     }
     if(req.user._id != req.params.id){
       console.log("Unauthorized, user trying to access another user's data \n user id: ", req.user._id, "params id: ", req.params.id);
       return res.status(401).json({message: "Unauthorized"});
     }
-    const user = await User.findByIdAndUpdate({_id: req.params.id, deleted: false}, req.body, {new: true});
+    const user = await User.findByIdAndUpdate({_id: req.params.id}, req.body, {new: true});
     return res.status(200).json({user: getUserInfo(user)});
   } catch (error) {
     console.log(error);

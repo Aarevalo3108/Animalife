@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { useAuth } from "../../auth/AuthProvider"
 import { Link } from "react-router-dom"
+import AddNew from "../AddNew";
 import Loading from "../Loading"
 import url from "../../utils/urls"
 import axios from "axios"
@@ -17,7 +18,7 @@ const AdminProducts = () => {
     const { data } = await axios.get(`${url.backend}/product`, {
       headers: {
         "Authorization": `Bearer ${auth.getAccessToken()}`,
-        "Role": `${auth.getUser().role}`,
+        "role": auth.getUser().role || "unknown",
       },
     })
     setProducts(data.docs)
@@ -41,7 +42,10 @@ const AdminProducts = () => {
         Products Panel
       </h1>
       <div className="grid justify-items-center gap-8">
-        <h2 className="text-2xl">Products</h2>
+      <div className="flex items-center gap-4">
+          <h2 className="text-2xl">All Products</h2>
+          <AddNew type="product" />
+        </div>
         <div id="products" className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 min-h-[50vh]">
           {products && products.map((product) => (
             <ProductAdminCard key={product._id} product={product} />

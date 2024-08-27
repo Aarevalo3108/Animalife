@@ -89,7 +89,7 @@ const EditUser = () => {
   return (
     <div className="min-h-[85vh] flex flex-col justify-center items-center gap-4 p-8">
       <h1 className="text-3xl font-bold">Edit User</h1>
-      <div className="w-32 h-32 rounded-full relative">
+      <div className="w-40 h-40 rounded-full relative">
         <img className="h-full w-full object-cover rounded-full hover:opacity-75 hover:cursor-pointer" src={url.backend+"/"+(user.image?user.image:"uploads/JoneDoe.png")} alt={user.name+" profile picture"} />
         <button className="absolute bottom-0 right-0 bg-white p-2 rounded-full hover:opacity-75 hover:cursor-pointer" onClick={() => setImage(!image)}>
           <img src="/svg/edit.svg" alt="Edit" />

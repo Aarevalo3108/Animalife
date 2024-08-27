@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { useAuth } from "../../auth/AuthProvider"
 import { Link } from "react-router-dom"
+import AddNew from "../AddNew";
 import Loading from "../Loading"
 import url from "../../utils/urls"
 import axios from "axios"
@@ -42,7 +43,10 @@ const AdminUsers = () => {
       </h1>
 
       <div className="grid justify-items-center gap-8">
-        <h2 className="text-2xl">Users</h2>
+        <div className="flex items-center gap-4">
+          <h2 className="text-2xl">Users</h2>
+          <AddNew type="user" />
+        </div>
         <div id="users" className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 min-h-[50vh]">
           {users && users.map((user) => (
             <UserAdminCard key={user._id} user={user} />

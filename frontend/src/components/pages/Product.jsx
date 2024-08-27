@@ -1,21 +1,34 @@
 import { useParams, Link } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { useCart } from "../CartProvider"
+import { useAuth } from "../../auth/AuthProvider"
+import Loading from "../Loading"
+import ImagesHandler from "../ImagesHandler"
 import axios from "axios"
 import url from "../../utils/urls"
 
 
 const Product = () => {
   const { id } = useParams();
+  const auth = useAuth();
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
+  const [loading, setLoading] = useState(true);
 
   const { addItem } = useCart();
 
   const getData = async () => {
     try {
-      const response = await axios.get(`${url.backend}/product/${id}`);
+      setLoading(true);
+      const response = await axios.get(`${url.backend}/product/${id}`,
+        {
+          headers: {
+            "role": auth.getUser().role || "unknown",
+          }
+        }
+      );
       setProduct(response.data.docs[0]);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -37,12 +50,11 @@ const Product = () => {
   return (
     <div className="bg-[url('/Animalife.jpeg')] bg-cover bg-center min-h-[85vh]">
       <div className="bg-[rgba(0,0,0,0.6)] min-h-[85vh] p-4 flex flex-col items-center justify-center">
-        {product.images &&
-        <div className="grid md:grid-cols-2 justify-items-center gap-4 bg-[#f2e0c2] bg-[url('/svg/woodBG.svg')] rounded-xl p-4 relative">
+        <div className="grid w-full md:grid-cols-2 justify-items-center gap-4 bg-[#f2e0c2] bg-[url('/svg/woodBG.svg')] rounded-xl p-4 relative">
           <Link to="/shop" className="place-self-start absolute top-4 left-4 bg-[#433526] text-[#e4b972] hover:scale-110 p-2 rounded-xl hover:bg-[#e4b972] hover:text-[#433526] transition duration-150">
             <img className="w-8 h-8" src="/svg/goBack.svg" alt="left-arrow" />
           </Link>
-          <img className="min-h-[300px] max-h-[600px] object-cover rounded-xl bg-[#e4b972]" src={url.backend + "/" + product.images[0]} alt="" />
+          {product.images && <ImagesHandler images={product.images} className="h-96 w-64" />}
           <div className="flex flex-col md:justify-center gap-4 md:gap-8 p-2">
             <h1 className="text-3xl">{product.name}</h1>
             <p className="text-md">Description: {product.description}</p>
@@ -56,7 +68,7 @@ const Product = () => {
             </div>
           </div>
         </div>
-        }
+        {loading && <Loading />}
       </div>
     </div>
   )

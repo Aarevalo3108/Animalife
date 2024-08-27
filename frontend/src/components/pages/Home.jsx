@@ -3,14 +3,22 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import url from "../../utils/urls";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../auth/AuthProvider";
 
 
 
 const Home = () => {
   const [products, setProducts] = useState([]);
+  const auth = useAuth();
   const getProducts = async () => {
     try{
-      const response = await axios.get(`${url.backend}/product`);
+      const response = await axios.get(`${url.backend}/product?sort=-sales`,
+        {
+          headers: {
+            "role": `${auth.getUser().role || 'unknown'}`,
+          },
+        }
+      );
       setProducts(response.data.docs);
     }
     catch(error){
@@ -19,6 +27,7 @@ const Home = () => {
   };
   useEffect(() => {
     getProducts();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>

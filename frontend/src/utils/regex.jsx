@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 const regex = {
   name: /^[A-Za-zñÑáÁéÉíÍóÓúÚ\s]{3,100}$/,
   lastName: /^[A-Za-zñÑáÁéÉíÍóÓúÚ\s]{3,100}$/,

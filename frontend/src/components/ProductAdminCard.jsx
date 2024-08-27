@@ -36,7 +36,7 @@ const ProductAdminCard = ({product}) => {
         <img className="h-4 w-4" src="/svg/copy.svg" alt="copy" />
       </p>
       <Link className="w-full h-full cursor-pointer flex justify-center" to={`/admin/products/${product._id}`}>
-        <img className="h-48 w-40 object-cover rounded-full" src={url.backend + "/" + (product.images[0] ? product.images[0] : "uploads/placeholder.svg")} alt={product.name} />
+        <img className="h-48 w-40 object-cover rounded-lg" src={url.backend + "/" + (product.images[0] ? product.images[0] : "uploads/placeholder.svg")} alt={product.name} />
       </Link>
       <h3 className="text-md font-bold">{product.name}</h3>
       <p className="text-sm">On Stock: {product.quantity}</p>

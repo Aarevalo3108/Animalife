@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 import {useAuth} from "../../auth/AuthProvider";
-import {Link, Navigate, useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 import url from "../../utils/urls";
 const Login = () => {

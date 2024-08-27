@@ -1,5 +1,4 @@
 import { useContext, createContext, useState, useEffect } from "react"
-import { useAuth } from "../auth/AuthProvider";
 import PropTypes from 'prop-types';
 
 const CartContext = createContext({
@@ -11,17 +10,13 @@ const CartContext = createContext({
 })
 
 const CartProvider = ({children}) => {
-  const auth = useAuth()
-  const [cart, setCart] = useState(localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : {user: (auth.isAuthenticated ? auth.getUser()._id : null), products: []})
+  const [cart, setCart] = useState(localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : {user: null, products: []})
 
   const addUser = (id) => {
     setCart({...cart, user: id})
   }
 
   const addItem = (item) => {
-    if(auth.isAuthenticated){
-      addUser(auth.getUser()._id);
-    }
     const newCartItemNoRepeat = cart.products.find(product => product._id === item._id)
     if (newCartItemNoRepeat) {
       const newCart = {...cart}

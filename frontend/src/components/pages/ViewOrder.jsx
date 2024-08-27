@@ -80,16 +80,16 @@ const ViewOrder = () => {
       </h1>
       <h2 className="text-lg">Order ID: {id}</h2>
       {user &&
-      <div className={"p-4 gap-y-4 grid justify-items-center align-content-center grid-cols-2 rounded-xl shadow-lg bg-[" + colors.n2 + "]"}>
-        <img className="h-40 w-40 object-cover rounded-full place-self-center shadow-xl" src={url.backend +"/"+ (user.image ? user.image : "uploads/JoneDoe.png")} alt="Order" />
+      <div className={"p-4 gap-y-4 grid justify-items-center align-content-center md:grid-cols-2 rounded-xl shadow-lg bg-[" + colors.n2 + "]"}>
+        <img className="h-40 w-40 col-span-2 md:col-span-1 object-cover rounded-full place-self-center shadow-xl" src={url.backend +"/"+ (user.image ? user.image : "uploads/JoneDoe.png")} alt="Order" />
         <div className="flex flex-col justify-center gap-2">
-        <h2 className="flex flex-col text-lg">Order made by:
-          <span className="text-md">{user.name} {user.lastName}.</span>
-        </h2>
-        <h2 className="text-lg flex flex-col">
-          Email:
-          <span className="text-md">{user.email}</span>
-        </h2>
+          <h2 className="flex flex-col text-lg">Order made by:
+            <span className="text-md">{user.name} {user.lastName}.</span>
+          </h2>
+          <h2 className="text-lg flex flex-col">
+            Email:
+            <span className="text-md">{user.email}</span>
+          </h2>
         </div>
         <Link to={`/admin/users/${user._id}`} className={"col-span-2 hover:scale-105 transition duration-300  bg-[" + colors.n5 + "] text-[" + colors.n1 + "] px-6 py-1 hover:bg-[" + colors.n2 + "] hover:text-[" + colors.n5 + "] rounded-full"}>View Profile</Link>
       </div>

@@ -8,6 +8,12 @@ const checkProducts = async (array) => {
   if (!records.length || records.length !== onlyIDs.length) {
     return { message: "Product or products not found, check IDs", found: false };
   }
+  // add sales to products (items bought) and reduce quantity in stock
+  for (let i = 0; i < records.length; i++) {
+    records[i].sales += onlyQuantity[i];
+    records[i].quantity -= onlyQuantity[i];
+    await records[i].save();
+  }
   const productsData = {
     found: true,
     names: records.map((obj) => obj.name).join(", "),
