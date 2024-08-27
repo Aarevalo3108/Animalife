@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import colors from './utils/colors';
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import Home from "./components/pages/Home";
@@ -39,7 +38,7 @@ const App = () => {
       <Router>
         <CartProvider>
           <Nav background={"bg-[url(/svg/Navbar.svg)]"} />
-          <main className={"bg-[" + colors.n6 + "] bg-[url('/svg/woodBG.svg')]"}>
+          <main className={"bg-n6 bg-[url('/svg/woodBG.svg')]"}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/shop" element={<Shop />} />
