@@ -22,7 +22,6 @@ productInfo:{
 import { useParams } from "react-router-dom";
 import { useAuth } from "../../auth/AuthProvider"
 import { useState, useEffect } from "react";
-import colors from "../../utils/colors";
 import axios from "axios";
 import url from "../../utils/urls";
 import { useNavigate, Navigate, Link } from "react-router-dom";
@@ -53,6 +52,7 @@ const ViewProduct = () => {
         name: product.name,
         description: product.description,
         price: product.price,
+        discount: product.discount,
         quantity: product.quantity,
         category: category,
         deleted: product.deleted,
@@ -154,6 +154,10 @@ const ViewProduct = () => {
             Price:
             <input className="px-4 py-2 rounded-lg" type="number" id="price" name="price" value={product.price} onChange={(e) => setProduct({...product, price: e.target.value})} />
           </label>
+          <label className="flex justify-center items-center after:content-['%'] gap-2 w-full">
+            Discount:
+            <input min="0" max="100" className="px-4 py-2 rounded-lg" type="number" id="discount" name="discount" value={product.discount} onChange={(e) => setProduct({...product, discount: e.target.value})} />
+          </label>
           <label className="flex flex-col w-full">
             Quantity:
             <input className="px-4 py-2 rounded-lg" type="number" id="quantity" name="quantity" value={product.quantity} onChange={(e) => setProduct({...product, quantity: e.target.value})} />
@@ -171,8 +175,8 @@ const ViewProduct = () => {
             <input className="px-4 py-2 rounded-lg w-4 h-4" type="checkbox" id="deleted" name="deleted" checked={!product.deleted} onChange={(e) => setProduct({...product, deleted: !e.target.checked})} />
           </label>
           <div className="flex gap-4 p-4">
-            <button className={"col-span-2 self-center cursor-pointer w-32 bg-["+colors.n2+"] text-["+colors.n5+"] p-2 rounded-xl hover:bg-["+colors.n5+"] hover:text-["+colors.n1+"] hover:scale-105 transition duration-150"} onClick={() => goTo("/admin/products")}>Cancel</button>
-            <input type="submit" value="Save" className={"col-span-2 self-center cursor-pointer w-32 bg-["+colors.n5+"] text-["+colors.n1+"] p-2 rounded-xl hover:bg-["+colors.n2+"] hover:text-["+colors.n5+"] hover:scale-105 transition duration-150"}/>
+            <button className={"col-span-2 self-center cursor-pointer w-32 bg-n2 text-n5 p-2 rounded-xl hover:bg-n5 hover:text-n1 hover:scale-105 transition duration-150"} onClick={() => goTo("/admin/products")}>Cancel</button>
+            <input type="submit" value="Save" className={"col-span-2 self-center cursor-pointer w-32 bg-n5 text-n1 p-2 rounded-xl hover:bg-n2 hover:text-n5 hover:scale-105 transition duration-150"}/>
           </div>
         </form>
       </div>

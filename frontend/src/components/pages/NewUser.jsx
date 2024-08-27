@@ -2,7 +2,6 @@ import url from "../../utils/urls"
 import regex from "../../utils/regex"
 import Loading from "../Loading"
 import axios from "axios"
-import colors from "../../utils/colors"
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
@@ -121,9 +120,9 @@ const NewUser = () => {
             <input className={"w-full p-2 rounded-lg"} type="password" name="confirmPassword" id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
           </label>
           <label className="grid grid-cols-3 gap-2" htmlFor="submit">
-            <Link className={"w-full transition duration-150 p-2 rounded-lg text-[" + colors.n5 + "] bg-[" + colors.n2 + "] hover:bg-[" + colors.n1 + "]"} to="/admin/users">Cancel</Link>
-            <input className={"w-full cursor-pointer transition duration-150 p-2 rounded-lg text-[" + colors.n1 + "] bg-[" + colors.n5 + "] hover:bg-[" + colors.n1 + "] hover:text-[" + colors.n5 + "]"} type="reset" value="Reset" />
-            <input className={"w-full cursor-pointer transition duration-150 p-2 rounded-lg text-[" + colors.n5 + "] bg-[" + colors.n4 + "] hover:bg-[" + colors.n1 + "]"} type="submit" value="Submit" />
+            <Link className={"w-full transition duration-150 p-2 rounded-lg text-n5 bg-n2 hover:bg-n1"} to="/admin/users">Cancel</Link>
+            <input className={"w-full cursor-pointer transition duration-150 p-2 rounded-lg text-n1 bg-n5 hover:bg-n1 hover:text-n5"} type="reset" value="Reset" />
+            <input className={"w-full cursor-pointer transition duration-150 p-2 rounded-lg text-n5 bg-n4 hover:bg-n1"} type="submit" value="Submit" />
           </label>
         </form>}
       </div>

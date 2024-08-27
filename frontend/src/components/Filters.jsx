@@ -8,8 +8,8 @@ const Filters = ({ className, category, setCategory, name, setName }) => {
   // when category is null, all link buttons will have the default bg color (#f2e0c2)
   // when category is not null, only the selected link button will have bg color (#e4b972) and scaled up
 
-  const categoryStyleSelected = 'w-16 text-md p-2 rounded-xl shadow-xl transition-all duration-150 bg-[#e4b972] scale-105';
-  const categoryStyleDefault = 'w-16 text-md p-2 rounded-xl shadow-xl transition-all duration-150 bg-[#f2e0c2] hover:bg-[#e4b972] hover:scale-105';
+  const categoryStyleSelected = 'w-16 text-md p-2 rounded-xl shadow-xl transition-all duration-150 bg-n2 scale-105';
+  const categoryStyleDefault = 'w-16 text-md p-2 rounded-xl shadow-xl transition-all duration-150 bg-n1 hover:bg-n2 hover:scale-105';
   const [filter, setFilter] = useState(false);
   const checkCategory = () => {
     document.getElementById('all').className = categoryStyleDefault
@@ -27,7 +27,7 @@ const Filters = ({ className, category, setCategory, name, setName }) => {
   }, [category]);
 
   return (
-    <div className={'z-20 relative transition-all duration-150 left-0 bg-[#f2e0c2] flex flex-col justify-center items-center gap-2 h-fit text-center px-4 py-8 rounded-xl shadow-xl ' + className + (filter ? ' ' : ' translate-x-[-150%]')}>
+    <div className={'z-20 relative transition-all duration-150 left-0 bg-n1 flex flex-col justify-center items-center gap-2 h-fit text-center px-4 py-8 rounded-xl shadow-xl ' + className + (filter ? ' ' : ' translate-x-[-150%]')}>
       <h1 className="text-xl">Shop Filters</h1>
       <h2 className="text-lg">Search</h2>
       <div className="flex justify-center items-center gap-1">
@@ -42,7 +42,7 @@ const Filters = ({ className, category, setCategory, name, setName }) => {
         <Link id='dogs' to="/shop/dogs" className={categoryStyleDefault} onClick = {() => setCategory('dogs')}>Dogs</Link>
         <Link id='fish' to="/shop/fish" className={categoryStyleDefault} onClick = {() => setCategory('fish')}>Fish</Link>
       </div>
-      <button onClick={() => setFilter(!filter)} className={'text-black absolute top-4 right-1 p-2 text-sm rounded-full active:scale-75 transition duration-150' + (filter ? ' bg-[#f2e0c2] hover:bg-[#e4b972] pl-2' : ' translate-x-[320%] bg-[#e4b972] hover:bg-[#f2e0c2] pl-4')}>
+      <button onClick={() => setFilter(!filter)} className={'text-black absolute top-4 right-1 p-2 text-sm rounded-full active:scale-75 transition duration-150' + (filter ? ' bg-n1 hover:bg-n2 pl-2' : ' translate-x-[320%] bg-n2 hover:bg-n1 pl-4')}>
         <img className="h-6 w-6" src={filter ? "/svg/leftArrow.svg" : "/svg/rightArrow.svg"} alt="" />
       </button>
     </div>

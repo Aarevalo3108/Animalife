@@ -71,7 +71,7 @@ const SignUp = () => {
   return (
   <div className="bg-[url('/Animalife.jpeg')] bg-cover bg-center min-h-[85vh]">
     <div className="bg-[rgba(0,0,0,0.6)] min-h-[85vh] p-8 flex flex-col items-center justify-center">
-      <div className="flex flex-col bg-[#fcf8f0] rounded-xl">
+      <div className="flex flex-col bg-n6 rounded-xl">
         <div className="p-4 flex flex-col items-center justify-center gap-4">
           <h1 className="text-3xl font-bold">Sign Up</h1>
           <h2>Create your account</h2>
@@ -101,9 +101,9 @@ const SignUp = () => {
               Confirm Password:
               <input className="p-2 rounded-xl" type="password" placeholder="Confirm your password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
             </label>
-            <input type="submit" value="Sign Up" className="col-span-2 self-center cursor-pointer w-32 bg-[#433526] text-[#f2e0c2] p-2 rounded-xl hover:bg-[#e3b771] hover:text-[#433526] hover:scale-105 transition duration-150"/>
+            <input type="submit" value="Sign Up" className="col-span-2 self-center cursor-pointer w-32 bg-n5 text-n1 p-2 rounded-xl hover:bg-n2 hover:text-n5 hover:scale-105 transition duration-150"/>
           </form>
-            <p>Already have an account? <Link to="/login" className="text-[#708c5a] border-b border-[#fcf8f0] hover:border-[#000] transition duration-150">Login</Link></p>
+            <p>Already have an account? <Link to="/login" className="text-n4 border-b border-n6 hover:border-[#000] transition duration-150">Login</Link></p>
         </div>
       </div>
     </div>

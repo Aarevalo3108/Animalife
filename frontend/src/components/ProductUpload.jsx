@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Loading from './Loading';
 import axios from 'axios';
 import url from '../utils/urls';
-import colors from '../utils/colors';
 
 const ProductUpload = ({ id }) => {
     const [selectedProduct, setSelectedProduct] = useState([]);
@@ -69,13 +68,13 @@ const ProductUpload = ({ id }) => {
         <form className='flex flex-col gap-2 items-center justify-center' onSubmit={handleSubmit}>
             {error && <p className="text-red-500 text-sm">Error: {error.message || error}</p>}
             {successfulUpload && <p className="text-green-500 text-sm">Img uploaded successfully!</p>}
-            <input className={'p-2 rounded-xl bg-['+colors.n1+']'} type="file" multiple onChange={handleProductSelect} />
+            <input className={'p-2 rounded-xl bg-n1'} type="file" multiple onChange={handleProductSelect} />
             <div className='flex gap-2'>
                 {previews.map((preview, index) => (
                     <img key={index} src={preview} alt="Preview" className='w-16 h-16 object-cover rounded' />
                 ))}
             </div>
-            {selectedProduct.length > 0 && <button className={"bg-["+colors.n5+"] text-["+colors.n1+"] px-2 py-1 rounded-xl hover:bg-["+colors.n1+"] hover:text-["+colors.n5+"] transition duration-150 w-32"} type="submit">Upload</button>}
+            {selectedProduct.length > 0 && <button className={"bg-n5 text-n1 px-2 py-1 rounded-xl hover:bg-n1 hover:text-n5 transition duration-150 w-32"} type="submit">Upload</button>}
             {loading && <Loading />}
         </form>
     );

@@ -44,9 +44,9 @@ const FileUpload = ({ id }) => {
 
     return (
         <form className='flex flex-col gap-2 items-center justify-center' onSubmit={handleSubmit}>
-            <input className='p-2 rounded-xl bg-[#fcf8f0]' type="file" onChange={handleFileSelect} />
+            <input className='p-2 rounded-xl bg-n6' type="file" onChange={handleFileSelect} />
             {preview && <img src={preview} alt="Preview" className='w-32 h-32 object-cover rounded' />}
-            {selectedFile && <button className="bg-[#433526] text-[#f2e0c2] px-2 py-1 rounded-xl hover:bg-[#f2e0c2] hover:text-[#433526] transition duration-150 w-32" type="submit">Upload</button>}
+            {selectedFile && <button className="bg-n5 text-n1 px-2 py-1 rounded-xl hover:bg-n1 hover:text-n5 transition duration-150 w-32" type="submit">Upload</button>}
             {successfulUpload && <p>Img uploaded successfully!</p>}
             {error && <p>Error: {error.message}</p>}
         </form>

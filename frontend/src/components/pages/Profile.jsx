@@ -1,6 +1,5 @@
 import { useAuth } from "../../auth/AuthProvider"
 import url from "../../utils/urls";
-import colors from "../../utils/colors";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -54,7 +53,7 @@ const Profile = () => {
       </div>
       <div className="flex flex-col w-full gap-4 justify-center items-center">
         <h2 className="text-3xl font-bold">Order History</h2>
-        <div className={"relative w-72 grid h-64 border-2 border-["+colors.n5+"] overflow-y-auto bg-["+colors.n1+"] px-4 py-2 rounded-lg gap-4"}>
+        <div className={"relative w-72 grid h-64 border-2 border-n5 overflow-y-auto bg-n1 px-4 py-2 rounded-lg gap-4"}>
           {orders.length > 0 && !loader && orders.map((order) => <OrderCart key={order._id} purchase={order} />)}
           {orders.length === 0 && !loader && <p>No orders yet</p>}
           {loader && <Loading />}
@@ -72,7 +71,7 @@ const Profile = () => {
           </Link>
         </div>
       </div>
-      <button className="text-2xl bg-red-500 rounded-2xl px-4 py-2 hover:text-[#f2e0c2] transition duration-300 hover:scale-105 " onClick={async () => auth.logout(auth.getRefreshToken())}>Log Out</button>
+      <button className="text-2xl bg-red-500 rounded-2xl px-4 py-2 hover:text-n1 transition duration-300 hover:scale-105 " onClick={async () => auth.logout(auth.getRefreshToken())}>Log Out</button>
     </div>
   )
 }

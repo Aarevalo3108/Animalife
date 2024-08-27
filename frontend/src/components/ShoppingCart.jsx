@@ -48,7 +48,7 @@ const ShoppingCart = ({ className, showCart, setShowCart }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showCart, cart]);
   return (
-    <div className={"p-4 grid gap-[0.5rem] w-52 max-h-96 overflow-y-auto border-2 border-[#aa7e5d] border-dashed absolute transform top-20 right-2 bg-[url('/svg/notebook.svg')] rounded-lg transition-all duration-500 ease-in-out " + className}>
+    <div className={"p-4 grid gap-[0.5rem] w-52 max-h-96 overflow-y-auto border-2 border-n3 border-dashed absolute transform top-20 right-2 bg-[url('/svg/notebook.svg')] rounded-lg transition-all duration-500 ease-in-out " + className}>
       <h2 className="text-lg">* Products:</h2>
       <div className="grid gap-2 min-h-16">
         {data && data.length > 0 ? (
@@ -66,7 +66,7 @@ const ShoppingCart = ({ className, showCart, setShowCart }) => {
           loader ? <Loading /> : <p className="place-self-center">{showCart ? "Cart is empty" : " "}</p>
         )}
       </div>
-      <Link className="place-self-center px-2 py-1 rounded-lg border-2 border-[#aa7e5d] bg-[#f2e0c2] hover:bg-[#aa7e5d] hover:text-[#f2e0c2] transition duration-150" to="/cart" onClick={() => {setShowCart(false);addUser(auth.getUser()._id)}}>View Details</Link>
+      <Link className="place-self-center px-2 py-1 rounded-lg border-2 border-n3 bg-n1 hover:bg-n3 hover:text-n1 transition duration-150" to="/cart" onClick={() => {setShowCart(false);addUser(auth.getUser()._id)}}>View Details</Link>
     </div>
   );
 };

@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import dateFormat from '../utils/dateFormat';
-import colors from '../utils/colors';
 
 
 /*
@@ -32,7 +31,7 @@ const OrderAdminCard = ({ purchase }) => {
   }
 
   return (
-    <div className={"bg-["+colors.n1+"] text-["+colors.n5+"] rounded-lg shadow-lg p-4 grid grid-cols-2 justify-items-center items-center gap-x-1 gap-y-2"}>
+    <div className={"bg-n1 text-n5 rounded-lg shadow-lg p-4 grid grid-cols-2 justify-items-center items-center gap-x-1 gap-y-2"}>
       <button onClick={() => handleCopy(purchase._id)} className={"hover:scale-105 transition duration-300 flex col-span-2 items-center gap-1 text-xs cursor-pointer"} title={`Click to copy`}>
         <h2>ID: {purchase._id}</h2>
         <img className="h-4 w-4" src="/svg/copy.svg" alt="copy" />
@@ -45,7 +44,7 @@ const OrderAdminCard = ({ purchase }) => {
         <p>{dateFormat(purchase.createdAt)}</p>
         <p>Total: ${purchase.total}</p>
       </div>
-      <Link className={"col-span-2 hover:scale-105 transition duration-300  bg-["+colors.n5+"] text-["+colors.n1+"] px-2 py-1 hover:bg-["+colors.n2+"] hover:text-["+colors.n5+"] rounded-full"} to={`/admin/orders/${purchase._id}`}>
+      <Link className={"col-span-2 hover:scale-105 transition duration-300  bg-n5 text-n1 px-2 py-1 hover:bg-n2 hover:text-n5 rounded-full"} to={`/admin/orders/${purchase._id}`}>
         View Order
       </Link>
     </div>

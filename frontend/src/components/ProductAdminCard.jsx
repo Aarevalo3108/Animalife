@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import url from '../utils/urls';
 import { Link } from "react-router-dom";
-import colors from '../utils/colors';
 
 const handleCopy = (text) => {
   navigator.clipboard.writeText(text);
@@ -31,7 +30,7 @@ const handleCopy = (text) => {
 
 const ProductAdminCard = ({product}) => {
   return (
-    <div className={"bg-[" + colors.n2 + "] text-[" + colors.n5 + "] p-4 rounded-lg flex flex-col items-center gap-1"}>
+    <div className={"bg-n2 text-n5 p-4 rounded-lg flex flex-col items-center gap-1"}>
       <p onClick={() => handleCopy(product._id)} className={"flex items-center gap-1 text-xs cursor-pointer"} title={`Click to copy`}>ID: {product._id}
         <img className="h-4 w-4" src="/svg/copy.svg" alt="copy" />
       </p>
@@ -43,7 +42,7 @@ const ProductAdminCard = ({product}) => {
       <p className="text-sm">Price: ${product.price.toFixed(2)}</p>
       <p className="text-sm">Active: <span className={(product.deleted ? "text-red-500" : "text-green-500")}>{product.deleted ? "No" : "Yes"}</span></p>
       <p className="text-xs">Category: {product.category}</p>
-      <Link className={"text-sm bg-[" + colors.n5 + "] text-[" + colors.n1 + "] py-1 px-2 hover:scale-105 transition duration-300 rounded-full"} to={`/admin/products/${product._id}`}>View Product</Link>
+      <Link className={"text-sm bg-n5 text-n1 py-1 px-2 hover:scale-105 transition duration-300 rounded-full"} to={`/admin/products/${product._id}`}>View Product</Link>
     </div>
   );
 };

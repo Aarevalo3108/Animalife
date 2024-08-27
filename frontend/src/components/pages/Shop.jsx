@@ -72,7 +72,7 @@ const Shop = () => {
             {products && !loading && products.map((product) => (
               <ProductCard key={product._id} product={product} />
             ))}
-            {products.length === 0 && !loading && <p className="col-span-2 md:col-span-3 lg:col-span-4 place-self-center text-xl text-[#f2e0c2]">No products found</p>}
+            {products.length === 0 && !loading && <p className="col-span-2 md:col-span-3 lg:col-span-4 place-self-center text-xl text-n1">No products found</p>}
             {loading && <Loading />}
           </div>
           <Paginate page={page} setPage={setPage} options={options}/>

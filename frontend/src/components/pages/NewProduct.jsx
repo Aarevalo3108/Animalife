@@ -1,7 +1,6 @@
 import url from "../../utils/urls"
 import regex from "../../utils/regex"
 import Loading from "../Loading"
-import colors from "../../utils/colors"
 import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from "../../auth/AuthProvider"
 import { useState, useEffect } from "react"
@@ -101,27 +100,27 @@ const NewProduct = () => {
       <form className="grid justify-items-center gap-4" onSubmit={handleSubmit}>
         <label className="grid gap-2" htmlFor="name">
           <span className="after:content-['*'] after:text-red-500 text-lg">Name:</span>
-          <input placeholder="Enter product name" autoFocus className={"cursor-pointer p-2 rounded-lg bg-["+colors.n1+"]"} type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} />
+          <input placeholder="Enter product name" autoFocus className={"cursor-pointer p-2 rounded-lg bg-n1"} type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} />
         </label>
         <label className="grid gap-2" htmlFor="description">
           <span className="after:content-['*'] after:text-red-500 text-lg">Description:</span>
-          <textarea name="description" rows={5} maxLength={100} className={" cursor-pointer p-2 rounded-lg bg-["+colors.n1+"]"} value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Enter product description" id="description"></textarea>
+          <textarea name="description" rows={5} maxLength={100} className={" cursor-pointer p-2 rounded-lg bg-n1"} value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Enter product description" id="description"></textarea>
         </label>
         <label className="flex items-center justify-center w-full gap-4" htmlFor="price">
           <span className="after:content-['*'] after:text-red-500 text-lg">Price:</span>
-          <input className={"cursor-pointer text-end py-2 px-4 rounded-lg bg-["+colors.n1+"]"} min={0} max={1000000} type="number" id="price" value={price} onChange={(e) => setPrice(e.target.value)} />$15
+          <input className={"cursor-pointer text-end py-2 px-4 rounded-lg bg-n1"} min={0} max={1000000} type="number" id="price" value={price} onChange={(e) => setPrice(e.target.value)} />$15
         </label>
         <label className="flex items-center justify-center w-full gap-4" htmlFor="quantity">
           <span className="after:content-['*'] after:text-red-500 text-lg">Quantity:</span>
-          <input className={"cursor-pointer text-end py-2 px-4 rounded-lg bg-["+colors.n1+"]"} min={0} max={1000000} type="number" id="quantity" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
+          <input className={"cursor-pointer text-end py-2 px-4 rounded-lg bg-n1"} min={0} max={1000000} type="number" id="quantity" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
         </label>
         <label className="flex items-center justify-center w-full gap-4" htmlFor="discount">
           <span className="text-lg">Discount:</span>
-          <input className={"cursor-pointer text-end py-2 px-4 rounded-lg bg-["+colors.n1+"]"} min={0} max={100} type="number" id="discount" value={discount} onChange={(e) => setDiscount(e.target.value)} />%
+          <input className={"cursor-pointer text-end py-2 px-4 rounded-lg bg-n1"} min={0} max={100} type="number" id="discount" value={discount} onChange={(e) => setDiscount(e.target.value)} />%
         </label>
         <label className="after:content-['*'] after:text-red-500 flex justify-center items-center w-full gap-2" htmlFor="category">
           <span className="text-lg">Category:</span>
-          <select className={"cursor-pointer p-2 rounded-lg bg-["+colors.n1+"]"} id="category" value={category} onChange={(e) => setCategory(e.target.value)}>
+          <select className={"cursor-pointer p-2 rounded-lg bg-n1"} id="category" value={category} onChange={(e) => setCategory(e.target.value)}>
             <option value="">Select a category</option>
             {categories && categories.map((category) => (
               <option key={category._id} value={category._id}>{category.name}</option>
@@ -129,8 +128,8 @@ const NewProduct = () => {
           </select>
         </label>
         <div className="flex gap-4">
-          <Link to="/admin/products" className={"py-2 px-4 rounded-lg bg-["+colors.n5+"] text-["+colors.n1+"] hover:scale-105 transition duration-300 text-lg"}>Cancel</Link>
-          <button disabled={loading} onClick={(e) => handleSubmit(e)} className={"py-2 px-4 rounded-lg bg-["+colors.n4+"] text-["+colors.n1+"] hover:scale-105 transition duration-300 text-lg"}  type="submit">Submit</button>
+          <Link to="/admin/products" className={"py-2 px-4 rounded-lg bg-n5 text-n1 hover:scale-105 transition duration-300 text-lg"}>Cancel</Link>
+          <button disabled={loading} onClick={(e) => handleSubmit(e)} className={"py-2 px-4 rounded-lg bg-n4 text-n1 hover:scale-105 transition duration-300 text-lg"}  type="submit">Submit</button>
         </div>
       </form>
     </div>

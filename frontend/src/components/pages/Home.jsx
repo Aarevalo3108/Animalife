@@ -32,12 +32,12 @@ const Home = () => {
   return (
     <>
     <div className="bg-[url('/Animalife.jpeg')] bg-cover bg-center h-[85vh]">
-      <div className="flex flex-col items-center justify-center h-full bg-[rgba(0,0,0,0.6)] text-[#f2e0c2] text-center text-4xl lg:gap-32">
-        <span className="lg:text-6xl lg:flex lg:gap-[30vw] text-[#f2e0c2]">
+      <div className="flex flex-col items-center justify-center h-full bg-[rgba(0,0,0,0.6)] text-n1 text-center text-4xl lg:gap-32">
+        <span className="lg:text-6xl lg:flex lg:gap-[30vw] text-n1">
           <span>Welcome to</span>
           <h1>Animalife!</h1>
         </span>
-        <span className="text-2xl text-[#e4b972]">Your one-stop shop for all pet supplies</span>
+        <span className="text-2xl text-n2">Your one-stop shop for all pet supplies</span>
       </div>
     </div>
     <div className="flex flex-col justify-center items-center gap-8 p-8">
@@ -51,10 +51,10 @@ const Home = () => {
     <div className="flex flex-col justify-center items-center gap-8 p-8">
       <h2 className="text-3xl">Categories</h2>
       <div className="grid grid-cols-2 justify-center items-center gap-4">
-        <Link id="birds" to="/shop/birds" className="text-xl p-4 bg-[#f2e0c2] rounded-xl shadow-xl hover:scale-125 hover:bg-[#e4b972] transition-all duration-150">Birds</Link>
-        <Link id="cats" to="/shop/cats" className="text-xl p-4 bg-[#f2e0c2] rounded-xl shadow-xl hover:scale-125 hover:bg-[#e4b972] transition-all duration-150">Cats</Link>
-        <Link id="dogs" to="/shop/dogs" className="text-xl p-4 bg-[#f2e0c2] rounded-xl shadow-xl hover:scale-125 hover:bg-[#e4b972] transition-all duration-150">Dogs</Link>
-        <Link id="fish" to="/shop/fish" className="text-xl p-4 bg-[#f2e0c2] rounded-xl shadow-xl hover:scale-125 hover:bg-[#e4b972] transition-all duration-150">Fish</Link>
+        <Link id="birds" to="/shop/birds" className="text-xl p-4 bg-n1 rounded-xl shadow-xl hover:scale-125 hover:bg-n2 transition-all duration-150">Birds</Link>
+        <Link id="cats" to="/shop/cats" className="text-xl p-4 bg-n1 rounded-xl shadow-xl hover:scale-125 hover:bg-n2 transition-all duration-150">Cats</Link>
+        <Link id="dogs" to="/shop/dogs" className="text-xl p-4 bg-n1 rounded-xl shadow-xl hover:scale-125 hover:bg-n2 transition-all duration-150">Dogs</Link>
+        <Link id="fish" to="/shop/fish" className="text-xl p-4 bg-n1 rounded-xl shadow-xl hover:scale-125 hover:bg-n2 transition-all duration-150">Fish</Link>
       </div>
     </div>
     <div className="flex flex-col items-center gap-8 p-8">

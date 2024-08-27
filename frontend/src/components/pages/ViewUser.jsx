@@ -22,7 +22,6 @@ userInfo:{
 import { useParams } from "react-router-dom";
 import { useAuth } from "../../auth/AuthProvider"
 import { useState, useEffect } from "react";
-import colors from "../../utils/colors";
 import axios from "axios";
 import url from "../../utils/urls";
 import { useNavigate, Navigate, Link } from "react-router-dom";
@@ -202,14 +201,14 @@ const ViewUser = () => {
             }
           </label>
           <div className="flex gap-4 p-4">
-            <button className={"col-span-2 self-center cursor-pointer w-32 bg-["+colors.n2+"] text-["+colors.n5+"] p-2 rounded-xl hover:bg-["+colors.n5+"] hover:text-["+colors.n1+"] hover:scale-105 transition duration-150"} onClick={() => goTo("/admin/users")}>Cancel</button>
-            <input type="submit" value="Save" className={"col-span-2 self-center cursor-pointer w-32 bg-["+colors.n5+"] text-["+colors.n1+"] p-2 rounded-xl hover:bg-["+colors.n2+"] hover:text-["+colors.n5+"] hover:scale-105 transition duration-150"}/>
+            <button className={"col-span-2 self-center cursor-pointer w-32 bg-n2 text-n5 p-2 rounded-xl hover:bg-n5 hover:text-n1 hover:scale-105 transition duration-150"} onClick={() => goTo("/admin/users")}>Cancel</button>
+            <input type="submit" value="Save" className={"col-span-2 self-center cursor-pointer w-32 bg-n5 text-n1 p-2 rounded-xl hover:bg-n2 hover:text-n5 hover:scale-105 transition duration-150"}/>
           </div>
         </form>
         {purchases.length > 0 ?
           <div className="grid gap-4">
             <h2 className="text-lg">Purchases: </h2>
-            <div className={"grid max-h-64 border-2 border-["+colors.n5+"] overflow-y-auto bg-["+colors.n1+"] px-4 py-2 rounded-lg gap-4"}>
+            <div className={"grid max-h-64 border-2 border-n5 overflow-y-auto bg-n1 px-4 py-2 rounded-lg gap-4"}>
               {purchases.map((purchase) => (
                 <OrderCart key={purchase._id} purchase={purchase} isAdmin={true} />
               ))}

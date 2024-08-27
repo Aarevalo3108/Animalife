@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom"
 import { useEffect } from "react";
-import colors from "../../utils/colors";
 
 const Admin = () => {
   useEffect(() => {
@@ -12,23 +11,23 @@ const Admin = () => {
       <div className="grid grid-cols-2 justify-items-center gap-8">
         <div className="flex flex-col items-center gap-2 shadow-lg">
           <img className="h-16 w-16 bg-transparent" src="/svg/users.svg" alt="users" />
-          <Link to="/admin/users" className={"w-28 text-center bg-[" + colors.n5 + "] text-[" + colors.n1 + "] p-2 hover:bg-[" + colors.n2 + "] hover:text-[" + colors.n5 + "] transition duration-150 rounded-lg text-lg md:text-xl"}>Manage Users</Link>
+          <Link to="/admin/users" className={"w-28 text-center bg-n5 text-n1 p-2 hover:bg-n2 hover:text-n5 transition duration-150 rounded-lg text-lg md:text-xl"}>Manage Users</Link>
         </div>
         <div className="flex flex-col items-center gap-2 shadow-lg">
           <img className="h-16 w-16 bg-transparent" src="/svg/products.svg" alt="products" />
-          <Link to="/admin/products" className={"w-28 text-center bg-[" + colors.n5 + "] text-[" + colors.n1 + "] p-2 hover:bg-[" + colors.n2 + "] hover:text-[" + colors.n5 + "] transition duration-150 rounded-lg text-lg md:text-xl"}>Manage Products</Link>
+          <Link to="/admin/products" className={"w-28 text-center bg-n5 text-n1 p-2 hover:bg-n2 hover:text-n5 transition duration-150 rounded-lg text-lg md:text-xl"}>Manage Products</Link>
         </div>
         <div className="col-span-2 flex flex-col items-center gap-2 shadow-lg">
           <img className="h-16 w-16 bg-transparent" src="/svg/stats.svg" alt="stats" />
-          <Link to="/admin/stats" className={"w-28 text-center bg-[" + colors.n5 + "] text-[" + colors.n1 + "] p-2 hover:bg-[" + colors.n2 + "] hover:text-[" + colors.n5 + "] transition duration-150 rounded-lg text-lg md:text-xl"}>View Stats</Link>
+          <Link to="/admin/stats" className={"w-28 text-center bg-n5 text-n1 p-2 hover:bg-n2 hover:text-n5 transition duration-150 rounded-lg text-lg md:text-xl"}>View Stats</Link>
         </div>
         <div className="flex flex-col items-center gap-2 shadow-lg">
           <img className="h-16 w-16 bg-transparent" src="/svg/purchases.svg" alt="orders" />
-          <Link to="/admin/orders" className={"w-28 text-center bg-[" + colors.n5 + "] text-[" + colors.n1 + "] p-2 hover:bg-[" + colors.n2 + "] hover:text-[" + colors.n5 + "] transition duration-150 rounded-lg text-lg md:text-xl"}>Manage Orders</Link>
+          <Link to="/admin/orders" className={"w-28 text-center bg-n5 text-n1 p-2 hover:bg-n2 hover:text-n5 transition duration-150 rounded-lg text-lg md:text-xl"}>Manage Orders</Link>
         </div>
         <div className="flex flex-col items-center gap-2 shadow-lg">
           <img className="h-16 w-16 bg-transparent" src="/svg/categories.svg" alt="categories" />
-          <Link to="/admin/categories" className={"w-28 text-center bg-[" + colors.n5 + "] text-[" + colors.n1 + "] p-2 hover:bg-[" + colors.n2 + "] hover:text-[" + colors.n5 + "] transition duration-150 rounded-lg text-lg md:text-xl"}>Manage Categories</Link>
+          <Link to="/admin/categories" className={"w-28 text-center bg-n5 text-n1 p-2 hover:bg-n2 hover:text-n5 transition duration-150 rounded-lg text-lg md:text-xl"}>Manage Categories</Link>
         </div>
       </div>
     </div>

@@ -52,7 +52,7 @@ const Login = () => {
   return (
     <div className="bg-[url('/Animalife.jpeg')] bg-cover bg-center min-h-[85vh]">
       <div className="bg-[rgba(0,0,0,0.6)] min-h-[85vh] p-8 flex flex-col items-center justify-center">
-        <div className=" flex bg-[#fcf8f0] rounded-xl">
+        <div className=" flex bg-n6 rounded-xl">
           <div className="p-4 flex flex-col items-center justify-center gap-2">
             <h1 className="text-3xl font-bold">Login</h1>
             <div className="w-64 text-[#0009] text-sm text-justify">Enter your credentials</div>
@@ -68,11 +68,11 @@ const Login = () => {
                   <input className="p-2 rounded-xl w-full" type="password" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 </label>
                 <div className="flex justify-center">
-                  <button type="submit" className="w-32 bg-[#433526] text-[#f2e0c2] p-2 rounded-xl hover:bg-[#f2e0c2] hover:text-[#433526] transition duration-150">Login</button>
+                  <button type="submit" className="w-32 bg-n5 text-n1 p-2 rounded-xl hover:bg-n1 hover:text-n5 transition duration-150">Login</button>
                 </div>
               </form>
-              <p>Forgot your password? <Link to="./reset-password" className="text-[#708c5a] border-b border-[#fcf8f0] hover:border-[#000] transition duration-150">Reset Password</Link></p>
-              <p>Don&apos;t have an account? <Link to="/signup" className="text-[#708c5a] border-b border-[#fcf8f0] hover:border-[#000] transition duration-150">Sign Up</Link></p>
+              <p>Forgot your password? <Link to="./reset-password" className="text-n4 border-b border-n6 hover:border-[#000] transition duration-150">Reset Password</Link></p>
+              <p>Don&apos;t have an account? <Link to="/signup" className="text-n4 border-b border-n6 hover:border-[#000] transition duration-150">Sign Up</Link></p>
             </div>
           </div>
           <img className="hidden lg:block w-[450px] rounded-xl" src="/Animalife.jpeg" alt="" />

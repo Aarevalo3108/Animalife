@@ -3,7 +3,6 @@ import { useAuth } from "../auth/AuthProvider";
 import { useState, useEffect } from "react";
 import dateFormat from "../utils/dateFormat";
 import Loading from "./Loading";
-import colors from "../utils/colors";
 import url from "../utils/urls";
 import axios from "axios";
 
@@ -43,20 +42,20 @@ const CategoryAdminCard = ({ category }) => {
   }, [category]);
 
   return (
-    <div className={"relative bg-[" + colors.n2 + "] text-[" + colors.n5 + "] rounded-lg shadow-lg p-4 flex flex-col justify-center items-center gap-4"}>
+    <div className={"relative bg-n2 text-n5 rounded-lg shadow-lg p-4 flex flex-col justify-center items-center gap-4"}>
       <p onClick={() => handleCopy(category._id)} className={"flex items-center gap-1 text-xs cursor-pointer"} title={`Click to copy`}>ID: {category._id}
         <img className="h-4 w-4" src="/svg/copy.svg" alt="copy" />
       </p>
       {error && <p className="text-red-500">{error}</p>}
       {loading ? <Loading /> : <form onSubmit={(e) => e.preventDefault()} className="flex flex-col justify-center items-center gap-4">
         <label className="text-md flex justify-center items-center gap-2 cursor-pointer">Name:
-          <input type="text" name="name" id="name" value={name} onChange={(e) => setName(e.target.value)} className={" w-32 text-center bg-[" + colors.n5 + "] text-[" + colors.n1 + "] p-1 rounded-lg"} />
+          <input type="text" name="name" id="name" value={name} onChange={(e) => setName(e.target.value)} className={" w-32 text-center bg-n5 text-n1 p-1 rounded-lg"} />
           <img className="h-4 w-4 hover:scale-125 transition duration-300" src="/svg/edit.svg" alt="" />
         </label>
         <label className="text-md flex justify-center items-center gap-2">Active:
           <input type="checkbox" name="active" id="active" checked={!category.deleted} onChange={() => handleSubmit()} className="w-4 h-4" />
         </label>
-        <button disabled={name === category.name} title={name === category.name ? "Name cannot be the same" : "Click to edit"} onClick={() => handleSubmit()} type="submit" className={"bg-[" + colors.n4 + "] text-[" + colors.n1 + "] py-1 px-8 hover:bg-[" + colors.n1 + "] hover:text-[" + colors.n5 + "] hover:scale-105 transition duration-300 rounded-lg" + (name === category.name ? " cursor-not-allowed opacity-50" : "")}>
+        <button disabled={name === category.name} title={name === category.name ? "Name cannot be the same" : "Click to edit"} onClick={() => handleSubmit()} type="submit" className={"bg-n4 text-n1 py-1 px-8 hover:bg-n1 hover:text-n5 hover:scale-105 transition duration-300 rounded-lg" + (name === category.name ? " cursor-not-allowed opacity-50" : "")}>
           Edit
         </button>
       <div className="flex flex-col justify-center items-center">

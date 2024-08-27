@@ -1,12 +1,11 @@
 import PropTypes from 'prop-types'
-import colors from '../utils/colors'
 
 
 const Paginate = ({page, setPage, options}) => {
 
   return (
 
-    <div className={"flex flex-col bg-[" + colors.n2 + "] px-2 py-1 rounded-full justify-center items-center"}>
+    <div className={"flex flex-col bg-n2 px-2 py-1 rounded-full justify-center items-center"}>
       <div className="flex gap-8">
         <button onClick={() => setPage(options.prevPage)} disabled={!options.hasPrevPage}>
           {!options.hasPrevPage ? <div className="h-6 w-6"></div> : <img className="h-6 w-6 hover:scale-110 transition duration-300" src="/svg/leftArrow.svg" alt="Prev" />}

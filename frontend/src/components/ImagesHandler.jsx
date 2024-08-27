@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import colors from '../utils/colors'
 import { useState } from 'react'
 import url from '../utils/urls'
 
@@ -11,7 +10,7 @@ const ImagesHandler = ({images, className=""}) => {
       {/* thumbnails */}
       <div className='flex justify-center items-center gap-4'>
         {images.map((image) => (
-          <img className={"h-10 w-10 hover:scale-105 hover:opacity-100 transition duration-300 rounded-lg cursor-pointer " + (image === img ? " border-2 border-[" + colors.n5 + "]" : "opacity-75")} key={image} onClick={() => setImg(image)} src={url.backend + "/" + image} alt="" />
+          <img className={"h-10 w-10 hover:scale-105 hover:opacity-100 transition duration-300 rounded-lg cursor-pointer " + (image === img ? " border-2 border-n5" : "opacity-75")} key={image} onClick={() => setImg(image)} src={url.backend + "/" + image} alt="" />
         ))}
       </div>
     </div>

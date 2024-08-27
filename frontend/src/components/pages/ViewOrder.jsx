@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react"
 import { useAuth } from "../../auth/AuthProvider"
 import { Link, useParams } from "react-router-dom"
-import colors from "../../utils/colors"
 import ProductOrderCart from "../ProductOrderCart"
 import url from "../../utils/urls"
 import axios from "axios"
@@ -80,7 +79,7 @@ const ViewOrder = () => {
       </h1>
       <h2 className="text-lg">Order ID: {id}</h2>
       {user &&
-      <div className={"p-4 gap-y-4 grid justify-items-center align-content-center md:grid-cols-2 rounded-xl shadow-lg bg-[" + colors.n2 + "]"}>
+      <div className={"p-4 gap-y-4 grid justify-items-center align-content-center md:grid-cols-2 rounded-xl shadow-lg bg-n2"}>
         <img className="h-40 w-40 col-span-2 md:col-span-1 object-cover rounded-full place-self-center shadow-xl" src={url.backend +"/"+ (user.image ? user.image : "uploads/JoneDoe.png")} alt="Order" />
         <div className="flex flex-col justify-center gap-2">
           <h2 className="flex flex-col text-lg">Order made by:
@@ -91,7 +90,7 @@ const ViewOrder = () => {
             <span className="text-md">{user.email}</span>
           </h2>
         </div>
-        <Link to={`/admin/users/${user._id}`} className={"col-span-2 hover:scale-105 transition duration-300  bg-[" + colors.n5 + "] text-[" + colors.n1 + "] px-6 py-1 hover:bg-[" + colors.n2 + "] hover:text-[" + colors.n5 + "] rounded-full"}>View Profile</Link>
+        <Link to={`/admin/users/${user._id}`} className={"col-span-2 hover:scale-105 transition duration-300  bg-n5 text-n1 px-6 py-1 hover:bg-n2 hover:text-n5 rounded-full"}>View Profile</Link>
       </div>
       }
       <h2 className="text-lg">Created on: {new Date(order.createdAt).toLocaleString()}</h2>

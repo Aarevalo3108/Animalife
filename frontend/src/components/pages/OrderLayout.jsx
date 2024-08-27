@@ -51,7 +51,7 @@ const OrderLayout = () => {
         ))}
       </div>
       <h2 className="text-2xl">Total: ${order.total}</h2>
-      <button className="bg-[#a38449] text-white p-4 rounded-2xl hover:bg-[#e4b972] hover:text-[#a38449] transition duration-300 hover:scale-105" onClick={() => goTo("/profile")}>Go to profile</button>
+      <button className="bg-n3 text-white p-4 rounded-2xl hover:bg-n2 hover:text-n3 transition duration-300 hover:scale-105" onClick={() => goTo("/profile")}>Go to profile</button>
     </div>
   )
 }

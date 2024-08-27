@@ -123,8 +123,8 @@ const EditUser = () => {
           <input className="px-4 py-2 rounded-lg" type="password" id="confirmPassword" name="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
         </label>}
         <div className="flex gap-4 p-4">
-          <button className="col-span-2 self-center cursor-pointer w-32 bg-[#e3b771] text-[#433526] p-2 rounded-xl hover:bg-[#433526] hover:text-[#f2e0c2] hover:scale-105 transition duration-150" onClick={() => goTo("/profile")}>Cancel</button>
-          <input type="submit" value="Save" className="col-span-2 self-center cursor-pointer w-32 bg-[#433526] text-[#f2e0c2] p-2 rounded-xl hover:bg-[#e3b771] hover:text-[#433526] hover:scale-105 transition duration-150"/>
+          <button className="col-span-2 self-center cursor-pointer w-32 bg-n2 text-n5 p-2 rounded-xl hover:bg-n5 hover:text-n6 hover:scale-105 transition duration-150" onClick={() => goTo("/profile")}>Cancel</button>
+          <input type="submit" value="Save" className="col-span-2 self-center cursor-pointer w-32 bg-n5 text-n6 p-2 rounded-xl hover:bg-n2 hover:text-n5 hover:scale-105 transition duration-150"/>
         </div>
       </form>
     </div>

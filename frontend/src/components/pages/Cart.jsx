@@ -106,12 +106,12 @@ const Cart = () => {
         <div className="flex flex-col gap-4 min-h-[300px]">
           {!loader && data && data.length > 0 ? (
             data.map((product, i) => (
-            <div key={product._id} className={" relative bg-[#f2f2f2] gap-4 px-4 py-2 rounded-lg grid grid-cols-4 items-center" + (loader ? " opacity-75" : "")}>
+            <div key={product._id} className={" relative bg-n6 gap-4 px-4 py-2 rounded-lg grid grid-cols-4 items-center" + (loader ? " opacity-75" : "")}>
               <h2 className="truncate col-span-4">{product.name}</h2>
               <div className="flex flex-col items-center col-span-2 gap-2">
                 <img className="min-w-32 w-[20wh] max-w-96 h-[20vh] min-h-32 max-h-96 object-cover" src={url.backend + "/" + product.images[0]} alt={product.name} />
                 { cart.products[i] &&
-                <div className="w-fit flex justify-center items-center gap-2 bg-[#433526] text-[#f2e0c2] text-sm px-2 rounded-full">
+                <div className="w-fit flex justify-center items-center gap-2 bg-n5 text-n1 text-sm px-2 rounded-full">
                   <button className=" text-sm  px-2 rounded-full" onClick={() => ItemHandler(product._id, -1, product.quantity, cart.products[i].quantity)}>-</button>
                   <p className="font-bold text-md px-4 py-1 rounded-lg">{cart.products[i].quantity}</p>
                   <button className=" text-sm px-2 rounded-full" onClick={() => ItemHandler(product._id, 1, product.quantity, cart.products[i].quantity)}>+</button>
