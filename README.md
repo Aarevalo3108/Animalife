@@ -10,7 +10,7 @@
 # Welcome to Animalife! 🐾
 Welcome to your one-stop shop for all pet supplies!, At PetShopOnline, we not only offer a wide range of high-quality products for your pets, from food and toys to accessories and care products, but we also have an advanced registration system for users and administrators. This ensures a personalized and secure shopping experience. 🐶😺🐠🐦.
 
-This is the Final Project of the Lexpin's BootCamp. 14 promotion 💻
+This is the Final Project of the [Lexpin's](https://lexpin.online/) BootCamp. 14 promotion 💻
 ## Develop with love. 🧡
 ...and Using MERN Stack: 
 * MongoDB: A NoSQL database that stores data in flexible, JSON-like documents.
