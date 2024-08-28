@@ -24,7 +24,8 @@ const Schema = mongoose.Schema;
 const productSchema = new Schema({
   name: {type: String, required: true, unique: true, minLength: 2, maxLength: 50, match: regex.name },
   price: {type: Number, required: true, min: 0, max: 1000000 },
-  stock: {type: Number, required: true, min: 0, max: 1000000 },
+  sales: {type: Number, default: 0 },
+  quantity: {type: Number, required: true, min: 0, max: 1000000 },
   category: {type: Schema.Types.ObjectId, ref: "Category", default: null },
   images: {type: [String], default: [], minLength: 1, maxLength: 5 },
   description: {type: String, required: true, minLength: 2, maxLength: 500, match: regex.description },

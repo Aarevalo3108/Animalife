@@ -21,6 +21,9 @@
 import mongoose from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
 import regex from "../tools/regex.js";
+import { generateAccessToken, generateRefreshToken } from "../auth/generateToken.js";
+import getUserInfo  from "../tools/getUserInfo.js";
+import Token from "../models/tokenModel.js";
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -31,33 +34,28 @@ const userSchema = new Schema({
   email: {type: String, required: true, unique: true, match: regex.email },
   password: {type: String, required: true},
   role: {type: Schema.Types.ObjectId, ref: "Role", default: null },
-  cart: {
-    type: Array,
-    default: [],
-  },
-  purchases: {
-    type: [Schema.Types.ObjectId], ref: "Purchase",
-    default: [],
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now,
-  },
-  deletedAt: {
-    type: Date,
-    default: null,
-  },
-  deleted: {
-    type: Boolean,
-    default: false,
-  },
+  purchases: {type: [Schema.Types.ObjectId], ref: "Purchase", default: []},
+  createdAt: {type: Date, default: Date.now},
+  updatedAt: {type: Date, default: Date.now},
+  deletedAt: {type: Date, default: null},
+  deleted: {type: Boolean, default: false}
 });
 
 userSchema.plugin(mongoosePaginate);
+
+userSchema.methods.createAccessToken = function () {
+  return generateAccessToken(getUserInfo(this));
+};
+
+userSchema.methods.createRefreshToken = async function () {
+  const refreshToken = generateRefreshToken(getUserInfo(this));
+  try {
+    await new Token({ token: refreshToken }).save();
+  } catch (error) {
+    console.log(error);
+  }
+  return refreshToken;
+};
 
 const User = mongoose.model("User", userSchema);
 

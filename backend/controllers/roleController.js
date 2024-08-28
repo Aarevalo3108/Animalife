@@ -7,7 +7,8 @@ export const getRoles = async (req, res) => {
   try {
     options.page = Number(req.query.page) || 1;
     options.limit = Number(req.query.limit) || 12;
-    const roles = await Role.paginate({deleted: false}, options);
+    options.sort = req.query.sort || '-createdAt';
+    const roles = await Role.paginate({}, options);
     res.json(roles);
   } catch (error) {
     console.log(error);
@@ -33,7 +34,7 @@ export const createRole = async (req, res) => {
 
 export const getRoleById = async (req, res) => {
   try {
-    const role = await Role.paginate({deleted: false, _id: req.params.id}, options);
+    const role = await Role.paginate({_id: req.params.id}, options);
     res.json(role);
   } catch (error) {
     console.log(error);
@@ -49,7 +50,7 @@ export const updateRole = async (req, res) => {
       return res.status(500).json({message: "Name is not valid"})
     }
     const role = await Role.findByIdAndUpdate({_id: req.params.id, deleted: false}, req.body, {new: true});
-    const paginatedRole = await Role.paginate({deleted: false, _id: role._id}, options);
+    const paginatedRole = await Role.paginate({_id: role._id}, options);
     console.log(paginatedRole);
     res.json(paginatedRole);
   } catch (error) {

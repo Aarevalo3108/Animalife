@@ -1,13 +1,18 @@
 import Purchase from "../models/purchaseModel.js";
 import User from "../models/userModel.js";
-import Product from "../models/productModel.js";
+import Role from "../models/roleModel.js";
+import checkProducts from "../tools/checkProducts.js";
 import options from "../tools/options.js";
+import transporter from "../tools/mailAdapter.js";
+import "dotenv/config";
 
+// Admin Auth
 export const getPurchases = async (req, res) => {
   try {
     options.page = Number(req.query.page) || 1;
     options.limit = Number(req.query.limit) || 12;
-    const purchases = await Purchase.paginate({deleted: false}, options);
+    options.sort = req.query.sort || '-createdAt';
+    const purchases = await Purchase.paginate({}, options);
     res.json(purchases);
   } catch (error) {
     console.log(error);
@@ -15,11 +20,50 @@ export const getPurchases = async (req, res) => {
   }
 }
 
-
+// User Auth
 export const getPurchaseById = async (req, res) => {
   try {
+    const role = await Role.findById(req.user.role);
+    if(role.name === "Admin") {
+      const purchase = await Purchase.paginate({_id: req.params.id}, options);
+      return res.status(200).json(purchase);
+    }
     const purchase = await Purchase.paginate({deleted: false, _id: req.params.id}, options);
-    res.json(purchase);
+    if(purchase.docs[0].user != req.user._id) {
+      console.log("Unauthorized, user trying to access another user's purchase");
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+    return res.status(200).json(purchase);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+}
+
+// User Auth
+export const getPurchaseByUser = async (req, res) => {
+  options.page = Number(req.query.page) || 1;
+  options.limit = Number(req.query.limit) || 12;
+  options.sort = req.query.sort || '-createdAt';
+  try {
+    const role = await Role.findById(req.user.role);
+    if(role.name === "Admin") {
+      const purchases = await Purchase.paginate({user: req.params.id}, options);
+      return res.json(purchases);
+    }
+    const purchases = await Purchase.paginate({deleted: false, user: req.params.id}, options);
+    return res.json(purchases);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+}
+
+// Admin Auth, Last Month Purchases
+export const getLastMonthPurchases = async (req, res) => {
+  try {
+    const purchases = await Purchase.find({createdAt: {$gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)}, deleted: false}).sort({total: -1});
+    res.status(200).json(purchases);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
@@ -27,19 +71,38 @@ export const getPurchaseById = async (req, res) => {
 }
 
 
+// Only User Auth
 export const createPurchase = async (req, res) => {
   try {
-    // Purchase has two ObjectsID fields: user and products, that has to be validated
+    if(req.user._id != req.body.user) {
+      console.log("Unauthorized, user trying create another user's purchase \n User: ", req.user._id, "\n Purchase: ", req.body.user);
+      return res.status(401).json({ message: "Unauthorized" });
+    }
     const user = await User.findById(req.body.user);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
     const products = await checkProducts(req.body.products);
-    if (products) {
-      return res.status(404).json({ message: products });
+    if (!products.found) {
+      return res.status(404).json({ message: "Product or products not found, check IDs" });
     }
+    req.body.total = products.total;
+    req.body.products = products.updatedProducts;
     const purchase = new Purchase(req.body);
     await purchase.save();
+    await User.findByIdAndUpdate(user._id, { $push: { purchases: purchase._id } }, { new: true });
+    const mailOptions = {
+      from: process.env.MAIL_USER,
+      to: user.email,
+      subject: "Animalife - Purchase",
+      html: `<p>Dear ${user.name},</p>
+      <p>Thank you for your purchase. Here are the details:</p>
+      <p>Products: ${products.names}</p>
+      <p>Total: $${products.total}</p>
+      <p>Order ID: ${purchase._id}</p>`,
+    };
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Message sent: %s", info.messageId);
     const paginatedPurchase = await Purchase.paginate({deleted: false, _id: purchase._id}, options);
     res.status(201).json(paginatedPurchase);
   } catch (error) {
@@ -49,21 +112,12 @@ export const createPurchase = async (req, res) => {
 }
 
 
-
-const checkProducts = async (array) => {
-    const onlyIDs = array.map((obj) => obj._id);
-    const records = await Product.find({ '_id': { $in: onlyIDs } });
-    if (!records.length || records.length !== onlyIDs.length) {
-      return "Product or products not found, check IDs";
-    }
-}
-
-
+// Admin Auth
 export const updatePurchase = async (req, res) => {
   try {
     req.body.updatedAt = Date.now();
-    const purchase = await Purchase.findByIdAndUpdate({_id: req.params.id, deleted: false}, req.body, {new: true});
-    const paginatedPurchase = await Purchase.paginate({deleted: false, _id: purchase._id}, options);
+    const purchase = await Purchase.findByIdAndUpdate({_id: req.params.id}, req.body, {new: true});
+    const paginatedPurchase = await Purchase.paginate({_id: purchase._id}, options);
     res.json(paginatedPurchase);
   } catch (error) {
     console.log(error);

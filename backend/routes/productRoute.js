@@ -1,26 +1,17 @@
 import {Router} from 'express';
-import multer from 'multer';
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads');
-  },
-  filename: (req, file, cb) => {
-    const uniqueName = Date.now() + '-' + file.originalname;
-    cb(null, uniqueName);
-  },
-});
-
-const upload = multer({ storage, limits: { files: 5 } });
+import productUpload from '../tools/productImgUpload.js';
+import {authenticate, adminAuthenticate} from '../auth/authenticate.js';
 const router = Router();
 
-import {createProduct, getProducts, getProductById, updateProduct, deleteProduct, submitImg} from "../controllers/productController.js";
+import {createProduct, getProducts, getProductById, searchProducts, updateProduct, deleteProduct, submitImg} from "../controllers/productController.js";
 
 
 router.get("/product", getProducts);
 router.get("/product/:id", getProductById);
-router.post("/product", createProduct);
-router.patch("/product/:id", updateProduct);
-router.patch("/product/imgs/:id", upload.array('files'), submitImg);
-router.delete("/product/:id", deleteProduct);
+router.get("/search", searchProducts);
+router.post("/product", authenticate,adminAuthenticate, createProduct);
+router.patch("/product/:id", authenticate,adminAuthenticate, updateProduct);
+router.patch("/product/imgs/:id", authenticate,adminAuthenticate, productUpload.array('files'), submitImg);
+router.delete("/product/:id", authenticate,adminAuthenticate, deleteProduct);
 
 export default router;

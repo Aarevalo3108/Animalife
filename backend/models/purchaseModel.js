@@ -22,7 +22,8 @@ const purchaseSchema = new Schema({
   products: {type: [
   {
     _id: {type: Schema.Types.ObjectId, required: true, ref: "Product"},
-    quantity: {type: Number, min: 0, max: 1000000, required: true}
+    quantity: {type: Number, min: 0, max: 1000000, required: true},
+    price: {type: Number, min: 0, max: 1000000, required: true}
   }
   ], required: true, ref: "Product"},
   total: {type: Number, required: true, min: 0 },
