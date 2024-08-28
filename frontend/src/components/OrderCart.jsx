@@ -14,7 +14,7 @@ const OrderCart = ({ purchase, isAdmin=false }) => {
     </Link>
     <div className="p-2 flex flex-col text-sm">
       <p className="text-n3 line-clamp-1">Created on {dateFormat(purchase.createdAt)}</p>
-      <p className="text-n3">Total: ${purchase.total}</p>
+      <p className="text-n3">Total: ${purchase.total.toFixed(2)}</p>
     </div>
     <Link className="p-2 hidden md:block" to={isAdmin ? `/admin/orders/${purchase._id}` : `/order/${purchase._id}`}>
       <img className="min-h-4 min-w-4" src="/svg/rightArrow.svg" alt="" />

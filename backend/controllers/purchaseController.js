@@ -84,10 +84,11 @@ export const createPurchase = async (req, res) => {
     }
     const products = await checkProducts(req.body.products);
     if (!products.found) {
-      return res.status(404).json({ message: "Product or products not found, check IDs" });
+      return res.status(404).json({ message: products.message });
     }
     req.body.total = products.total;
     req.body.products = products.updatedProducts;
+    console.log(req.body);
     const purchase = new Purchase(req.body);
     await purchase.save();
     await User.findByIdAndUpdate(user._id, { $push: { purchases: purchase._id }, $inc: { totalPurchases: 1} }, { new: true });

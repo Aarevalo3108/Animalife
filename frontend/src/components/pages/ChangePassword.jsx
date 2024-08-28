@@ -34,7 +34,7 @@ const ChangePassword = () => {
       });
       if (response.status === 200) {
         console.log("Password changed successfully");
-        setMessage("Password changed successfully");
+        setMessage("Password changed successfully. You will be redirected to the login page...");
         setTimeout(() => {
           goTo("/login");
         }, 3000);

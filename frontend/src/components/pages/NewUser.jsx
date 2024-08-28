@@ -40,6 +40,7 @@ const NewUser = () => {
   }
 
   const handleSubmit = async (e) => {
+    window.scrollTo(0, 0)
     e.preventDefault()
     if (password !== confirmPassword) {
       setError("Passwords do not match")

@@ -6,22 +6,33 @@ const CartContext = createContext({
   addItem: () => {},
   removeItem: () => {},
   addUser: () => {},
-  resetCart: () => {}
+  resetCart: () => {},
+  findQuantity: () => {}
 })
 
 const CartProvider = ({children}) => {
   const [cart, setCart] = useState(localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : {user: null, products: []})
 
+  const findQuantity = (id) => {
+    const item = cart.products.find(product => product._id === id)
+    return item ? item.quantity : 0
+  }
   const addUser = (id) => {
     setCart({...cart, user: id})
   }
 
-  const addItem = (item) => {
+  const addItem = (item, stock) => {
     const newCartItemNoRepeat = cart.products.find(product => product._id === item._id)
     if (newCartItemNoRepeat) {
       const newCart = {...cart}
       const index = newCart.products.findIndex(product => product._id === item._id)
-      newCart.products[index].quantity += item.quantity
+      if(item.quantity === -1) {
+        newCart.products[index].quantity -= 1
+      }
+      for (let i = 0; i < item.quantity; i++) {
+        if(newCart.products[index].quantity >= stock) return
+        newCart.products[index].quantity += 1
+      }
       setCart(newCart)
     }
     else {
@@ -49,7 +60,7 @@ const CartProvider = ({children}) => {
   }, [cart])
 
   return (
-    <CartContext.Provider value={{cart, addItem, removeItem, addUser, resetCart}}>
+    <CartContext.Provider value={{cart, addItem, removeItem, addUser, resetCart, findQuantity}}>
       {children}
     </CartContext.Provider>
   )

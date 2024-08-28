@@ -630,10 +630,6 @@ html{
   top: -2rem;
 }
 
-.-z-10 {
-  z-index: -10;
-}
-
 .z-0 {
   z-index: 0;
 }
@@ -768,6 +764,10 @@ html{
   height: 100%;
 }
 
+.h-36 {
+  height: 9rem;
+}
+
 .max-h-64 {
   max-height: 16rem;
 }
@@ -786,6 +786,14 @@ html{
 
 .max-h-\[850px\] {
   max-height: 850px;
+}
+
+.max-h-\[350px\] {
+  max-height: 350px;
+}
+
+.max-h-40 {
+  max-height: 10rem;
 }
 
 .min-h-16 {
@@ -820,10 +828,6 @@ html{
   min-height: 85vh;
 }
 
-.min-h-\[65vh\] {
-  min-height: 65vh;
-}
-
 .w-10 {
   width: 2.5rem;
 }
@@ -854,6 +858,10 @@ html{
 
 .w-40 {
   width: 10rem;
+}
+
+.w-44 {
+  width: 11rem;
 }
 
 .w-48 {
@@ -897,8 +905,8 @@ html{
   width: 100%;
 }
 
-.w-44 {
-  width: 11rem;
+.w-24 {
+  width: 6rem;
 }
 
 .min-w-16 {
@@ -917,12 +925,20 @@ html{
   max-width: 8rem;
 }
 
+.max-w-\[400px\] {
+  max-width: 400px;
+}
+
 .max-w-64 {
   max-width: 16rem;
 }
 
-.max-w-\[400px\] {
-  max-width: 400px;
+.max-w-\[350px\] {
+  max-width: 350px;
+}
+
+.max-w-40 {
+  max-width: 10rem;
 }
 
 .translate-x-\[-150\%\] {
@@ -967,6 +983,10 @@ html{
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.cursor-default {
+  cursor: default;
 }
 
 .grid-cols-1 {
@@ -1148,6 +1168,11 @@ html{
   background-color: rgba(0,0,0,0.6);
 }
 
+.bg-green-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 252 231 / var(--tw-bg-opacity));
+}
+
 .bg-n1 {
   --tw-bg-opacity: 1;
   background-color: rgb(242 224 194 / var(--tw-bg-opacity));
@@ -1195,11 +1220,6 @@ html{
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
-.bg-green-100 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(220 252 231 / var(--tw-bg-opacity));
 }
 
 .bg-\[url\(\'\/Animalife\.jpeg\'\)\] {
@@ -1653,10 +1673,24 @@ html{
   opacity: 0.75;
 }
 
+.focus\:outline-none:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
 .active\:scale-75:active {
   --tw-scale-x: .75;
   --tw-scale-y: .75;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.active\:bg-none:active {
+  background-image: none;
+}
+
+.active\:outline-none:active {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
 
 @media (min-width: 768px) {
@@ -1684,6 +1718,10 @@ html{
     display: block;
   }
 
+  .md\:flex {
+    display: flex;
+  }
+
   .md\:grid {
     display: grid;
   }
@@ -1708,6 +1746,22 @@ html{
     height: 15rem;
   }
 
+  .md\:h-12 {
+    height: 3rem;
+  }
+
+  .md\:h-96 {
+    height: 24rem;
+  }
+
+  .md\:h-56 {
+    height: 14rem;
+  }
+
+  .md\:max-h-64 {
+    max-height: 16rem;
+  }
+
   .md\:w-10 {
     width: 2.5rem;
   }
@@ -1730,6 +1784,26 @@ html{
 
   .md\:w-full {
     width: 100%;
+  }
+
+  .md\:w-56 {
+    width: 14rem;
+  }
+
+  .md\:w-32 {
+    width: 8rem;
+  }
+
+  .md\:w-24 {
+    width: 6rem;
+  }
+
+  .md\:w-16 {
+    width: 4rem;
+  }
+
+  .md\:max-w-64 {
+    max-width: 16rem;
   }
 
   .md\:max-w-96 {
@@ -1766,6 +1840,14 @@ html{
     justify-content: center;
   }
 
+  .md\:justify-between {
+    justify-content: space-between;
+  }
+
+  .md\:justify-around {
+    justify-content: space-around;
+  }
+
   .md\:justify-items-center {
     justify-items: center;
   }
@@ -1797,6 +1879,11 @@ html{
     font-size: 1.25rem;
     line-height: 1.75rem;
   }
+
+  .md\:text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -1820,44 +1907,16 @@ html{
     height: 1rem;
   }
 
+  .lg\:w-2\/3 {
+    width: 66.666667%;
+  }
+
   .lg\:w-4 {
     width: 1rem;
   }
 
   .lg\:w-\[500px\] {
     width: 500px;
-  }
-
-  .lg\:w-96 {
-    width: 24rem;
-  }
-
-  .lg\:w-full {
-    width: 100%;
-  }
-
-  .lg\:w-2\/3 {
-    width: 66.666667%;
-  }
-
-  .lg\:max-w-3xl {
-    max-width: 48rem;
-  }
-
-  .lg\:max-w-\[\] {
-    max-width: ;
-  }
-
-  .lg\:max-w-\[300px\] {
-    max-width: 300px;
-  }
-
-  .lg\:max-w-\[600px\] {
-    max-width: 600px;
-  }
-
-  .lg\:max-w-96 {
-    max-width: 24rem;
   }
 
   .lg\:grid-cols-2 {

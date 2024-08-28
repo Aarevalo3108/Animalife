@@ -12,10 +12,19 @@ const Product = () => {
   const { id } = useParams();
   const auth = useAuth();
   const [product, setProduct] = useState({});
-  const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
+  const cart = useCart();
+  const [quantity, setQuantity] = useState(1);
 
-  const { addItem } = useCart();
+  const checkLimit = async (n) => {
+    if (n > (product.quantity - cart.findQuantity(product._id))) {
+      setQuantity(product.quantity - cart.findQuantity(product._id))
+    } else if (n < 1) {
+      setQuantity(1)
+    } else {
+      setQuantity(n)
+    }
+  }
 
   const getData = async () => {
     try {
@@ -34,10 +43,10 @@ const Product = () => {
     }
   };
   const handleAddToCart = () => {
-    addItem({
+    cart.addItem({
       _id: product._id,
       quantity: quantity,
-     });
+     }, product.quantity);
 
     setQuantity(1);
   }
@@ -54,7 +63,7 @@ const Product = () => {
           <Link to="/shop" className="place-self-start absolute top-4 left-4 bg-n5 text-n2 hover:scale-110 p-2 rounded-xl hover:bg-n2 hover:text-n5 transition duration-150">
             <img className="w-8 h-8" src="/svg/goBack.svg" alt="left-arrow" />
           </Link>
-          {product.images && <ImagesHandler images={product.images} className="h-96 w-full rounded-xl" />}
+          {product.images && <ImagesHandler images={product.images} className="md:h-96 w-full rounded-xl" />}
           <div className="flex flex-col md:justify-center gap-4 md:gap-8 p-2">
             <h1 className="text-3xl">{product.name}</h1>
             <p className="text-md">Description: {product.description}</p>
@@ -68,10 +77,10 @@ const Product = () => {
             </div>
             {product.quantity === 0 && <p className="text-md text-red-500">Out of stock</p>}
             <div className="flex items-center w-full gap-4 justify-end">
-              <button disabled={quantity === 1} className={"bg-n5 text-n2 h-8 w-8 rounded-full hover:bg-n2 hover:text-n5 transition duration-150" + (product.quantity === 1 ? " cursor-not-allowed opacity-50" : "")} onClick={() => {if(quantity > 1)setQuantity(quantity - 1)}}>-</button>
-              <input disabled={product.quantity === 0} type="number" min="1" max={product.quantity} step="1" placeholder="Quantity" onChange={(e) => setQuantity(e.target.value)} value={quantity} className={"p-2 rounded-xl w-fit text-center" + (product.quantity === 0 ? " cursor-not-allowed opacity-50" : "")} />
-              <button disabled={quantity === product.quantity} className={"bg-n5 text-n2 h-8 w-8 rounded-full hover:bg-n2 hover:text-n5 transition duration-150" + (product.quantity === quantity ? " cursor-not-allowed opacity-50" : "")} onClick={() => {if(quantity < product.quantity)setQuantity(quantity + 1)}}>+</button>
-              <button disabled={product.quantity === 0} className={"bg-n5 text-n2 p-2 rounded-xl hover:bg-n2 hover:text-n5 transition duration-150" + (product.quantity === 0 ? " cursor-not-allowed opacity-50" : "")} onClick={handleAddToCart}>Add to Cart</button>
+              <button disabled={quantity === 1} className={"bg-n5 text-n2 h-8 w-8 rounded-full hover:bg-n2 hover:text-n5 transition duration-150" + (quantity === 1 ? " cursor-not-allowed opacity-50" : "")} onClick={() => {if(quantity > 1)setQuantity(quantity - 1)}}>-</button>
+              <input type="number" min="1" max={product.quantity - cart.findQuantity(product._id) < 1 ? 1 : product.quantity - cart.findQuantity(product._id)} step="1" placeholder="Quantity" onChange={(e) => checkLimit(e.target.value)} value={quantity} className={"p-2 rounded-xl w-fit text-center flex cursor-default active:outline-none focus:outline-none" + (product.quantity === 0 ? " cursor-not-allowed opacity-50" : "")} />
+              <button disabled={quantity >=  (product.quantity - cart.findQuantity(product._id))} className={"bg-n5 text-n2 h-8 w-8 rounded-full hover:bg-n2 hover:text-n5 transition duration-150" + (quantity >=  (product.quantity - cart.findQuantity(product._id)) ? " cursor-not-allowed opacity-50" : "")} onClick={() => {setQuantity(quantity + 1)}}>+</button>
+              <button disabled={quantity >  (product.quantity - cart.findQuantity(product._id))} className={"bg-n5 text-n2 p-2 rounded-xl hover:bg-n2 hover:text-n5 transition duration-150" + (quantity >  (product.quantity - cart.findQuantity(product._id)) ? " cursor-not-allowed opacity-50" : "")} onClick={handleAddToCart}>Add to Cart</button>
             </div>
           </div>
         </div>}

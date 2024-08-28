@@ -21,6 +21,7 @@
 import mongoose from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
 import regex from "../tools/regex.js";
+import Token from "./tokenModel.js";
 import { generateAccessToken, generateRefreshToken } from "../auth/generateToken.js";
 import getUserInfo  from "../tools/getUserInfo.js";
 const Schema = mongoose.Schema;

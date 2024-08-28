@@ -9,8 +9,7 @@ export const getProducts = async (req, res) => {
     options.page = Number(req.query.page) || 1;
     options.limit = Number(req.query.limit) || 12;
     options.sort = req.query.sort || '-createdAt';
-    console.log(options);
-    if(req.headers.role) {
+    if(req.headers.role && req.headers.role != "unknown") {
       const adminRole = await Role.findById(req.headers.role);
       if(adminRole.name === "Admin") {
         const products = await Product.paginate({}, options);
@@ -27,7 +26,8 @@ export const getProducts = async (req, res) => {
 
 export const getProductById = async (req, res) => {
   try {
-    if(req.headers.role) {
+    options.page = Number(req.query.page) || 1;
+    if(req.headers.role && req.headers.role != "unknown") {
       const adminRole = await Role.findById(req.headers.role);
       if(adminRole.name === "Admin") {
         const product = await Product.paginate({_id: req.params.id}, options);

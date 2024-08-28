@@ -42,7 +42,7 @@ const OrderAdminCard = ({ purchase }) => {
       </Link>
       <div className="flex flex-col text-sm md:text-base w-full">
         <p>{dateFormat(purchase.createdAt)}</p>
-        <p>Total: ${purchase.total}</p>
+        <p>Total: ${purchase.total.toFixed(2)}</p>
       </div>
       <Link className={"col-span-2 hover:scale-105 transition duration-300  bg-n5 text-n1 px-2 py-1 hover:bg-n2 hover:text-n5 rounded-full"} to={`/admin/orders/${purchase._id}`}>
         View Order

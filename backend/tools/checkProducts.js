@@ -6,7 +6,18 @@ const checkProducts = async (array) => {
   const onlyQuantity = array.map((obj) => obj.quantity);
   const records = await Product.find({ '_id': { $in: onlyIDs } });
   if (!records.length || records.length !== onlyIDs.length) {
+    console.log(records.length, onlyIDs.length, "records.length, onlyIDs.length");
     return { message: "Product or products not found, check IDs", found: false };
+  }
+  // check if quantity do not exceed stock
+  for (let i = 0; i < records.length; i++) {
+    if (records[i].quantity < onlyQuantity[i]) {
+      console.log(records[i].quantity, onlyQuantity[i], "records[i].quantity, onlyQuantity[i]");
+      return { message: "Not enough stock for: " + records[i].name + ". ID: " + records[i]._id, found: false };
+    }
+    if(onlyQuantity[i] <= 0) {
+      return { message: "Quantity must be greater than 0. ID: " + records[i]._id, found: false };
+    }
   }
   // add sales to products (items bought) and reduce quantity in stock
   for (let i = 0; i < records.length; i++) {

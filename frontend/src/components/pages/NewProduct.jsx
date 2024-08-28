@@ -50,16 +50,16 @@ const NewProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     window.scrollTo(0, 0)
+    if(!category){
+      setError("A category is not selected")
+      return
+    }
     if(!regex.name.test(name)){
       setError("Name is not valid")
       return
     }
     if(!regex.description.test(description)){
       setError("Description is not valid")
-      return
-    }
-    if(!category){
-      setError("A category is selected")
       return
     }
     try {
@@ -89,6 +89,7 @@ const NewProduct = () => {
   }
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     getCategories()
   }, [])
 
@@ -108,7 +109,7 @@ const NewProduct = () => {
         </label>
         <label className="flex items-center justify-center w-full gap-4" htmlFor="price">
           <span className="after:content-['*'] after:text-red-500 text-lg">Price:</span>
-          <input className={"cursor-pointer text-end py-2 px-4 rounded-lg bg-n1"} min={0} max={1000000} type="number" id="price" value={price} onChange={(e) => setPrice(e.target.value)} />$15
+          <input className={"cursor-pointer text-end py-2 px-4 rounded-lg bg-n1"} min={0} max={1000000} type="number" id="price" value={price} onChange={(e) => setPrice(e.target.value)} />$
         </label>
         <label className="flex items-center justify-center w-full gap-4" htmlFor="quantity">
           <span className="after:content-['*'] after:text-red-500 text-lg">Quantity:</span>

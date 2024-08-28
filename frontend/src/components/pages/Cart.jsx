@@ -51,9 +51,8 @@ const Cart = () => {
     return total;
   }
 
-  const ItemHandler = (id, n, limit, quantity) => {
-    if(quantity == limit) return;
-    addItem({ _id: id, quantity: n });
+  const ItemHandler = (id, n, limit) => {
+    addItem({ _id: id, quantity: n }, limit);
   }
 
   const removeItemHandler = (product) => {
@@ -94,6 +93,7 @@ const Cart = () => {
   }
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     getAllProducts();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart])
@@ -110,12 +110,12 @@ const Cart = () => {
             <div key={product._id} className={"w-full shadow-lg relative bg-n6 gap-4 p-4 rounded-lg grid grid-cols-4 items-center" + (loader ? " opacity-75" : "")}>
               <h2 className="truncate col-span-4">{product.name}</h2>
               <div className="flex flex-col items-center col-span-2 gap-2">
-                <img className="max-w-64 max-h-64 object-cover" src={url.backend + "/" + product.images[0]} alt={product.name} />
+                <img className="max-w-40 max-h-40 md:max-w-64 md:max-h-64 object-cover" src={url.backend + "/" + product.images[0]} alt={product.name} />
                 { cart.products[i] &&
                 <div className="w-fit flex justify-center items-center gap-2 bg-n5 text-n1 text-sm px-2 rounded-full">
-                  <button className=" text-sm  px-2 rounded-full" onClick={() => ItemHandler(product._id, -1, product.quantity, cart.products[i].quantity)}>-</button>
+                  <button className=" text-sm  px-2 rounded-full" onClick={() => ItemHandler(product._id, -1, product.quantity)}>-</button>
                   <p className="font-bold text-md px-4 py-1 rounded-lg">{cart.products[i].quantity}</p>
-                  <button className=" text-sm px-2 rounded-full" onClick={() => ItemHandler(product._id, 1, product.quantity, cart.products[i].quantity)}>+</button>
+                  <button className=" text-sm px-2 rounded-full" onClick={() => ItemHandler(product._id, 1, product.quantity)}>+</button>
                 </div>
                 }
               </div>
