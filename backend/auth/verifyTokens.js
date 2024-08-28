@@ -2,11 +2,30 @@ import jwt from "jsonwebtoken";
 import "dotenv/config";
 
 const verifyAccessToken = (token) => {
-  return jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+  try {
+    const payload = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    return payload;
+  } catch (error) {
+    return false;
+  }
 }
 
 const verifyRefreshToken = (token) => {
-  return jwt.verify(token, process.env.REFRESH_TOKEN_SECRET);
+  try {
+    const payload = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET);
+    return payload;
+  } catch (error) {
+    return false;
+  }
 }
 
-export { verifyAccessToken, verifyRefreshToken };
+const verifyResetToken = (token) => {
+  try {
+    const payload = jwt.verify(token, process.env.RESET_TOKEN_SECRET);
+    return payload;
+  } catch (error) {
+    return false;
+  }
+}
+
+export { verifyAccessToken, verifyRefreshToken, verifyResetToken };

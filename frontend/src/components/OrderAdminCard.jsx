@@ -31,7 +31,7 @@ const OrderAdminCard = ({ purchase }) => {
   }
 
   return (
-    <div className={"bg-n1 text-n5 rounded-lg shadow-lg p-4 grid grid-cols-2 justify-items-center items-center gap-x-1 gap-y-2"}>
+    <div className={"bg-n1 shadow-lg text-n5 rounded-lg shadow-lg p-4 grid grid-cols-2 justify-items-center items-center gap-x-1 gap-y-2"}>
       <button onClick={() => handleCopy(purchase._id)} className={"hover:scale-105 transition duration-300 flex col-span-2 items-center gap-1 text-xs cursor-pointer"} title={`Click to copy`}>
         <h2>ID: {purchase._id}</h2>
         <img className="h-4 w-4" src="/svg/copy.svg" alt="copy" />

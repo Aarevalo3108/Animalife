@@ -27,7 +27,7 @@ const Filters = ({ className, category, setCategory, name, setName }) => {
   }, [category]);
 
   return (
-    <div className={'z-20 relative transition-all duration-150 left-0 bg-n1 flex flex-col justify-center items-center gap-2 h-fit text-center px-4 py-8 rounded-xl shadow-xl ' + className + (filter ? ' ' : ' translate-x-[-150%]')}>
+    <div className={'z-20 relative transition-all duration-150 left-0 bg-n1 flex flex-col justify-center items-center gap-2 h-fit text-center px-4 py-8 rounded-xl shadow-xl ' + className + (filter ? ' ' : ' translate-x-[-150%] z-0')}>
       <h1 className="text-xl">Shop Filters</h1>
       <h2 className="text-lg">Search</h2>
       <div className="flex justify-center items-center gap-1">

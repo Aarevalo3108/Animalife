@@ -34,7 +34,6 @@ const userSchema = new Schema({
   email: {type: String, required: true, unique: true, match: regex.email },
   password: {type: String, required: true},
   role: {type: Schema.Types.ObjectId, ref: "Role", default: null },
-  cart: {type: Array, default: []},
   purchases: {type: [Schema.Types.ObjectId], ref: "Purchase", default: []},
   createdAt: {type: Date, default: Date.now},
   updatedAt: {type: Date, default: Date.now},

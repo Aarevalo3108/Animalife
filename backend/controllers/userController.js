@@ -1,11 +1,12 @@
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import User from "../models/userModel.js";
 import Role from "../models/roleModel.js";
 import options from "../tools/options.js";
 import regex from "../tools/regex.js";
 import getUserInfo from "../tools/getUserInfo.js";
 import getTokenFromHeader from "../auth/getTokenFromHeader.js";
-import { verifyRefreshToken } from "../auth/verifyTokens.js";
+import { verifyRefreshToken, verifyResetToken } from "../auth/verifyTokens.js";
 import Token from "../models/tokenModel.js";
 import { generateAccessToken } from "../auth/generateToken.js";
 import transporter from "../tools/mailAdapter.js";
@@ -138,6 +139,61 @@ export const logout = async (req, res) => {
     }
     await Token.deleteOne({token: refreshToken});
     return res.status(200).json({message: "Logout successful"});
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({message: error.message});
+  }
+}
+
+export const resetPassword = async (req, res) => {
+  try {
+    const user = await User.findOne({email: req.body.email, deleted: false});
+    if (!user) {
+      console.log("User not found. Email: ", req.body.email);
+      return res.status(200).json({message: "Email sent, check your email and click on the link provided in the email"});
+    }
+    const token = jwt.sign({user}, process.env.RESET_TOKEN_SECRET, {expiresIn: '1h'});
+    const newToken = new Token({token, user: user._id});
+    await newToken.save();
+    const mailOptions = {
+      from: process.env.EMAIL,
+      to: req.body.email,
+      subject: 'Reset Password, Animalife',
+      text: `Hello ${user.name} ${user.lastName}! Click here to reset your password: ${process.env.FRONTEND_URL}/change-password/${token}`
+    }
+    const mail = await transporter.sendMail(mailOptions);
+    console.log(`Message sent: ${mail.messageId} \n: to: ${req.body.email}`);
+    return res.status(200).json({message: "Email sent, check your email and click on the link provided in the email"});
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({message: error.message});
+  }
+}
+
+export const changePassword = async (req, res) => {
+  try {
+    if(!regex.password.test(req.body.password)){
+      return res.status(500).json({message: "Password is not valid. Must have at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character."});
+    }
+    const found = await Token.findOne({token: req.params.token});
+    if (!found) {
+      return res.status(400).json({message: "Token not found"});
+    }
+    const user = await User.findOne({_id: found.user, deleted: false});
+    if (!user) {
+      return res.status(400).json({message: "User not found"});
+    }
+    // check if token is expired
+    const payload = verifyResetToken(found.token);
+    if (!payload) {
+      return res.status(400).json({message: "Token expired"});
+    }
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+    user.password = hashedPassword;
+    await user.save();
+    await Token.deleteOne({token: req.params.token});
+    return res.status(200).json({message: "Password changed successfully"});
   } catch (error) {
     console.log(error);
     return res.status(400).json({message: error.message});

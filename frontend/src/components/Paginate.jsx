@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
 
 
-const Paginate = ({page, setPage, options}) => {
+const Paginate = ({page, setPage, options, className}) => {
 
   return (
 
-    <div className={"flex flex-col bg-n2 px-2 py-1 rounded-full justify-center items-center"}>
+    <div className={"flex flex-col bg-n1 px-2 py-1 rounded-full justify-center items-center shadow-lg " + className}>
       <div className="flex gap-8">
         <button onClick={() => setPage(options.prevPage)} disabled={!options.hasPrevPage}>
           {!options.hasPrevPage ? <div className="h-6 w-6"></div> : <img className="h-6 w-6 hover:scale-110 transition duration-300" src="/svg/leftArrow.svg" alt="Prev" />}
@@ -34,7 +34,8 @@ Paginate.propTypes = {
     hasPrevPage: PropTypes.bool,
     totalPages: PropTypes.number,
     totalDocs: PropTypes.number
-  })
+  }),
+  className: PropTypes.string
 }
 
 export default Paginate

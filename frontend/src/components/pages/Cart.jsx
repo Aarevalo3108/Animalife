@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useCart } from "../CartProvider"
 import { useAuth } from "../../auth/AuthProvider"
+import { Link } from "react-router-dom"
 import Loading from "../Loading"
 import url from "../../utils/urls"
 import axios from "axios"
@@ -45,7 +46,7 @@ const Cart = () => {
   const getTotal = (products) => {
     let total = 0;
     for (let i = 0; i < cart.products.length; i++) {
-      total += cart.products[i].quantity * products[i].price;
+      total += cart.products[i].quantity * (products[i].price * (1 - (products[i].discount / 100)));
     }
     return total;
   }
@@ -100,16 +101,16 @@ const Cart = () => {
   return (
     <>
     { !success &&
-      <div className={"p-4 grid justify-items-center gap-4" + (loader ? "opacity-75" : "")}>
+      <div className={"p-4 grid min-h-[60vh]  justify-items-center gap-4" + (loader ? "opacity-75" : "")}>
         <h1 className="text-3xl">Cart Details.</h1>
         {dataError && <p className="text-red-500 text-lg">Error: {dataError}!</p>}
-        <div className="flex flex-col gap-4 min-h-[300px]">
+        <div className="flex flex-col gap-4">
           {!loader && data && data.length > 0 ? (
             data.map((product, i) => (
-            <div key={product._id} className={" relative bg-n6 gap-4 px-4 py-2 rounded-lg grid grid-cols-4 items-center" + (loader ? " opacity-75" : "")}>
+            <div key={product._id} className={"w-full shadow-lg relative bg-n6 gap-4 p-4 rounded-lg grid grid-cols-4 items-center" + (loader ? " opacity-75" : "")}>
               <h2 className="truncate col-span-4">{product.name}</h2>
               <div className="flex flex-col items-center col-span-2 gap-2">
-                <img className="min-w-32 w-[20wh] max-w-96 h-[20vh] min-h-32 max-h-96 object-cover" src={url.backend + "/" + product.images[0]} alt={product.name} />
+                <img className="max-w-64 max-h-64 object-cover" src={url.backend + "/" + product.images[0]} alt={product.name} />
                 { cart.products[i] &&
                 <div className="w-fit flex justify-center items-center gap-2 bg-n5 text-n1 text-sm px-2 rounded-full">
                   <button className=" text-sm  px-2 rounded-full" onClick={() => ItemHandler(product._id, -1, product.quantity, cart.products[i].quantity)}>-</button>
@@ -120,12 +121,15 @@ const Cart = () => {
               </div>
               <div className="flex flex-col gap-1">
                 <h3 className="font-bold text-sm">Each One</h3>
-                <p>${product.price.toFixed(2)}</p>
+                <div className="flex gap-1">
+                  <p className="text-lg font-bold">${(product.price * (1 - (product.discount / 100))).toFixed(2)}</p>
+                  {product.discount > 0 && <p className="text-xs line-through">${product.price.toFixed(2)}</p>}
+                </div>
               </div>
               { cart.products[i] &&
                 <div className="flex flex-col gap-1">
                   <h3>Total</h3>
-                  <p>${(product.price * cart.products[i].quantity).toFixed(2)}</p>
+                  <p>${((product.price * (1 - (product.discount / 100))) * cart.products[i].quantity).toFixed(2)}</p>
                 </div>
               }
               <button className="absolute top-4 right-4" onClick={() => removeItemHandler(product)}>
@@ -134,16 +138,20 @@ const Cart = () => {
             </div>
           ))
           ) : (
-            loader ? <Loading /> : <p className="place-self-center">Cart is empty</p>
+            loader ? <Loading /> :
+            <div className="place-self-center flex flex-col gap-2 items-center">
+              <p className="text-2xl">Cart is empty</p>
+              <Link to="/shop" className="bg-[#708c5a] text-[#f2e0c2] px-2 py-1 rounded-lg">Check our products here!</Link>
+            </div>
           )}
         </div>
-        {data.length > 0 &&
-          <>
+        {data.length > 0 && !loader &&
+          <div className="flex flex-col gap-2">
           <h3 className="text-3xl font-bold">
           Total: ${total.toFixed(2)}
           </h3>
           <button className="bg-[#708c5a] text-[#f2e0c2] px-4 py-2 rounded-lg" onClick={handleBuy}>Buy Now</button>
-          </>
+          </div>
         }
     </div>
     }

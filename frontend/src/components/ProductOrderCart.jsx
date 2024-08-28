@@ -5,10 +5,9 @@ import url from "../utils/urls";
 import PropTypes from 'prop-types';
 
 
-const ProductOrderCart = (obj) => {
+const ProductOrderCart = ({ product}) => {
   const [data, setData] = useState({});
   const auth = useAuth();
-  const product = obj.obj
 
   const getProduct = async () => {
     try {
@@ -37,8 +36,8 @@ const ProductOrderCart = (obj) => {
         <h3 className="text-md flex flex-col max-w-32 md:max-w-96 text-ellipsis overflow-hidden">Name: <span className={"text-n5 w-32 md:w-full"}>{data.name}</span></h3>
         <p className="text-sm max-w-32 md:max-w-96 h-16 flex flex-col text-ellipsis overflow-hidden md:w-96 md:h-24">Description: <span className={"text-n5 w-32 md:w-full"}>{data.description}</span></p>
         <p className="text-sm">Quantity: {product.quantity}</p>
-        <p className="text-sm">Price: ${data.price}</p>
-        <p className="text-sm">Total: ${(data.price * product.quantity).toFixed(2)}</p>
+        <p className="text-sm">Price at that time: ${product.price}</p>
+        <p className="text-sm">Total: ${(product.price * product.quantity).toFixed(2)}</p>
         </div>
       </div>
     }
@@ -49,7 +48,8 @@ const ProductOrderCart = (obj) => {
 ProductOrderCart.propTypes = {
   product: PropTypes.shape({
     _id: PropTypes.string.isRequired,
-    quantity: PropTypes.number.isRequired
+    quantity: PropTypes.number.isRequired,
+    price: PropTypes.number.isRequired
   })
 }
 

@@ -8,7 +8,7 @@ const handleCopy = (text) => {
 
 const UserAdminCard = ({user}) => {
   return (
-    <div className={"bg-n2 text-n5 p-4 rounded-lg flex flex-col items-center gap-1"}>
+    <div className={"bg-n2 shadow-lg text-n5 p-4 rounded-lg flex flex-col items-center gap-1"}>
       <p onClick={() => handleCopy(user._id)} className={"flex items-center gap-1 text-xs cursor-pointer"} title={`Click to copy`}>ID: {user._id}
         <img className="h-4 w-4" src="/svg/copy.svg" alt="copy" />
       </p>
@@ -16,6 +16,7 @@ const UserAdminCard = ({user}) => {
       <h3 className="text-md font-bold">{user.name} {user.lastName}</h3>
       <p className="text-sm">{user.email}</p>
       <p className="text-sm">{user.phone}</p>
+      <p className="text-sm">Purchases: {user.purchases.length}</p>
       <p className="text-sm">Active: <span className={(user.deleted ? "text-red-500" : "text-green-500")}>{user.deleted ? "No" : "Yes"}</span></p>
       <p className="text-xs">Role: {user.role}</p>
       <Link className={"text-sm bg-n5 text-n1 py-1 px-2 hover:scale-105 transition duration-300 rounded-full"} to={`/admin/users/${user._id}`}>View Profile</Link>
@@ -33,7 +34,6 @@ UserAdminCard.propTypes = {
     email: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
     role: PropTypes.string.isRequired,
-    cart: PropTypes.array.isRequired,
     purchases: PropTypes.array.isRequired,
     deletedAt: PropTypes.string,
     deleted: PropTypes.bool.isRequired,

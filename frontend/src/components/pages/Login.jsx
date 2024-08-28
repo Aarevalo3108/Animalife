@@ -71,7 +71,7 @@ const Login = () => {
                   <button type="submit" className="w-32 bg-n5 text-n1 p-2 rounded-xl hover:bg-n1 hover:text-n5 transition duration-150">Login</button>
                 </div>
               </form>
-              <p>Forgot your password? <Link to="./reset-password" className="text-n4 border-b border-n6 hover:border-[#000] transition duration-150">Reset Password</Link></p>
+              <p>Forgot your password? <Link to="/reset-password" className="text-n4 border-b border-n6 hover:border-[#000] transition duration-150">Reset Password</Link></p>
               <p>Don&apos;t have an account? <Link to="/signup" className="text-n4 border-b border-n6 hover:border-[#000] transition duration-150">Sign Up</Link></p>
             </div>
           </div>

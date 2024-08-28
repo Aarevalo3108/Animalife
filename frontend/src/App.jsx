@@ -18,11 +18,11 @@ import ViewProduct from './components/pages/ViewProduct';
 import NewProduct from './components/pages/NewProduct';
 import ProductImgs from './components/pages/ProductImgs';
 import AdminCategories from './components/pages/AdminCategories';
-import NewCategory from './components/pages/NewCategory';
 import Cart from "./components/pages/Cart";
 import OrderLayout from './components/pages/OrderLayout';
 import Login from "./components/pages/Login";
 import ResetPassword from "./components/pages/ResetPassword";
+import ChangePassword from './components/pages/ChangePassword';
 import EditUser from './components/pages/editUser';
 import SignUp from "./components/pages/SignUp";
 import NotFound from "./components/pages/NotFound";
@@ -48,6 +48,7 @@ const App = () => {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/change-password/:token" element={<ChangePassword />} />
               <Route path="/" element={<ProtectedRoute />}>
                 <Route path="profile" element={<Profile />} />
                 <Route path="profile/edit" element={<EditUser />} />
@@ -66,7 +67,6 @@ const App = () => {
                   <Route path="admin/product/new" element={<NewProduct />} />
                   <Route path="admin/product/imgs/:id" element={<ProductImgs />} />
                   <Route path="admin/categories" element={<AdminCategories />} />
-                  <Route path="admin/category/new" element={<NewCategory />} />
                 </Route>
               </Route>
               <Route path="*" element={<NotFound />} />

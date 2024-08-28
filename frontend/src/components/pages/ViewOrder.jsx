@@ -96,7 +96,7 @@ const ViewOrder = () => {
       <h2 className="text-lg">Created on: {new Date(order.createdAt).toLocaleString()}</h2>
       <div className="flex flex-col justify-center items-center gap-2 shadow-lg">
         {Object.keys(order).length && order.products.map((product) => (
-          <ProductOrderCart key={product._id} obj={product} />
+          <ProductOrderCart key={product._id} product={product} />
         ))}
       </div>
       <h2 className="text-2xl">Total: ${order.total}</h2>

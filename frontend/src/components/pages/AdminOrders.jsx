@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { useAuth } from "../../auth/AuthProvider"
 import { Link } from "react-router-dom"
 import Loading from "../Loading"
+import Paginate from "../Paginate"
 import url from "../../utils/urls"
 import axios from "axios"
 import OrderAdminCard from "../OrderAdminCard"
@@ -9,12 +10,14 @@ import OrderAdminCard from "../OrderAdminCard"
 const AdminOrders = () => {
   const [orders, setOrders] = useState([])
   const [loading, setLoading] = useState(false)
+  const [page, setPage] = useState(1)
+  const [options, setOptions] = useState({})
   const auth = useAuth()
 
   const getOrders = async () => {
     try {
     setLoading(true)
-    const { data } = await axios.get(`${url.backend}/purchases`, {
+    const { data } = await axios.get(`${url.backend}/purchases?page=${page}&sort=deleted,-createdAt`, {
       headers: {
         "Authorization": `Bearer ${auth.getAccessToken()}`,
         "Role": `${auth.getUser().role}`,
@@ -22,6 +25,14 @@ const AdminOrders = () => {
     })
     setOrders(data.docs)
     setLoading(false)
+    setOptions({
+      totalDocs: data.totalDocs,
+      totalPages: data.totalPages,
+      nextPage: data.nextPage,
+      prevPage: data.prevPage,
+      hasNextPage: data.hasNextPage,
+      hasPrevPage: data.hasPrevPage,
+    })
     } catch (error) {
       console.log(error)
     }
@@ -31,7 +42,7 @@ const AdminOrders = () => {
     window.scrollTo(0, 0)
     getOrders()
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [page])
   return (
     <div className="grid justify-items-center gap-8 px-4 py-8">
       <h1 className="text-3xl flex items-center gap-4">
@@ -48,6 +59,7 @@ const AdminOrders = () => {
           ))}
           {loading && <Loading />}
         </div>
+        <Paginate options={options} page={page} setPage={setPage} />
       </div>
     </div>
   )

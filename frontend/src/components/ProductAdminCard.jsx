@@ -30,7 +30,7 @@ const handleCopy = (text) => {
 
 const ProductAdminCard = ({product}) => {
   return (
-    <div className={"bg-n2 text-n5 p-4 rounded-lg flex flex-col items-center gap-1"}>
+    <div className={"bg-n2 shadow-lg text-n5 p-4 rounded-lg flex flex-col items-center gap-1"}>
       <p onClick={() => handleCopy(product._id)} className={"flex items-center gap-1 text-xs cursor-pointer"} title={`Click to copy`}>ID: {product._id}
         <img className="h-4 w-4" src="/svg/copy.svg" alt="copy" />
       </p>

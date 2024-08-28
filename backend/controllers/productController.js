@@ -9,6 +9,7 @@ export const getProducts = async (req, res) => {
     options.page = Number(req.query.page) || 1;
     options.limit = Number(req.query.limit) || 12;
     options.sort = req.query.sort || '-createdAt';
+    console.log(options);
     if(req.headers.role) {
       const adminRole = await Role.findById(req.headers.role);
       if(adminRole.name === "Admin") {

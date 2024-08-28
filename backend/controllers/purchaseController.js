@@ -42,6 +42,9 @@ export const getPurchaseById = async (req, res) => {
 
 // User Auth
 export const getPurchaseByUser = async (req, res) => {
+  options.page = Number(req.query.page) || 1;
+  options.limit = Number(req.query.limit) || 12;
+  options.sort = req.query.sort || '-createdAt';
   try {
     const role = await Role.findById(req.user.role);
     if(role.name === "Admin") {
@@ -50,6 +53,17 @@ export const getPurchaseByUser = async (req, res) => {
     }
     const purchases = await Purchase.paginate({deleted: false, user: req.params.id}, options);
     return res.json(purchases);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+}
+
+// Admin Auth, Last Month Purchases
+export const getLastMonthPurchases = async (req, res) => {
+  try {
+    const purchases = await Purchase.find({createdAt: {$gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)}, deleted: false}).sort({total: -1});
+    res.status(200).json(purchases);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
@@ -73,6 +87,7 @@ export const createPurchase = async (req, res) => {
       return res.status(404).json({ message: "Product or products not found, check IDs" });
     }
     req.body.total = products.total;
+    req.body.products = products.updatedProducts;
     const purchase = new Purchase(req.body);
     await purchase.save();
     await User.findByIdAndUpdate(user._id, { $push: { purchases: purchase._id } }, { new: true });
