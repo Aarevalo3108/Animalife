@@ -90,7 +90,7 @@ export const createPurchase = async (req, res) => {
     req.body.products = products.updatedProducts;
     const purchase = new Purchase(req.body);
     await purchase.save();
-    await User.findByIdAndUpdate(user._id, { $push: { purchases: purchase._id } }, { new: true });
+    await User.findByIdAndUpdate(user._id, { $push: { purchases: purchase._id }, $inc: { totalPurchases: 1} }, { new: true });
     const mailOptions = {
       from: process.env.MAIL_USER,
       to: user.email,

@@ -110,7 +110,7 @@ const AdminStats = () => {
   const getTopBuyers = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get(`${url.backend}/users?limit=5&sort=-purchases`, {
+      const { data } = await axios.get(`${url.backend}/users?sort=-totalPurchases&limit=5`, {
         headers: {
           "Authorization": `Bearer ${auth.getAccessToken()}`,
         },

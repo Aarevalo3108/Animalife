@@ -16,7 +16,7 @@ const UserAdminCard = ({user}) => {
       <h3 className="text-md font-bold">{user.name} {user.lastName}</h3>
       <p className="text-sm">{user.email}</p>
       <p className="text-sm">{user.phone}</p>
-      <p className="text-sm">Purchases: {user.purchases.length}</p>
+      <p className="text-sm">Purchases: {user.totalPurchases}</p>
       <p className="text-sm">Active: <span className={(user.deleted ? "text-red-500" : "text-green-500")}>{user.deleted ? "No" : "Yes"}</span></p>
       <p className="text-xs">Role: {user.role}</p>
       <Link className={"text-sm bg-n5 text-n1 py-1 px-2 hover:scale-105 transition duration-300 rounded-full"} to={`/admin/users/${user._id}`}>View Profile</Link>
@@ -35,6 +35,7 @@ UserAdminCard.propTypes = {
     password: PropTypes.string.isRequired,
     role: PropTypes.string.isRequired,
     purchases: PropTypes.array.isRequired,
+    totalPurchases: PropTypes.number.isRequired,
     deletedAt: PropTypes.string,
     deleted: PropTypes.bool.isRequired,
     createdAt: PropTypes.string.isRequired,

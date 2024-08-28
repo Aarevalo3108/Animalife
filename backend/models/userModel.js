@@ -23,7 +23,6 @@ import mongoosePaginate from "mongoose-paginate-v2";
 import regex from "../tools/regex.js";
 import { generateAccessToken, generateRefreshToken } from "../auth/generateToken.js";
 import getUserInfo  from "../tools/getUserInfo.js";
-import Token from "../models/tokenModel.js";
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -35,6 +34,7 @@ const userSchema = new Schema({
   password: {type: String, required: true},
   role: {type: Schema.Types.ObjectId, ref: "Role", default: null },
   purchases: {type: [Schema.Types.ObjectId], ref: "Purchase", default: []},
+  totalPurchases: {type: Number, default: 0},
   createdAt: {type: Date, default: Date.now},
   updatedAt: {type: Date, default: Date.now},
   deletedAt: {type: Date, default: null},
