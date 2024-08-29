@@ -44,14 +44,13 @@ const ProductUpload = ({ id }) => {
         }
 
         try {
-            const response = await axios.patch(`${url.backend}/product/imgs/${id}`, formData, {
+            await axios.patch(`${url.backend}/product/imgs/${id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     "Authorization": `Bearer ${auth.getAccessToken()}`,
                 },
             });
             setSuccessfulUpload(true);
-            console.log(response.data);
             setLoading(false);
             setTimeout(() => {
               window.location.reload();

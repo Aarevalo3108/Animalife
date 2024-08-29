@@ -43,7 +43,6 @@ const ViewOrder = () => {
         }
       );
       setUser(response.data.docs[0]);
-      console.log(response.data.docs[0]);
     } catch (error) {
       console.log(error);
     }

@@ -24,7 +24,6 @@ const ProductImgs = () => {
           "role": auth.getUser().role || "unknown",
         },
       });
-      console.log(response.data.docs[0]);
       setProduct(response.data.docs[0]);
     } catch (error) {
       console.log(error);

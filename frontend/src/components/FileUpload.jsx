@@ -25,14 +25,13 @@ const FileUpload = ({ id }) => {
         formData.append('file', selectedFile);
 
         try {
-            const response = await axios.patch(`${url.backend}/user/img/${id}`, formData, {
+            await axios.patch(`${url.backend}/user/img/${id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     "Authorization": `Bearer ${auth.getAccessToken()}`,
                 },
             });
             setSuccessfulUpload(true);
-            console.log(response.data);
             setTimeout(() => {
                 window.location.reload();
             }, 2000);

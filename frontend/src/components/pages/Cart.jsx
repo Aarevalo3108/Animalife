@@ -68,7 +68,6 @@ const Cart = () => {
     }
     try {
       setDataError("");
-      console.log(cart.user, cart.products);
       const response = await axios.post(`${url.backend}/purchases`, {
         user: cart.user,
         products: cart.products

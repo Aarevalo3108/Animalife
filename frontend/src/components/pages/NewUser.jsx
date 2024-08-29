@@ -76,7 +76,6 @@ const NewUser = () => {
         email,
         password
       })
-      console.log(response.data)
       if (response.status === 201) {
         setError(null)
         reset()

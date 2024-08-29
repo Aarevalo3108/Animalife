@@ -19,7 +19,6 @@ const ResetPassword = () => {
       const response = await axios.post(`${url.backend}/reset-password`, { email });
       form.style.opacity = 1;
       if (response.status === 200) {
-        console.log(response.data);
         setMessage(response.data.message);
       }
 
