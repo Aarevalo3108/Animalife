@@ -29,12 +29,11 @@ const checkProducts = async (array) => {
   const updatedProducts = records.map((obj, i) => ({
     _id: obj._id,
     quantity: onlyQuantity[i],
-    price: obj.price * (1 - (obj.discount / 100))
+    price: obj.price * (1 - (obj.discount / 100)),
   }));
 
   const productsData = {
     found: true,
-    names: records.map((obj) => obj.name).join(", "),
     total: updatedProducts.map((obj) => obj.price * obj.quantity).reduce((a, b) => a + b, 0),
     updatedProducts // Add the new array to productsData
   };

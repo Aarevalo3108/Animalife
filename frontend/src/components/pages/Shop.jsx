@@ -63,7 +63,7 @@ const Shop = () => {
 
   return (
     <div className="bg-[url(/Animalife.jpeg)] bg-cover bg-center">
-      <div className="flex flex-col py-8 min-h-[85vh] bg-[rgba(0,0,0,0.6)] gap-4">
+      <div className="flex flex-col py-8 px-4 rounded-lg min-h-[85vh] bg-[rgba(0,0,0,0.6)] gap-4">
         <div className="relative gap-4 grid grid-cols-1 md:grid-cols-12 justify-items-center align-content-center">
           <div className="absolute top-[-2rem] left-0">
             <Filters className={""} category={category} setCategory={setCategory} name={name} setName={setName} />
@@ -72,10 +72,10 @@ const Shop = () => {
             <input className="w-full rounded-full px-2 py-1" type="text" name="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Search..." id="search" />
             <img className="w-6 h-6" src="/svg/search.svg" alt="search" />
           </label>
-          <div id="products" className="z-10 p-4 shadow-lg md:col-span-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 overflow-y-auto h-[80vh] min-h-[400px] max-h-[850px] w-full">
-            {products && !loading && products.map((product) => (
+          <div id="products" className="z-10 p-4 rounded-lg max-h-[85vh] shadow-lg md:col-span-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 overflow-y-auto w-full">
+            {products && !loading ? products.map((product) => (
               <ProductCard key={product._id} product={product} />
-            ))}
+            )): <div className="h-[85vh]"></div>}
             {products.length === 0 && !loading && <p className="col-span-2 md:col-span-3 lg:col-span-4 place-self-center text-xl text-n1">No products found</p>}
             {loading && <Loading />}
           </div>

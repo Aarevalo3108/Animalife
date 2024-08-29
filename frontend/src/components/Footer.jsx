@@ -30,7 +30,7 @@ const Footer = () => {
           <p className="text-n3">YH7rY@example.com</p>
         </div>
       </div>
-      <p className="text-center">© 2024 Animalife. All rights reserved.</p>
+      <p className="text-center">© 2024 Animalife. All trademarks, service marks, trade names, product names, and logos appearing on this site are the property of their respective owners.</p>
     </footer>
   );
 };

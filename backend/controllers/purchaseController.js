@@ -1,6 +1,7 @@
 import Purchase from "../models/purchaseModel.js";
 import User from "../models/userModel.js";
 import Role from "../models/roleModel.js";
+import { purchasePage } from "../tools/emailPages.js";
 import checkProducts from "../tools/checkProducts.js";
 import options from "../tools/options.js";
 import transporter from "../tools/mailAdapter.js";
@@ -22,6 +23,7 @@ export const getPurchases = async (req, res) => {
 
 // User Auth
 export const getPurchaseById = async (req, res) => {
+  options.page = Number(req.query.page) || 1;
   try {
     const role = await Role.findById(req.user.role);
     if(role.name === "Admin") {
@@ -88,7 +90,6 @@ export const createPurchase = async (req, res) => {
     }
     req.body.total = products.total;
     req.body.products = products.updatedProducts;
-    console.log(req.body);
     const purchase = new Purchase(req.body);
     await purchase.save();
     await User.findByIdAndUpdate(user._id, { $push: { purchases: purchase._id }, $inc: { totalPurchases: 1} }, { new: true });
@@ -96,16 +97,12 @@ export const createPurchase = async (req, res) => {
       from: process.env.MAIL_USER,
       to: user.email,
       subject: "Animalife - Purchase",
-      html: `<p>Dear ${user.name},</p>
-      <p>Thank you for your purchase. Here are the details:</p>
-      <p>Products: ${products.names}</p>
-      <p>Total: $${products.total}</p>
-      <p>Order ID: ${purchase._id}</p>`,
+      html: purchasePage(user.name, user.lastName, products.updatedProducts, products.total, purchase._id),
     };
     const info = await transporter.sendMail(mailOptions);
     console.log("Message sent: %s", info.messageId);
-    const paginatedPurchase = await Purchase.paginate({deleted: false, _id: purchase._id}, options);
-    res.status(201).json(paginatedPurchase);
+    await Purchase.paginate({deleted: false, _id: purchase._id}, options);
+    res.status(201).json({ message: "Purchase created" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });

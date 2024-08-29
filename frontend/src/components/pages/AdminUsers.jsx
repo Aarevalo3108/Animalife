@@ -18,7 +18,7 @@ const AdminUsers = () => {
   const getUsers = async () => {
     try {
     setLoading(true)
-    const { data } = await axios.get(`${url.backend}/users?page=${page}&sort=deleted,-createdAt`, {
+    const { data } = await axios.get(`${url.backend}/users?page=${page}&sort=-createdAt`, {
       headers: {
         "Authorization": `Bearer ${auth.getAccessToken()}`,
         "Role": `${auth.getUser().role}`,
@@ -58,7 +58,7 @@ const AdminUsers = () => {
           <h2 className="text-2xl">Users</h2>
           <AddNew type="user" />
         </div>
-        <div id="users" className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 min-h-[50vh]">
+        <div id="users" className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 min-h-[50vh]">
           {users && users.map((user) => (
             <UserAdminCard key={user._id} user={user} />
           ))}

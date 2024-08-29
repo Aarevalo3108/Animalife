@@ -34,6 +34,7 @@ export const createRole = async (req, res) => {
 
 export const getRoleById = async (req, res) => {
   try {
+    options.page = Number(req.query.page) || 1;
     const role = await Role.paginate({_id: req.params.id}, options);
     res.json(role);
   } catch (error) {

@@ -3,6 +3,7 @@ import { useAuth } from "../../auth/AuthProvider"
 import { Link, useParams } from "react-router-dom"
 import ProductOrderCart from "../ProductOrderCart"
 import url from "../../utils/urls"
+import Loading from "../Loading"
 import axios from "axios"
 
 
@@ -11,9 +12,11 @@ const ViewOrder = () => {
   const { id } = useParams();
   const [order, setOrder] = useState({});
   const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(true);
   const auth = useAuth();
 
   const getOrder = async () => {
+    setLoading(true);
     try {
       const response = await axios.get(`${url.backend}/purchases/${id}`,
         {
@@ -27,6 +30,7 @@ const ViewOrder = () => {
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   }
 
   const getUser = async (id) => {
@@ -72,7 +76,9 @@ const ViewOrder = () => {
   
   */
   return (
-    <div className="grid grid-cols-1 justify-items-center p-4 gap-4">
+    <div className="grid grid-cols-1 justify-items-center p-4 gap-4 min-h-[85vh]">
+      {loading ? <Loading /> :
+      <>
       <h1 className="text-2xl flex gap-2 items-center">
         <Link to="/admin/orders"><img className="h-6 w-6" src="/svg/leftArrow.svg" alt="Go Back" /></Link>
         Order Details
@@ -99,7 +105,9 @@ const ViewOrder = () => {
           <ProductOrderCart key={product._id} product={product} />
         ))}
       </div>
-      <h2 className="text-2xl">Total: ${order.total}</h2>
+      <h2 className="text-2xl">Total: ${order.total.toFixed(2)}</h2>
+      </>
+      }
     </div>
   )
 }

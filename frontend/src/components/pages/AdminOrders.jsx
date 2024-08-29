@@ -17,7 +17,7 @@ const AdminOrders = () => {
   const getOrders = async () => {
     try {
     setLoading(true)
-    const { data } = await axios.get(`${url.backend}/purchases?page=${page}&sort=deleted,-createdAt`, {
+    const { data } = await axios.get(`${url.backend}/purchases?page=${page}&sort=-createdAt`, {
       headers: {
         "Authorization": `Bearer ${auth.getAccessToken()}`,
         "Role": `${auth.getUser().role}`,
@@ -53,7 +53,7 @@ const AdminOrders = () => {
       </h1>
       <div className="grid justify-items-center gap-8">
         <h2 className="text-2xl">Orders</h2>
-        <div id="orders" className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 min-h-[50vh]">
+        <div id="orders" className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 min-h-[50vh]">
           {orders && orders.map((orders) => (
             <OrderAdminCard key={orders._id} purchase={orders} />
           ))}

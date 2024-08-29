@@ -19,6 +19,7 @@ export const getCategories = async (req, res) => {
 
 export const getCategoryById = async (req, res) => {
   try {
+    options.page = Number(req.query.page) || 1;
     const category = await Category.paginate({_id: req.params.id}, options);
     res.json(category);
   } catch (error) {

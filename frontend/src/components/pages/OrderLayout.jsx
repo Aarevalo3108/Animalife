@@ -3,6 +3,7 @@ import { useAuth } from "../../auth/AuthProvider"
 import { Navigate, useNavigate, useParams } from "react-router-dom"
 import ProductOrderCart from "../ProductOrderCart"
 import url from "../../utils/urls"
+import Loading from "../Loading"
 import axios from "axios"
 
 
@@ -12,8 +13,10 @@ const OrderLayout = () => {
   const [order, setOrder] = useState({});
   const goTo = useNavigate();
   const auth = useAuth();
+  const [loading, setLoading] = useState(true);
 
   const getOrder = async () => {
+    setLoading(true);
     try {
       const response = await axios.get(`${url.backend}/purchases/${id}`,
         {
@@ -26,6 +29,7 @@ const OrderLayout = () => {
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -41,7 +45,8 @@ const OrderLayout = () => {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center p-8 gap-8">
+    <div className="flex flex-col justify-center items-center min-h-[85vh] p-8 gap-8">
+    {loading ? <Loading /> : <>
       <h1 className="text-lg">Order ID: {id}</h1>
       <h2 className="text-lg">Order Details</h2>
       <h2 className="text-lg">Created on: {new Date(order.createdAt).toLocaleString()}</h2>
@@ -50,8 +55,9 @@ const OrderLayout = () => {
           <ProductOrderCart key={product._id} product={product} />
         ))}
       </div>
-      <h2 className="text-2xl">Total: ${order.total}</h2>
+      <h2 className="text-2xl">Total: ${order.total.toFixed(2)}</h2>
       <button className="bg-n3 text-white p-4 rounded-2xl hover:bg-n2 hover:text-n3 transition duration-300 hover:scale-105" onClick={() => goTo("/profile")}>Go to profile</button>
+    </>}
     </div>
   )
 }

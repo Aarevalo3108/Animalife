@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/userModel.js";
 import Role from "../models/roleModel.js";
 import options from "../tools/options.js";
+import { welcomePage } from "../tools/emailPages.js";
 import regex from "../tools/regex.js";
 import getUserInfo from "../tools/getUserInfo.js";
 import getTokenFromHeader from "../auth/getTokenFromHeader.js";
@@ -32,6 +33,7 @@ export const getUsers = async (req, res) => {
 
 export const getUserById = async (req, res) => {
   try {
+    options.page = Number(req.query.page) || 1;
     const user = await User.paginate({_id: req.params.id}, options);
     return res.status(200).json(user);
   } catch (error) {
@@ -74,7 +76,7 @@ export const createUser = async (req, res) => {
       from: process.env.EMAIL,
       to: req.body.email,
       subject: 'Welcome to Animalife',
-      text: `Hello ${req.body.name} ${req.body.lastName}! Welcome to Animalife. Your account was created successfully.`
+      html: welcomePage(req.body.name, req.body.lastName)
     }
     const mail = await transporter.sendMail(mailOptions);
     console.log(`Message sent: ${mail.messageId} \n: to: ${req.body.email}`);
@@ -159,7 +161,7 @@ export const resetPassword = async (req, res) => {
       from: process.env.EMAIL,
       to: req.body.email,
       subject: 'Reset Password, Animalife',
-      text: `Hello ${user.name} ${user.lastName}! Click here to reset your password: ${process.env.FRONTEND_URL}/change-password/${token}`
+      html: `Hello ${user.name} ${user.lastName}! Click here to reset your password: ${process.env.FRONTEND_URL}/change-password/${token}`
     }
     const mail = await transporter.sendMail(mailOptions);
     console.log(`Message sent: ${mail.messageId} \n: to: ${req.body.email}`);

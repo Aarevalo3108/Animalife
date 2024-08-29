@@ -68,7 +68,7 @@ const ProductUpload = ({ id }) => {
         <form className='flex flex-col gap-2 items-center justify-center' onSubmit={handleSubmit}>
             {error && <p className="text-red-500 text-sm">Error: {error.message || error}</p>}
             {successfulUpload && <p className="text-green-500 text-sm">Img uploaded successfully!</p>}
-            <input className={'p-2 rounded-xl bg-n1'} type="file" multiple onChange={handleProductSelect} />
+            <input className={'p-2 rounded-xl bg-n1 w-64 lg:w-full'} type="file" multiple onChange={handleProductSelect} />
             <div className='flex gap-2'>
                 {previews.map((preview, index) => (
                     <img key={index} src={preview} alt="Preview" className='w-16 h-16 object-cover rounded' />

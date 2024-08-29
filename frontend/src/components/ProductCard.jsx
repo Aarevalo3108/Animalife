@@ -25,7 +25,7 @@ const ProductCard = ({ product }) => {
       <button disabled={(product.quantity-cart.findQuantity(product._id)) === 0} onClick={handleShoppingCart} title='Add to cart' className={'z-10 top-0 right-0 absolute border-2 border-n5 p-1 rounded-xl hover:bg-n2 hover:scale-105 transition duration-300  place-self-start' + (product.quantity-cart.findQuantity(product._id) === 0 ? " bg-n3 hover:scale-100 hover:bg-n3 cursor-not-allowed" : "")}>
         <img src="/svg/shopping-cart.svg" className="w-4 h-4" alt="" />
       </button>
-      <Link title={product.name} to={`/shop/product/${product._id}`} className="max-h-[350px] max-w-[350px] place-self-center flex justify-center items-center hover:scale-110 transition-transform">
+      <Link title={product.name} to={`/shop/product/${product._id}`} className="max-h-96 max-w-96 place-self-center flex justify-center items-center hover:scale-110 transition-transform">
         <img src={url.backend+"/"+(product.images[0] || "uploads/placeholder.svg")} alt="Product" className="object-cover rounded-lg" />
       </Link>
       {product.quantity === 0 && <div className="absolute text-sm px-2 py-1 rounded-lg top-0 left-0 bg-n5 flex justify-center items-center text-n1 font-bold">Out of stock</div>}
@@ -33,7 +33,7 @@ const ProductCard = ({ product }) => {
     </div>
     <div className='place-self-start flex flex-col items-start md:flex-row gap-1'>
       <div className="flex gap-1">
-        <p className="text-lg font-bold">${(product.price * (1 - product.discount / 100)).toFixed(2)}</p>
+        <p className="text-lg md:text-xl font-bold">${(product.price * (1 - product.discount / 100)).toFixed(2)}</p>
         {product.discount > 0 && <p className={"text-sm text-n5 line-through"}>${product.price.toFixed(2)}</p>}
       </div>
       {product.discount > 0 && <p className={"text-lg text-n1 bg-n5 rounded-full px-2"}>-{product.discount}%</p>}

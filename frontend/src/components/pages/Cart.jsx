@@ -101,10 +101,10 @@ const Cart = () => {
   return (
     <>
     { !success &&
-      <div className={"p-4 grid min-h-[60vh]  justify-items-center gap-4" + (loader ? "opacity-75" : "")}>
+      <div className={"py-8 px-4 grid min-h-[60vh]  justify-items-center gap-8" + (loader ? "opacity-75" : "")}>
         <h1 className="text-3xl">Cart Details.</h1>
         {dataError && <p className="text-red-500 text-lg">Error: {dataError}!</p>}
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 max-h-screen overflow-auto">
           {!loader && data && data.length > 0 ? (
             data.map((product, i) => (
             <div key={product._id} className={"w-full shadow-lg relative bg-n6 gap-4 p-4 rounded-lg grid grid-cols-4 items-center" + (loader ? " opacity-75" : "")}>

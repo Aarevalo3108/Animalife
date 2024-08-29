@@ -164,7 +164,7 @@ const ViewUser = () => {
       {error && <p className="text-red-500">{error}</p>}
       {user && <>
       <div className="grid gap-4">
-        <form className="grid grid-cols-1 lg:grid-cols-2 justify-center items-center gap-4 md:w-[300px] lg:w-[500px]" onSubmit={handleSubmit}>
+        <form className="grid grid-cols-1 justify-center items-center gap-4 md:w-[300px] lg:w-[500px]" onSubmit={handleSubmit}>
           <h2 className="text-xl font-bold place-self-center">ID: {user._id}</h2>
           <label className="flex flex-col w-full">Name:
             <input className="px-4 py-2 rounded-lg" type="text" id="name" name="name" value={user.name} onChange={(e) => setUser({...user, name: e.target.value})} />
@@ -200,7 +200,7 @@ const ViewUser = () => {
               </select>
             }
           </label>
-          <div className="flex gap-4 p-4">
+          <div className="flex place-self-center gap-4 p-4">
             <button className={"col-span-2 self-center cursor-pointer w-32 bg-n2 text-n5 p-2 rounded-xl hover:bg-n5 hover:text-n1 hover:scale-105 transition duration-150"} onClick={() => goTo("/admin/users")}>Cancel</button>
             <input type="submit" value="Save" className={"col-span-2 self-center cursor-pointer w-32 bg-n5 text-n1 p-2 rounded-xl hover:bg-n2 hover:text-n5 hover:scale-105 transition duration-150"}/>
           </div>

@@ -33,7 +33,7 @@ const Home = () => {
     </div>
     <div className="flex flex-col justify-center items-center gap-8 p-8">
       <h2 className="text-3xl">Featured Products</h2>
-      <div id="products" className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-4 justify-center items-center gap-4">
+      <div id="products" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center gap-4">
         {products && products.map((product) => (
           <ProductCard key={product._id} product={product} />
         ))}

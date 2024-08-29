@@ -79,19 +79,19 @@ const AdminCategories = () => {
       <div className="grid justify-items-center gap-8">
         <div className="flex items-center gap-4 relative">
           <h2 className="text-2xl">Categories</h2>
-          <button className={"p-4 text-lg bg-n4 text-n1 py-1 px-2 hover:scale-105 transition duration-300 rounded"} onClick={() => setPanel(!panel)}>Add New</button>
+          <button className={"p-4 text-lg rounded-full bg-n4 text-n1 py-1 px-2 hover:scale-105 transition duration-300 rounded"} onClick={() => setPanel(!panel)}>Add New</button>
           {panel &&
-            <div className="z-20 flex w-full h-full flex-col items-center justify-center bg-[rgba(0,0,0,0.5)] gap-4 absolute">
-              <h1 className="text-3xl bg-n5">Add Category</h1>
+            <div className="z-20 right-0 top-0 flex p-4 flex-col items-center justify-center bg-n5 gap-4 absolute rounded-xl shadow-xl">
+              <h1 className="text-xl bg-n5 text-n1">Add Category</h1>
               {error && <p className="text-red-500 text-center">{error}</p>}
-              <input type="text" name="name" id="name" placeholder="Enter name" className="p-2 rounded-xl shadow-xl" onChange={(e) => setName(e.target.value)} />
+              <input type="text" name="name" id="name" placeholder="Enter name" className="p-2 rounded-xl shadow-xl w-24" onChange={(e) => setName(e.target.value)} />
               <div className="grid grid-cols-2 gap-4">
-                <button className="p-4 text-lg bg-n5 text-n1 py-1 px-2 hover:scale-105 transition duration-300 rounded" onClick={() => setPanel(false)}>Cancel</button>
+                <button className="p-4 text-lg bg-n3 text-n1 py-1 px-2 hover:scale-105 transition duration-300 rounded" onClick={() => setPanel(false)}>Cancel</button>
                 <button className="p-4 text-lg bg-n4 text-n1 py-1 px-2 hover:scale-105 transition duration-300 rounded" onClick={handleSubmit}>Add</button>
               </div>
             </div>}
         </div>
-        <div id="categories" className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 min-h-[50vh]">
+        <div id="categories" className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 min-h-[50vh]">
           {categories && categories.map((category) => (
             <CategoryAdminCard key={category._id} category={category} />
           ))}

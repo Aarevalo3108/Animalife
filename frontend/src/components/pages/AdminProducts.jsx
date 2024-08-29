@@ -57,7 +57,7 @@ const AdminProducts = () => {
           <h2 className="text-2xl">All Products</h2>
           <AddNew type="product" />
         </div>
-        <div id="products" className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 min-h-[50vh]">
+        <div id="products" className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 min-h-[50vh]">
           {products && products.map((product) => (
             <ProductAdminCard key={product._id} product={product} />
           ))}
