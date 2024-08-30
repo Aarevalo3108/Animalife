@@ -22,7 +22,6 @@ const UserImg = () => {
           "Authorization": `Bearer ${auth.getAccessToken()}`
         },
       });
-      console.log(response.data.docs[0]);
       setUser(response.data.docs[0]);
     } catch (error) {
       console.log(error);
@@ -36,15 +35,14 @@ const UserImg = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <div className="w-full min-h-[85vh] flex flex-col p-8 items-center gap-8">
+    <div className="w-full relative min-h-[85vh] flex flex-col p-8 items-center gap-8">
       <h1 className="text-3xl">User Image</h1>
       {error && <p className="text-red-500">Error: {error}</p>}
       {loading && <Loading />}
       {user && (
         <>
           <img className="w-64 h-64 rounded-full" src={url.backend + "/" + (user.image ? user.image : "uploads/JoneDoe.png")}
-          alt="User Image"
-          />
+          alt="User Image"/>
           <FileUpload id={id} />
           <div className="grid grid-cols-2 gap-4">
             <Link to={`/admin/users/${user._id}`} className={"text-center bg-n5 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"}>

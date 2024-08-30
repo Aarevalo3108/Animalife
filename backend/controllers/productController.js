@@ -79,6 +79,7 @@ export const createProduct = async (req, res) => {
     if(!regex.description.test(req.body.description)){
       return res.status(500).json({message: "Description is not valid"})
     }
+    console.log(req.body);
     const categoryExists = await Category.find({name: req.body.category});
     if (!categoryExists) {
       return res.status(404).json({ message: "Category not found, check name" });

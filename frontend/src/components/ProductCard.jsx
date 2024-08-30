@@ -25,7 +25,7 @@ const ProductCard = ({ product }) => {
       <button disabled={(product.quantity-cart.findQuantity(product._id)) === 0} onClick={handleShoppingCart} title='Add to cart' className={'z-10 top-0 right-0 absolute border-2 border-n5 p-1 rounded-xl hover:bg-n2 hover:scale-105 transition duration-300  place-self-start' + (product.quantity-cart.findQuantity(product._id) === 0 ? " bg-n3 hover:scale-100 hover:bg-n3 cursor-not-allowed" : "")}>
         <img src="/svg/shopping-cart.svg" className="w-4 h-4" alt="" />
       </button>
-      <Link title={product.name} to={`/shop/product/${product._id}`} className="max-h-96 max-w-96 place-self-center flex justify-center items-center hover:scale-110 transition-transform">
+      <Link title={product.name} to={`/shop/product/${product._id}`} className="max-h-96 max-w-96 place-self-center flex justify-center items-center hover:scale-105 transition-transform">
         <img src={url.backend+"/"+(product.images[0] || "uploads/placeholder.svg")} alt="Product" className="object-cover rounded-lg" />
       </Link>
       {product.quantity === 0 && <div className="absolute text-sm px-2 py-1 rounded-lg top-0 left-0 bg-n5 flex justify-center items-center text-n1 font-bold">Out of stock</div>}

@@ -27,8 +27,8 @@ import getUserInfo  from "../tools/getUserInfo.js";
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  name: {type: String, required: true, minLength: 3, maxLength: 50, match: regex.name },
-  lastName: {type: String, required: true, minLength: 3, maxLength: 50, match: regex.lastName },
+  name: {type: String, required: true, minLength: 3, maxLength: 100, match: regex.name },
+  lastName: {type: String, required: true, minLength: 3, maxLength: 100, match: regex.lastName },
   phone: {type: String, required: true },
   image: {type: String, default: null },
   email: {type: String, required: true, unique: true, match: regex.email },

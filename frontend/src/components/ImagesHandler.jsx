@@ -6,7 +6,7 @@ const ImagesHandler = ({images, className=""}) => {
   const [img, setImg] = useState(images[0])
   return (
     <div className='flex items-center flex-col gap-4'>
-      <img className={"h-64 w-64 rounded-lg object-cover hover:scale-105 transition duration-300 " + className} src={url.backend + "/" + img} alt="" />
+      <img className={"h-64 w-64 rounded-lg object-cover hover:scale-105 transition duration-300 " + className} src={url.backend + "/" + (img ? img : "uploads/placeholder.svg")} alt="" />
       {/* thumbnails */}
       <div className='flex justify-center items-center gap-4'>
         {images.map((image) => (

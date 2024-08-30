@@ -94,41 +94,41 @@ const NewProduct = () => {
   }, [])
 
   return (
-    <div className="grid justify-items-center gap-8 p-8">
+    <div className="grid relative justify-items-center gap-8 p-8">
       <h1 className="text-2xl">New Product</h1>
       {error && <p className="text-red-500">{error}</p>}
       {loading && <Loading />}
-      <form className="grid justify-items-center gap-4" onSubmit={handleSubmit}>
+      <form className="grid md:grid-cols-2 justify-items-start items-start gap-4 md:gap-8" onSubmit={handleSubmit}>
         <label className="grid gap-2" htmlFor="name">
           <span className="after:content-['*'] after:text-red-500 text-lg">Name:</span>
-          <input placeholder="Enter product name" autoFocus className={"cursor-pointer p-2 rounded-lg bg-n1"} type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} />
+          <input placeholder="Enter product name" autoFocus className={"cursor-pointer min-w-64 p-2 rounded-lg bg-n1"} type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} />
         </label>
         <label className="grid gap-2" htmlFor="description">
           <span className="after:content-['*'] after:text-red-500 text-lg">Description:</span>
-          <textarea name="description" rows={5} maxLength={100} className={" cursor-pointer p-2 rounded-lg bg-n1"} value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Enter product description" id="description"></textarea>
+          <textarea name="description" maxLength={500} className={" cursor-pointer min-w-64 p-2 rounded-lg bg-n1"} value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Enter product description" id="description"></textarea>
         </label>
-        <label className="flex items-center justify-center w-full gap-4" htmlFor="price">
+        <label className="flex items-center justify-start after:content-['$'] w-full gap-4" htmlFor="price">
           <span className="after:content-['*'] after:text-red-500 text-lg">Price:</span>
-          <input className={"cursor-pointer text-end py-2 px-4 rounded-lg bg-n1"} min={0} max={1000000} type="number" id="price" value={price} onChange={(e) => setPrice(e.target.value)} />$
+          <input className={"cursor-pointer text-end py-2 px-4 rounded-lg bg-n1"} min={0} max={1000000} type="number" id="price" value={price} onChange={(e) => setPrice(e.target.value)} />
         </label>
-        <label className="flex items-center justify-center w-full gap-4" htmlFor="quantity">
+        <label className="flex items-center w-full gap-4" htmlFor="quantity">
           <span className="after:content-['*'] after:text-red-500 text-lg">Quantity:</span>
           <input className={"cursor-pointer text-end py-2 px-4 rounded-lg bg-n1"} min={0} max={1000000} type="number" id="quantity" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
         </label>
-        <label className="flex items-center justify-center w-full gap-4" htmlFor="discount">
+        <label className="flex items-center after:content-['%'] w-full gap-4" htmlFor="discount">
           <span className="text-lg">Discount:</span>
-          <input className={"cursor-pointer text-end py-2 px-4 rounded-lg bg-n1"} min={0} max={100} type="number" id="discount" value={discount} onChange={(e) => setDiscount(e.target.value)} />%
+          <input className={"cursor-pointer text-end py-2 px-4 rounded-lg bg-n1"} min={0} max={100} type="number" id="discount" value={discount} onChange={(e) => setDiscount(e.target.value)} />
         </label>
         <label className="after:content-['*'] after:text-red-500 flex justify-center items-center w-full gap-2" htmlFor="category">
           <span className="text-lg">Category:</span>
           <select className={"cursor-pointer p-2 rounded-lg bg-n1"} id="category" value={category} onChange={(e) => setCategory(e.target.value)}>
             <option value="">Select a category</option>
             {categories && categories.map((category) => (
-              <option key={category._id} value={category._id}>{category.name}</option>
+              <option key={category._id} value={category.name}>{category.name}</option>
             ))}
           </select>
         </label>
-        <div className="flex gap-4">
+        <div className="flex place-self-center md:col-span-2 gap-4">
           <Link to="/admin/products" className={"py-2 px-4 rounded-lg bg-n5 text-n1 hover:scale-105 transition duration-300 text-lg"}>Cancel</Link>
           <button disabled={loading} onClick={(e) => handleSubmit(e)} className={"py-2 px-4 rounded-lg bg-n4 text-n1 hover:scale-105 transition duration-300 text-lg"}  type="submit">Submit</button>
         </div>

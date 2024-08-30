@@ -94,35 +94,36 @@ const NewUser = () => {
       <h1 className="text-3xl">New User</h1>
       {error && <p className="text-red-500">Error: {error}</p>}
       <div className="grid gap-4">
-        {loading ? <Loading /> : <form className="grid gap-4" method="POST" onSubmit={handleSubmit}>
+        {loading ? <Loading /> :
+        <form className="grid md:grid-cols-2 gap-4" method="POST" onSubmit={handleSubmit}>
           <label className="grid gap-2" htmlFor="name">
             <span className="text-lg after:content-['*'] after:ml-0.5 after:text-red-500">Name:</span>
-            <input className={"w-full p-2 rounded-lg"} type="text" name="name" id="name" value={name} onChange={(e) => setName(e.target.value)} required autoFocus />
+            <input className={"w-full bg-n1 p-2 rounded-lg"} type="text" name="name" id="name" value={name} onChange={(e) => setName(e.target.value)} required autoFocus />
           </label>
           <label className="grid gap-2" htmlFor="lastName">
             <span className="text-lg after:content-['*'] after:ml-0.5 after:text-red-500">Last Name:</span>
-            <input className={"w-full p-2 rounded-lg"} type="text" name="lastName" id="lastName" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
+            <input className={"w-full bg-n1 p-2 rounded-lg"} type="text" name="lastName" id="lastName" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
           </label>
           <label className="grid gap-2" htmlFor="phone">
             <span className="text-lg after:content-['*'] after:ml-0.5 after:text-red-500">Phone:</span>
-            <input className={"w-full p-2 rounded-lg"} type="text" name="phone" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} required />
+            <input className={"w-full bg-n1 p-2 rounded-lg"} type="text" name="phone" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} required />
           </label>
           <label className="grid gap-2" htmlFor="email">
             <span className="text-lg after:content-['*'] after:ml-0.5 after:text-red-500">Email:</span>
-            <input className={"w-full p-2 rounded-lg"} type="email" name="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <input className={"w-full bg-n1 p-2 rounded-lg"} type="email" name="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
           </label>
           <label className="grid gap-2" htmlFor="password">
             <span className="text-lg after:content-['*'] after:ml-0.5 after:text-red-500">Password:</span>
-            <input className={"w-full p-2 rounded-lg"} type="password" name="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            <input className={"w-full bg-n1 p-2 rounded-lg"} type="password" name="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
           </label>
           <label className="grid gap-2" htmlFor="confirmPassword">
             <span className="text-lg after:content-['*'] after:ml-0.5 after:text-red-500">Confirm Password:</span>
-            <input className={"w-full p-2 rounded-lg"} type="password" name="confirmPassword" id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+            <input className={"w-full bg-n1 p-2 rounded-lg"} type="password" name="confirmPassword" id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
           </label>
-          <label className="grid grid-cols-3 gap-2" htmlFor="submit">
-            <Link className={"w-full transition duration-150 p-2 rounded-lg text-n5 bg-n2 hover:bg-n1"} to="/admin/users">Cancel</Link>
-            <input className={"w-full cursor-pointer transition duration-150 p-2 rounded-lg text-n1 bg-n5 hover:bg-n1 hover:text-n5"} type="reset" value="Reset" />
-            <input className={"w-full cursor-pointer transition duration-150 p-2 rounded-lg text-n5 bg-n4 hover:bg-n1"} type="submit" value="Submit" />
+          <label className="grid md:col-span-2 py-4 grid-cols-3 gap-2" htmlFor="submit">
+            <Link className={"text-center text-lg md:text-xl transition duration-150 p-2 rounded-lg text-n5 bg-n2 hover:bg-n1"} to="/admin/users">Cancel</Link>
+            <input className={"text-center text-lg md:text-xl cursor-pointer transition duration-150 p-2 rounded-lg text-n1 bg-n5 hover:bg-n1 hover:text-n5"} type="reset" value="Reset" />
+            <input className={"text-center text-lg md:text-xl cursor-pointer transition duration-150 p-2 rounded-lg text-n5 bg-n4 hover:bg-n1"} type="submit" value="Submit" />
           </label>
         </form>}
       </div>

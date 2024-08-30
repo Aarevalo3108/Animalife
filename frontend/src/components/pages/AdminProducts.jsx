@@ -18,7 +18,7 @@ const AdminProducts = () => {
   const getProducts = async () => {
     try {
     setLoading(true)
-    const { data } = await axios.get(`${url.backend}/product?page=${page}&sort=deleted`, {
+    const { data } = await axios.get(`${url.backend}/product?page=${page}`, {
       headers: {
         "Authorization": `Bearer ${auth.getAccessToken()}`,
         "role": auth.getUser().role || "unknown",

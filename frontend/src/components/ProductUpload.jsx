@@ -54,7 +54,7 @@ const ProductUpload = ({ id }) => {
             setLoading(false);
             setTimeout(() => {
               window.location.reload();
-            }, 2000);
+            }, 1000);
         } catch (error) {
             setError(error);
             console.error('Error uploading the file:', error);
